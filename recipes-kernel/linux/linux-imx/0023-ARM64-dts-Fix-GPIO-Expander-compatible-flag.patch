@@ -1,0 +1,42 @@
+From fa25f87424d027d0aa981b434326f2b55dcb062c Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Mon, 25 Nov 2019 07:57:25 -0600
+Subject: [PATCH 23/34] ARM64: dts: Fix GPIO Expander compatible flag
+
+The GPIO expanders on the baseboard are pcal6416A devices which
+are software compatbile with the tca6416 when used as outputs, but
+when configured as inputs, they are not.
+
+This patch correct sets the compatible flag for the GPIO expanders
+to "nxp,pcal6416"
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ arch/arm64/boot/dts/freescale/lpd-imx8mm-baseboard.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/lpd-imx8mm-baseboard.dtsi b/arch/arm64/boot/dts/freescale/lpd-imx8mm-baseboard.dtsi
+index d7120f1fdb6b..e64edfa815c1 100644
+--- a/arch/arm64/boot/dts/freescale/lpd-imx8mm-baseboard.dtsi
++++ b/arch/arm64/boot/dts/freescale/lpd-imx8mm-baseboard.dtsi
+@@ -324,7 +324,7 @@
+ 	status = "okay";
+ 
+ 	pca6416_0: gpio@20 {
+-		compatible = "ti,tca6416";
++		compatible = "nxp,pcal6416";
+ 		reg = <0x20>;
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&pinctrl_pcal6414>;
+@@ -335,7 +335,7 @@
+ 	};
+ 
+ 	pca6416_1: gpio@21 {
+-		compatible = "ti,tca6416";
++		compatible = "nxp,pcal6416";
+ 		reg = <0x21>;
+ 		gpio-controller;
+ 		#gpio-cells = <2>;
+-- 
+2.17.1
+

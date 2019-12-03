@@ -1,0 +1,196 @@
+From 39f2ec0f2261a9238b93ddb0f0fc382d14d345f9 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Tue, 26 Nov 2019 14:32:51 -0600
+Subject: [PATCH 31/34] ARM: dts: logicod-imx8mm-kit: Move more SOM items from
+ baseboard
+
+There are a few items that should move from the baseboard to the SOM:
+
+  A53 regulator reference for DVFS
+  Bluetooth UART
+  GPU
+  VPU
+  WiFi
+  SDHC3 (eMMC)
+  Watchdog
+  M4 messaging stuff
+
+Since these items are located on the SOM and are not routed to
+or used by hardware on the baseboard, this patch moves the device tree
+entries accordingly.
+---
+ .../dts/freescale/lpd-imx8mm-baseboard.dtsi   | 62 -------------------
+ .../boot/dts/freescale/lpd-imx8mm-som.dtsi    | 61 ++++++++++++++++++
+ 2 files changed, 61 insertions(+), 62 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/lpd-imx8mm-baseboard.dtsi b/arch/arm64/boot/dts/freescale/lpd-imx8mm-baseboard.dtsi
+index 84dbdbdcb662..297058b4653e 100644
+--- a/arch/arm64/boot/dts/freescale/lpd-imx8mm-baseboard.dtsi
++++ b/arch/arm64/boot/dts/freescale/lpd-imx8mm-baseboard.dtsi
+@@ -353,20 +353,6 @@
+ 	assigned-clock-rates = <393216000>, <361267200>;
+ };
+ 
+-&mu {
+-	status = "okay";
+-};
+-
+-&rpmsg{
+-	/*
+-	 * 64K for one rpmsg instance:
+-	 * --0xb8000000~0xb800ffff: pingpong
+-	 */
+-	vdev-nums = <1>;
+-	reg = <0x0 0xb8000000 0x0 0x10000>;
+-	status = "okay";
+-};
+-
+ &pcie0{
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_pcie0>;
+@@ -386,16 +372,6 @@
+ 	status = "okay";
+ };
+ 
+-&uart1 { /* BT */
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&pinctrl_uart1>;
+-	assigned-clocks = <&clk IMX8MM_CLK_UART1>;
+-	assigned-clock-parents = <&clk IMX8MM_SYS_PLL1_80M>;
+-	fsl,uart-has-rtscts;
+-	resets = <&modem_reset>;
+-	status = "okay";
+-};
+-
+ &uart2 { /* console */
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_uart2>;
+@@ -439,41 +415,3 @@
+ 	vmmc-supply = <&reg_usdhc2_vmmc>;
+ 	status = "okay";
+ };
+-
+-
+-&usdhc3 {
+-	pinctrl-names = "default", "state_100mhz", "state_200mhz";
+-	pinctrl-0 = <&pinctrl_usdhc3>;
+-	pinctrl-1 = <&pinctrl_usdhc3_100mhz>;
+-	pinctrl-2 = <&pinctrl_usdhc3_200mhz>;
+-	bus-width = <8>;
+-	non-removable;
+-	status = "okay";
+-};
+-
+-&wdog1 {
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&pinctrl_wdog>;
+-	fsl,ext-reset-output;
+-	status = "okay";
+-};
+-
+-&A53_0 {
+-	arm-supply = <&buck2_reg>;
+-};
+-
+-&gpu {
+-	status = "okay";
+-};
+-
+-&vpu_g1 {
+-	status = "okay";
+-};
+-
+-&vpu_g2 {
+-	status = "okay";
+-};
+-
+-&vpu_h1 {
+-	status = "okay";
+-};
+diff --git a/arch/arm64/boot/dts/freescale/lpd-imx8mm-som.dtsi b/arch/arm64/boot/dts/freescale/lpd-imx8mm-som.dtsi
+index 869d74f2a7de..32f5d5b79fb9 100644
+--- a/arch/arm64/boot/dts/freescale/lpd-imx8mm-som.dtsi
++++ b/arch/arm64/boot/dts/freescale/lpd-imx8mm-som.dtsi
+@@ -1,4 +1,8 @@
+ 
++&A53_0 {
++	arm-supply = <&buck2_reg>;
++};
++
+ &fec1 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_fec1>;
+@@ -178,6 +182,10 @@
+ 	};
+ };
+ 
++&gpu {
++	status = "okay";
++};
++
+ &i2c3 {
+ 	clock-frequency = <100000>;
+ 	pinctrl-names = "default";
+@@ -197,6 +205,59 @@
+ 	};
+ };
+ 
++&mu {
++	status = "okay";
++};
++
++&rpmsg{
++	/*
++	 * 64K for one rpmsg instance:
++	 * --0xb8000000~0xb800ffff: pingpong
++	 */
++	vdev-nums = <1>;
++	reg = <0x0 0xb8000000 0x0 0x10000>;
++	status = "okay";
++};
++
++&uart1 { /* BT */
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_uart1>;
++	assigned-clocks = <&clk IMX8MM_CLK_UART1>;
++	assigned-clock-parents = <&clk IMX8MM_SYS_PLL1_80M>;
++	fsl,uart-has-rtscts;
++	resets = <&modem_reset>;
++	status = "okay";
++};
++
++&usdhc3 {
++	pinctrl-names = "default", "state_100mhz", "state_200mhz";
++	pinctrl-0 = <&pinctrl_usdhc3>;
++	pinctrl-1 = <&pinctrl_usdhc3_100mhz>;
++	pinctrl-2 = <&pinctrl_usdhc3_200mhz>;
++	bus-width = <8>;
++	non-removable;
++	status = "okay";
++};
++
++&vpu_g1 {
++	status = "okay";
++};
++
++&vpu_g2 {
++	status = "okay";
++};
++
++&vpu_h1 {
++	status = "okay";
++};
++
++&wdog1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_wdog>;
++	fsl,ext-reset-output;
++	status = "okay";
++};
++
+ &iomuxc {
+ 	pinctrl-names = "default";
+ 
+-- 
+2.17.1
+

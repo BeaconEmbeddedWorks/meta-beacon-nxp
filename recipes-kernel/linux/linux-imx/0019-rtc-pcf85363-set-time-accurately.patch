@@ -1,0 +1,74 @@
+From 70d8ef3a829a2743c99fffe55b833670dbb632c2 Mon Sep 17 00:00:00 2001
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Date: Sat, 24 Feb 2018 01:08:53 +0100
+Subject: [PATCH 19/34] rtc: pcf85363: set time accurately
+
+As per 8.2.6 Setting and reading the time in RTC mode, first stop the clok,
+then reset it before setting the date and time registers. Finally, start
+the clock.
+
+This uses register address wrap around from 0x2f to 0x00 for efficiency.
+
+This allows to set the clock with a millisecond accuracy (drift is not
+corrected in this example):
+
+RTC        System
+1325388767 1325388767.000029180
+1325388768 1325388768.000018362
+1325388769 1325388769.000006544
+1325388770 1325388769.999992725
+1325388771 1325388770.999974544
+
+Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+---
+ drivers/rtc/rtc-pcf85363.c | 20 ++++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/rtc/rtc-pcf85363.c b/drivers/rtc/rtc-pcf85363.c
+index 0c7d370a1165..21df0d2fd69f 100644
+--- a/drivers/rtc/rtc-pcf85363.c
++++ b/drivers/rtc/rtc-pcf85363.c
+@@ -106,6 +106,10 @@
+ #define PIN_IO_INTA_OUT	2
+ #define PIN_IO_INTA_HIZ	3
+ 
++#define STOP_EN_STOP	BIT(0)
++
++#define RESET_CPR	0xa4
++
+ #define NVRAM_SIZE	0x40
+ 
+ static struct i2c_driver pcf85363_driver;
+@@ -149,8 +153,12 @@ static int pcf85363_rtc_read_time(struct device *dev, struct rtc_time *tm)
+ static int pcf85363_rtc_set_time(struct device *dev, struct rtc_time *tm)
+ {
+ 	struct pcf85363 *pcf85363 = dev_get_drvdata(dev);
+-	unsigned char buf[DT_YEARS + 1];
+-	int len = sizeof(buf);
++	unsigned char tmp[11];
++	unsigned char *buf = &tmp[2];
++	int ret;
++
++	tmp[0] = STOP_EN_STOP;
++	tmp[1] = RESET_CPR;
+ 
+ 	buf[DT_100THS] = 0;
+ 	buf[DT_SECS] = bin2bcd(tm->tm_sec);
+@@ -161,8 +169,12 @@ static int pcf85363_rtc_set_time(struct device *dev, struct rtc_time *tm)
+ 	buf[DT_MONTHS] = bin2bcd(tm->tm_mon + 1);
+ 	buf[DT_YEARS] = bin2bcd(tm->tm_year % 100);
+ 
+-	return regmap_bulk_write(pcf85363->regmap, DT_100THS,
+-				 buf, len);
++	ret = regmap_bulk_write(pcf85363->regmap, CTRL_STOP_EN,
++				tmp, sizeof(tmp));
++	if (ret)
++		return ret;
++
++	return regmap_write(pcf85363->regmap, CTRL_STOP_EN, 0);
+ }
+ 
+ static int pcf85363_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alrm)
+-- 
+2.17.1
+

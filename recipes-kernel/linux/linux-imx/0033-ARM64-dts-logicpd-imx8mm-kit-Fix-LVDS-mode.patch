@@ -1,0 +1,33 @@
+From 8df4ab67ce7b9736e0962aa46cb0aa7470e82917 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Tue, 3 Dec 2019 10:23:18 -0600
+Subject: [PATCH 33/34] ARM64: dts: logicpd-imx8mm-kit: Fix LVDS mode
+
+The video format for the LVDS screen was incorrectly set in the
+device tree, so the colors were garbled unless solid colors were
+used.
+
+This patch fixes the display formatting to properly display the
+right colors.
+
+Signed-off-by: Adam Ford <adam.ford@logicpd.com>
+---
+ arch/arm64/boot/dts/freescale/lpd-imx8mm-lvds.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/lpd-imx8mm-lvds.dtsi b/arch/arm64/boot/dts/freescale/lpd-imx8mm-lvds.dtsi
+index c5ed56389462..2913f31f2da4 100644
+--- a/arch/arm64/boot/dts/freescale/lpd-imx8mm-lvds.dtsi
++++ b/arch/arm64/boot/dts/freescale/lpd-imx8mm-lvds.dtsi
+@@ -55,7 +55,7 @@
+ 		compatible = "ti,sn65dsi83";
+ 		reg = <0x2d>;
+ 		ti,dsi-lanes = <4>;
+-		ti,lvds-format = <1>;
++		ti,lvds-format = <2>;
+ 		ti,lvds-bpp = <24>;
+ 		ti,width-mm = <154>;
+ 		ti,height-mm = <87>;
+-- 
+2.17.1
+

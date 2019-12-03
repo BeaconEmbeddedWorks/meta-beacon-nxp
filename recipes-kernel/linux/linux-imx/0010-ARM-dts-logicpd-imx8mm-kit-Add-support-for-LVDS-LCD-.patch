@@ -1,0 +1,183 @@
+From 4b447278cacd9dd0e3f15bbe77394fe67e48d3cb Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Wed, 20 Nov 2019 10:28:54 -0600
+Subject: [PATCH 10/34] ARM: dts: logicpd-imx8mm-kit:  Add support for LVDS LCD
+ Kit
+
+Logic PD makes a 7" LCD kit which uses an LVDS signal.  This LCD
+can be driven by a PWM for dimming the LCD.
+
+This patch enables the LVDS bridge, regulators for the LCD, the
+corresponding PWM, the lcdif, and mipi_dsi.
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ .../boot/dts/freescale/logicpd-imx8mm-kit.dts |   1 +
+ .../boot/dts/freescale/lpd-imx8mm-lvds.dtsi   | 130 ++++++++++++++++++
+ drivers/gpu/drm/bridge/Makefile               |   1 -
+ 3 files changed, 131 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm64/boot/dts/freescale/lpd-imx8mm-lvds.dtsi
+
+diff --git a/arch/arm64/boot/dts/freescale/logicpd-imx8mm-kit.dts b/arch/arm64/boot/dts/freescale/logicpd-imx8mm-kit.dts
+index 557d934362f1..97ee43a41fb9 100644
+--- a/arch/arm64/boot/dts/freescale/logicpd-imx8mm-kit.dts
++++ b/arch/arm64/boot/dts/freescale/logicpd-imx8mm-kit.dts
+@@ -9,6 +9,7 @@
+ #include "fsl-imx8mm.dtsi"
+ #include "lpd-imx8mm-som.dtsi"
+ #include "lpd-imx8mm-baseboard.dtsi"
++#include "lpd-imx8mm-lvds.dtsi"
+ 
+ / {
+ 	model = "Logic PD i.MX8M mini Developent Kit";
+diff --git a/arch/arm64/boot/dts/freescale/lpd-imx8mm-lvds.dtsi b/arch/arm64/boot/dts/freescale/lpd-imx8mm-lvds.dtsi
+new file mode 100644
+index 000000000000..71f75772a37d
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/lpd-imx8mm-lvds.dtsi
+@@ -0,0 +1,130 @@
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
++/*
++ * Copyright 2019 Logic PD, Inc
++ */
++ 
++/ {
++	backlight: backlight-lvds {
++		compatible = "pwm-backlight";
++		pwms = <&pwm1 0 20000>;
++		brightness-levels = <0 4 8 16 32 64 128 255>;
++		default-brightness-level = <6>;
++		power-supply = <&reg_lcd>;
++	};
++
++	reg_lcd: regulator-lcd {
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_lcd_reg>;
++		compatible = "regulator-fixed";
++		regulator-name = "lcd_panel_pwr";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		gpio = <&gpio1 8 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++		startup-delay-us = <500000>;
++		regulator-always-on;
++	};
++
++	reg_lcd_reset: regulator-lcd-reset {
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_lcd_rst>;
++		compatible = "regulator-fixed";
++		regulator-name = "nLCD_RESET";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		gpio = <&gpio1 15 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++		vin-supply = <&reg_lcd>;
++		regulator-always-on;
++	};
++};
++
++&i2c2 {
++	dsi_lvds_bridge: sn65dsi84@2d {
++		compatible = "ti,sn65dsi83";
++		reg = <0x2d>;
++		ti,dsi-lanes = <4>;
++		ti,lvds-format = <1>;
++		ti,lvds-bpp = <24>;
++		ti,width-mm = <154>;
++		ti,height-mm = <87>;
++		enable-gpios = <&gpio2 11 GPIO_ACTIVE_LOW>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_lvds>;
++		status = "okay";
++
++		display-timings {
++			lvds {
++				clock-frequency = <30000000>;
++				hactive = <800>;
++				vactive = <480>;
++				hback-porch = <40>;
++				hfront-porch = <40>;
++				vback-porch = <29>;
++				vfront-porch = <13>;
++				hsync-len = <48>;
++				vsync-len = <3>;
++				hsync-active = <1>;
++				vsync-active = <3>;
++				de-active = <1>;
++				pixelclk-active = <0>;
++			};
++		};
++
++		port {
++			dsi_lvds_bridge_in: endpoint {
++				remote-endpoint = <&mipi_dsi_out>;
++			};
++		};
++	};
++};
++
++&lcdif {
++	status = "okay";
++};
++
++&mipi_dsi {
++	status = "okay";
++
++	port@1 {
++		mipi_dsi_out: endpoint {
++			remote-endpoint = <&dsi_lvds_bridge_in>;
++		};
++	};
++};
++
++&pwm1 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_pwm1>;
++};
++
++&iomuxc {
++	pinctrl-names = "default";
++
++	imx8mm-evk {
++		pinctrl_lcd_reg: lcd_reggrp {
++			fsl,pins = <
++				MX8MM_IOMUXC_GPIO1_IO08_GPIO1_IO8		0x16
++			>;
++		};
++
++		pinctrl_lcd_rst: lcd_rstgrp {
++			fsl,pins = <
++				MX8MM_IOMUXC_GPIO1_IO15_GPIO1_IO15		0x16
++			>;
++		};
++
++		pinctrl_lvds: lvdsgrp {
++			fsl,pins = <
++				MX8MM_IOMUXC_SD1_STROBE_GPIO2_IO11              0x16
++			>;
++		};
++
++		pinctrl_pwm1: pwm1grp {
++			fsl,pins = <
++				MX8MM_IOMUXC_GPIO1_IO01_PWM1_OUT                0x06
++			>;
++		};
++	};
++};
+diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
+index bbec8415b8af..cd84c88d373e 100644
+--- a/drivers/gpu/drm/bridge/Makefile
++++ b/drivers/gpu/drm/bridge/Makefile
+@@ -10,7 +10,6 @@ obj-$(CONFIG_DRM_SII902X) += sii902x.o
+ obj-$(CONFIG_DRM_TOSHIBA_TC358767) += tc358767.o
+ obj-$(CONFIG_DRM_ANALOGIX_DP) += analogix/
+ obj-$(CONFIG_DRM_I2C_ADV7511) += adv7511/
+-obj-$(CONFIG_DRM_BRIDGE_DSI85) += dsi85/dsi85_main.o
+ obj-$(CONFIG_DRM_TI_TFP410) += ti-tfp410.o
+ obj-y += synopsys/
+ obj-$(CONFIG_DRM_ITE_IT6263) += it6263.o
+-- 
+2.17.1
+

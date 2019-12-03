@@ -1,0 +1,87 @@
+From e06c32c1d72903dc0fb40b3cf0a4059536a7b470 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Mon, 25 Nov 2019 08:39:47 -0600
+Subject: [PATCH 26/34] ARM64: dts: logicpd-imx8mm-kit: Add LED support
+
+The baseboard has four LED's connected to a GPIO expander.
+
+Now that the GPIO expander is supported in Linux, this patch
+routes the various LED's to their corresponding pins on the GPIO
+expander
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ .../dts/freescale/lpd-imx8mm-baseboard.dtsi   | 42 +++++++++++++------
+ 1 file changed, 30 insertions(+), 12 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/lpd-imx8mm-baseboard.dtsi b/arch/arm64/boot/dts/freescale/lpd-imx8mm-baseboard.dtsi
+index 6b1f4fe640e9..075682422739 100644
+--- a/arch/arm64/boot/dts/freescale/lpd-imx8mm-baseboard.dtsi
++++ b/arch/arm64/boot/dts/freescale/lpd-imx8mm-baseboard.dtsi
+@@ -3,13 +3,31 @@
+ / {
+ 	leds {
+ 		compatible = "gpio-leds";
+-		pinctrl-names = "default";
+-		pinctrl-0 = <&pinctrl_gpio_led>;
+ 
+-		status {
+-			label = "status";
+-			gpios = <&gpio3 16 0>;
+-			default-state = "on";
++		led0 {
++			label = "gen_led0";
++			gpios = <&pca6416_1 4 GPIO_ACTIVE_HIGH>;
++			default-state = "none";
++		};
++
++		led1 {
++			label = "gen_led1";
++			gpios = <&pca6416_1 5 GPIO_ACTIVE_HIGH>;
++			default-state = "none";
++		};
++
++		led2 {
++			label = "gen_led2";
++			gpios = <&pca6416_1 6 GPIO_ACTIVE_HIGH>;
++			default-state = "none";
++		};
++
++		led3 {
++			pinctrl-names = "default";
++			pinctrl-0 = <&pinctrl_led3>;
++			label = "heartbeat";
++			gpios = <&gpio4 28 GPIO_ACTIVE_HIGH>;
++			linux,default-trigger = "heartbeat";
+ 		};
+ 	};
+ 
+@@ -129,12 +147,6 @@
+ 			>;
+ 		};
+ 
+-		pinctrl_gpio_led: gpioledgrp {
+-			fsl,pins = <
+-				MX8MM_IOMUXC_NAND_READY_B_GPIO3_IO16	0x19
+-			>;
+-		};
+-
+ 		pinctrl_i2c2: i2c2grp {
+ 			fsl,pins = <
+ 				MX8MM_IOMUXC_I2C2_SCL_I2C2_SCL			0x400001c3
+@@ -150,6 +162,12 @@
+ 			>;
+ 		};
+ 
++		pinctrl_led3: led3grp {
++			fsl,pins = <
++				MX8MM_IOMUXC_SAI3_RXFS_GPIO4_IO28	0x41
++			>;
++		};
++
+ 		pinctrl_pcie0: pcie0grp {
+ 			fsl,pins = <
+ 				MX8MM_IOMUXC_I2C4_SCL_PCIE1_CLKREQ_B	0x61 /* open drain, pull up */
+-- 
+2.17.1
+

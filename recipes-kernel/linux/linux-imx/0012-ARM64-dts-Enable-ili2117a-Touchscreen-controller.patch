@@ -1,0 +1,53 @@
+From 8469388220c855b8e1f49b8c7d591f26017c9848 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Mon, 2 Dec 2019 11:47:20 -0600
+Subject: [PATCH 12/34] ARM64: dts: Enable ili2117a Touchscreen controller
+
+The 7" LVDS LCD kit used for the Phoenix SOM uses an ili2117a controller
+which has already had the driver added to the kernel.
+
+This patch adds the touchscreen to the devkit which supports the LVDS
+screen.
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ .../boot/dts/freescale/lpd-imx8mm-lvds.dtsi     | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/freescale/lpd-imx8mm-lvds.dtsi b/arch/arm64/boot/dts/freescale/lpd-imx8mm-lvds.dtsi
+index 71f75772a37d..c5ed56389462 100644
+--- a/arch/arm64/boot/dts/freescale/lpd-imx8mm-lvds.dtsi
++++ b/arch/arm64/boot/dts/freescale/lpd-imx8mm-lvds.dtsi
+@@ -40,6 +40,17 @@
+ };
+ 
+ &i2c2 {
++	ili_touch: ilitouch@26 {
++		compatible = "ili,ili2117a";
++		reg = <0x26>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_touchscreen>;
++		interrupts-extended = <&gpio1 9 IRQ_TYPE_LEVEL_LOW>;
++		ili2117a,poll-period = <20>;
++		ili2117a,max-touch = <2>;
++		wakeup-source;
++	};
++
+ 	dsi_lvds_bridge: sn65dsi84@2d {
+ 		compatible = "ti,sn65dsi83";
+ 		reg = <0x2d>;
+@@ -126,5 +137,11 @@
+ 				MX8MM_IOMUXC_GPIO1_IO01_PWM1_OUT                0x06
+ 			>;
+ 		};
++
++		pinctrl_touchscreen: touchscreengrp {
++			fsl,pins = <
++				MX8MM_IOMUXC_GPIO1_IO09_GPIO1_IO9		0x19
++			>;
++		};
+ 	};
+ };
+-- 
+2.17.1
+

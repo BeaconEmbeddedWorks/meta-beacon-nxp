@@ -1,0 +1,58 @@
+From 7546abfa292ce6829d429a3e72b802e2cb69277c Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Mon, 25 Nov 2019 10:34:18 -0600
+Subject: [PATCH 27/34] HACK: gpio: pca953x: Enable pull-ups when gpio is input
+ to enable button
+
+The driver has provisions for setting the configuration of the
+pull-up/down but there doesn't appear to be a userspace way to
+set the pull-up.
+
+This patch enables the pull-up resistors when the GPIO is
+configured as an input.
+
+To Determine the GPIO expander base:
+ls -l /sys/class/gpio/
+   lrwxrwxrwx    1 root     root             0 Nov 25 16:28 gpiochip480 -> ../../devices/platform/30a50000.i2c/i2c-3/3-0021/gpio/gpiochip480
+
+Note the chip for the gpio expander on i2-3 with an ID of 21 is gpiochip480.
+Pins based on this will start with 480
+
+To setup pin 15, 480 + 15 = 495
+
+echo 495 > /sys/class/gpio/export
+echo in > /sys/class/gpio/gpio495/direction
+cat /sys/class/gpio/gpio495/value
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ drivers/gpio/gpio-pca953x.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/gpio/gpio-pca953x.c b/drivers/gpio/gpio-pca953x.c
+index 62d92e535b01..8c7651bbc2c1 100644
+--- a/drivers/gpio/gpio-pca953x.c
++++ b/drivers/gpio/gpio-pca953x.c
+@@ -72,6 +72,9 @@
+ 
+ #define PCA_CHIP_TYPE(x)	((x) & PCA_TYPE_MASK)
+ 
++static int pca953x_gpio_set_config(struct gpio_chip *gc, unsigned int offset,
++				   unsigned long config);
++
+ static const struct i2c_device_id pca953x_id[] = {
+ 	{ "pca6416", 16 | PCA953X_TYPE | PCA_INT, },
+ 	{ "pca9505", 40 | PCA953X_TYPE | PCA_INT, },
+@@ -370,6 +373,9 @@ static int pca953x_gpio_direction_input(struct gpio_chip *gc, unsigned off)
+ 	u8 bit = BIT(off % BANK_SZ);
+ 	int ret;
+ 
++	/* Enable pull-up resistor when configured as input */
++	pca953x_gpio_set_config(gc, off, PIN_CONFIG_BIAS_PULL_UP);
++
+ 	mutex_lock(&chip->i2c_lock);
+ 	ret = regmap_write_bits(chip->regmap, dirreg, bit, bit);
+ 	mutex_unlock(&chip->i2c_lock);
+-- 
+2.17.1
+

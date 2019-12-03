@@ -1,0 +1,52 @@
+From ae723fd9223f9f53afe27bb496c46800fde73fe4 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Mon, 25 Nov 2019 11:12:23 -0600
+Subject: [PATCH 28/34] ARM64: dts: Logicpd-imx8mm-kit: Fix Audio codec power
+
+The device tree for the audio codec is showing the power enable
+pin as pca6416_1, pin 3 and one dead regulator that does nothing.
+
+The proper pin should be pca6416_1, pin 11.
+
+This patch fixes the pin assignment for the audio codec enable
+and removes the confusing duplicated regulator.
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ .../boot/dts/freescale/lpd-imx8mm-baseboard.dtsi    | 13 +------------
+ 1 file changed, 1 insertion(+), 12 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/lpd-imx8mm-baseboard.dtsi b/arch/arm64/boot/dts/freescale/lpd-imx8mm-baseboard.dtsi
+index 075682422739..25bd7e541f2c 100644
+--- a/arch/arm64/boot/dts/freescale/lpd-imx8mm-baseboard.dtsi
++++ b/arch/arm64/boot/dts/freescale/lpd-imx8mm-baseboard.dtsi
+@@ -87,17 +87,6 @@
+ 			gpio = <&pca6416_1 7 GPIO_ACTIVE_LOW>; /* nRST */
+ 			enable-active-low;
+ 		};
+-
+-
+-		reg_audio_board: regulator-audio-board {
+-			compatible = "regulator-fixed";
+-			regulator-name = "EXT_PWREN";
+-			regulator-min-microvolt = <3300000>;
+-			regulator-max-microvolt = <3300000>;
+-			enable-active-high;
+-			startup-delay-us = <300000>;
+-			/* rfee gpio = <&pca6416 1 GPIO_ACTIVE_HIGH>;*/
+-		};
+ 	};
+ 
+ 	reg_audio: regulator-audio {
+@@ -105,7 +94,7 @@
+ 		regulator-name = "3v3_aud";
+ 		regulator-min-microvolt = <3300000>;
+ 		regulator-max-microvolt = <3300000>;
+-		gpio = <&pca6416_1 3 GPIO_ACTIVE_HIGH>;
++		gpio = <&pca6416_1 11 GPIO_ACTIVE_HIGH>;
+ 		enable-active-high;
+ 	};
+ 
+-- 
+2.17.1
+
