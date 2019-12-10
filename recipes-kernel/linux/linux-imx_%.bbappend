@@ -10,7 +10,10 @@ KERNEL_DEVICETREE = " \
     freescale/logicpd-imx8mm-kit.dtb \
 "
 
+KERNEL_MODULE_AUTOLOAD_append = " logicpd-new-productid"
+
 #END_HEADER
+
 SRC_URI += " \ 
 	file://0001-ARM64-dts-lpd-imx8mm-evk-Introduce-Logic-PD-Phoenix-.patch \ 
 	file://0002-ARM64-dts-lpd-imx8mm-evk-Remove-unused-items.patch \ 
