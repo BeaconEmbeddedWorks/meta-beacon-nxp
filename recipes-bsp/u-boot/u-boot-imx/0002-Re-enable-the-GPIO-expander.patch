@@ -1,0 +1,45 @@
+From 053f7a330a924278eb2b8534e289da00db4b31a1 Mon Sep 17 00:00:00 2001
+From: Charles Stevens <charles.stevens@logicpd.com>
+Date: Fri, 13 Dec 2019 14:34:21 -0600
+Subject: [PATCH 2/2] Re-enable the GPIO expander
+
+---
+ arch/arm/dts/lpd-imx8mm-baseboard.dtsi | 4 ++--
+ configs/imx8mm_logic_defconfig         | 2 ++
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm/dts/lpd-imx8mm-baseboard.dtsi b/arch/arm/dts/lpd-imx8mm-baseboard.dtsi
+index 04182a1..1db553b 100644
+--- a/arch/arm/dts/lpd-imx8mm-baseboard.dtsi
++++ b/arch/arm/dts/lpd-imx8mm-baseboard.dtsi
+@@ -271,7 +271,7 @@
+ 	status = "okay";
+ 
+ 	pca6416_0: gpio@20 {
+-		compatible = "nxp,pcal6416";
++		compatible = "ti,tca6416";
+ 		reg = <0x20>;
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&pinctrl_pcal6414>;
+@@ -282,7 +282,7 @@
+ 	};
+ 
+ 	pca6416_1: gpio@21 {
+-		compatible = "nxp,pcal6416";
++		compatible = "ti,tca6416";
+ 		reg = <0x21>;
+ 		gpio-controller;
+ 		#gpio-cells = <2>;
+diff --git a/configs/imx8mm_logic_defconfig b/configs/imx8mm_logic_defconfig
+index 6d00233..7e348c6 100644
+--- a/configs/imx8mm_logic_defconfig
++++ b/configs/imx8mm_logic_defconfig
+@@ -65,3 +65,5 @@ CONFIG_SDP_LOADADDR=0x40400000
+ CONFIG_VIDEO=y
+ CONFIG_IMX_SEC_MIPI_DSI=y
+ CONFIG_SMBIOS_MANUFACTURER="freescale"
++CONFIG_DM_PCA953X=y
++CMD_PCA953X=y
+-- 
+2.17.1
+
