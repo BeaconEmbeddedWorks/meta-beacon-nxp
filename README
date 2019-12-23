@@ -30,10 +30,11 @@ Table of Contents
  II. Misc
 
 
-I. Adding the meta-logicpd-nxp layer to your build
+I. Adding the meta-logicpd-nxp and laird layer to your build
 =================================================
 
 Run 'bitbake-layers add-layer meta-logicpd-nxp'
+Run 'bitbake-layers add-layer meta-laird-cp'
 
 II. Misc
 ========
