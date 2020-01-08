@@ -1,0 +1,249 @@
+From d641cd14c440a6263ffaa10c7226d5a2c9ce0962 Mon Sep 17 00:00:00 2001
+From: Charles Stevens <charles.stevens@logicpd.com>
+Date: Fri, 20 Dec 2019 14:33:44 -0600
+Subject: [PATCH 2/2] Enable USB host mode in u-boot
+
+---
+ arch/arm/dts/logicpd-imx8mm-kit-u-boot.dtsi |   7 +
+ board/logicpd/imx8mmn/imx8m_logic.c         | 155 --------------------
+ configs/imx8mm_logic_defconfig              |   4 +-
+ drivers/gpio/pca953x_gpio.c                 |   2 +-
+ 4 files changed, 11 insertions(+), 157 deletions(-)
+ create mode 100644 arch/arm/dts/logicpd-imx8mm-kit-u-boot.dtsi
+
+diff --git a/arch/arm/dts/logicpd-imx8mm-kit-u-boot.dtsi b/arch/arm/dts/logicpd-imx8mm-kit-u-boot.dtsi
+new file mode 100644
+index 0000000..71dd2cd
+--- /dev/null
++++ b/arch/arm/dts/logicpd-imx8mm-kit-u-boot.dtsi
+@@ -0,0 +1,7 @@
++&pca6416_0 {
++		compatible = "ti,tca6416";
++};
++
++&pca6416_1 {
++		compatible = "ti,tca6416";
++};
+diff --git a/board/logicpd/imx8mmn/imx8m_logic.c b/board/logicpd/imx8mmn/imx8m_logic.c
+index c0f61fe..5758e92 100644
+--- a/board/logicpd/imx8mmn/imx8m_logic.c
++++ b/board/logicpd/imx8mmn/imx8m_logic.c
+@@ -237,116 +237,6 @@ int board_phy_config(struct phy_device *phydev)
+ }
+ #endif
+ 
+-#ifdef CONFIG_USB_TCPC
+-struct tcpc_port port1;
+-struct tcpc_port port2;
+-
+-static int setup_pd_switch(uint8_t i2c_bus, uint8_t addr)
+-{
+-	struct udevice *bus;
+-	struct udevice *i2c_dev = NULL;
+-	int ret;
+-	uint8_t valb;
+-
+-	ret = uclass_get_device_by_seq(UCLASS_I2C, i2c_bus, &bus);
+-	if (ret) {
+-		printf("%s: Can't find bus\n", __func__);
+-		return -EINVAL;
+-	}
+-
+-	ret = dm_i2c_probe(bus, addr, 0, &i2c_dev);
+-	if (ret) {
+-		printf("%s: Can't find device id=0x%x\n",
+-			__func__, addr);
+-		return -ENODEV;
+-	}
+-
+-	ret = dm_i2c_read(i2c_dev, 0xB, &valb, 1);
+-	if (ret) {
+-		printf("%s dm_i2c_read failed, err %d\n", __func__, ret);
+-		return -EIO;
+-	}
+-	valb |= 0x4; /* Set DB_EXIT to exit dead battery mode */
+-	ret = dm_i2c_write(i2c_dev, 0xB, (const uint8_t *)&valb, 1);
+-	if (ret) {
+-		printf("%s dm_i2c_write failed, err %d\n", __func__, ret);
+-		return -EIO;
+-	}
+-
+-	/* Set OVP threshold to 23V */
+-	valb = 0x6;
+-	ret = dm_i2c_write(i2c_dev, 0x8, (const uint8_t *)&valb, 1);
+-	if (ret) {
+-		printf("%s dm_i2c_write failed, err %d\n", __func__, ret);
+-		return -EIO;
+-	}
+-
+-	return 0;
+-}
+-
+-int pd_switch_snk_enable(struct tcpc_port *port)
+-{
+-	if (port == &port1) {
+-		debug("Setup pd switch on port 1\n");
+-		return setup_pd_switch(1, 0x72);
+-	} else if (port == &port2) {
+-		debug("Setup pd switch on port 2\n");
+-		return setup_pd_switch(1, 0x73);
+-	} else
+-		return -EINVAL;
+-}
+-
+-struct tcpc_port_config port1_config = {
+-	.i2c_bus = 1, /*i2c2*/
+-	.addr = 0x50,
+-	.port_type = TYPEC_PORT_UFP,
+-	.max_snk_mv = 5000,
+-	.max_snk_ma = 3000,
+-	.max_snk_mw = 40000,
+-	.op_snk_mv = 9000,
+-	.switch_setup_func = &pd_switch_snk_enable,
+-};
+-
+-struct tcpc_port_config port2_config = {
+-	.i2c_bus = 1, /*i2c2*/
+-	.addr = 0x52,
+-	.port_type = TYPEC_PORT_UFP,
+-	.max_snk_mv = 5000,
+-	.max_snk_ma = 3000,
+-	.max_snk_mw = 40000,
+-	.op_snk_mv = 9000,
+-	.switch_setup_func = &pd_switch_snk_enable,
+-};
+-
+-static int setup_typec(void)
+-{
+-	int ret;
+-
+-	debug("tcpc_init port 2\n");
+-	ret = tcpc_init(&port2, port2_config, NULL);
+-	if (ret) {
+-		printf("%s: tcpc port2 init failed, err=%d\n",
+-		       __func__, ret);
+-	} else if (tcpc_pd_sink_check_charging(&port2)) {
+-		/* Disable PD for USB1, since USB2 has priority */
+-		port1_config.disable_pd = true;
+-		printf("Power supply on USB2\n");
+-	}
+-
+-	debug("tcpc_init port 1\n");
+-	ret = tcpc_init(&port1, port1_config, NULL);
+-	if (ret) {
+-		printf("%s: tcpc port1 init failed, err=%d\n",
+-		       __func__, ret);
+-	} else {
+-		if (!port1_config.disable_pd)
+-			printf("Power supply on USB1\n");
+-		return ret;
+-	}
+-
+-	return ret;
+-}
+-
+ int board_usb_init(int index, enum usb_init_type init)
+ {
+ 	int ret = 0;
+@@ -354,18 +244,8 @@ int board_usb_init(int index, enum usb_init_type init)
+ 
+ 	debug("board_usb_init %d, type %d\n", index, init);
+ 
+-	if (index == 0)
+-		port_ptr = &port1;
+-	else
+-		port_ptr = &port2;
+-
+ 	imx8m_usb_power(index, true);
+ 
+-	if (init == USB_INIT_HOST)
+-		tcpc_setup_dfp_mode(port_ptr);
+-	else
+-		tcpc_setup_ufp_mode(port_ptr);
+-
+ 	return ret;
+ }
+ 
+@@ -375,47 +255,12 @@ int board_usb_cleanup(int index, enum usb_init_type init)
+ 
+ 	debug("board_usb_cleanup %d, type %d\n", index, init);
+ 
+-	if (init == USB_INIT_HOST) {
+-		if (index == 0)
+-			ret = tcpc_disable_src_vbus(&port1);
+-		else
+-			ret = tcpc_disable_src_vbus(&port2);
+-	}
+-
+ 	imx8m_usb_power(index, false);
+ 	return ret;
+ }
+ 
+-int board_ehci_usb_phy_mode(struct udevice *dev)
+-{
+-	int ret = 0;
+-	enum typec_cc_polarity pol;
+-	enum typec_cc_state state;
+-	struct tcpc_port *port_ptr;
+-
+-	if (dev->seq == 0)
+-		port_ptr = &port1;
+-	else
+-		port_ptr = &port2;
+-
+-	tcpc_setup_ufp_mode(port_ptr);
+-
+-	ret = tcpc_get_cc_status(port_ptr, &pol, &state);
+-	if (!ret) {
+-		if (state == TYPEC_STATE_SRC_RD_RA || state == TYPEC_STATE_SRC_RD)
+-			return USB_INIT_HOST;
+-	}
+-
+-	return USB_INIT_DEVICE;
+-}
+-
+-#endif
+-
+ int board_init(void)
+ {
+-#ifdef CONFIG_USB_TCPC
+-	setup_typec();
+-#endif
+ 
+ #ifdef CONFIG_MXC_SPI
+ 	setup_spi();
+diff --git a/configs/imx8mm_logic_defconfig b/configs/imx8mm_logic_defconfig
+index 6d00233..3d05122 100644
+--- a/configs/imx8mm_logic_defconfig
++++ b/configs/imx8mm_logic_defconfig
+@@ -2,7 +2,7 @@ CONFIG_ARM=y
+ CONFIG_ARCH_IMX8M=y
+ CONFIG_SYS_TEXT_BASE=0x40200000
+ CONFIG_SYS_MALLOC_F_LEN=0x2000
+-CONFIG_USB_TCPC=y
++CONFIG_USB_TCPC=n
+ CONFIG_TARGET_IMX8MMNLOGIC=y
+ CONFIG_SPL_MMC_SUPPORT=y
+ CONFIG_DEFAULT_DEVICE_TREE="logicpd-imx8mm-kit"
+@@ -65,3 +65,5 @@ CONFIG_SDP_LOADADDR=0x40400000
+ CONFIG_VIDEO=y
+ CONFIG_IMX_SEC_MIPI_DSI=y
+ CONFIG_SMBIOS_MANUFACTURER="freescale"
++CONFIG_DM_PCA953X=y
++CMD_PCA953X=y
+diff --git a/drivers/gpio/pca953x_gpio.c b/drivers/gpio/pca953x_gpio.c
+index b1be6db..ed0c4d2 100644
+--- a/drivers/gpio/pca953x_gpio.c
++++ b/drivers/gpio/pca953x_gpio.c
+@@ -248,7 +248,7 @@ static int pca953x_xlate(struct udevice *dev, struct gpio_desc *desc,
+ 			 struct ofnode_phandle_args *args)
+ {
+ 	desc->offset = args->args[0];
+-	desc->flags = args->args[1] & (GPIO_ACTIVE_LOW ? GPIOD_ACTIVE_LOW : 0);
++	desc->flags = args->args[1] & GPIO_ACTIVE_LOW ? GPIOD_ACTIVE_LOW : 0;
+ 
+ 	return 0;
+ }
+-- 
+2.17.1
+
