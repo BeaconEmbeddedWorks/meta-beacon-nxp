@@ -1,0 +1,54 @@
+From f103d4516d8105ec2829fc936146c1873355fcf6 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Mon, 6 Jan 2020 10:44:22 -0600
+Subject: [PATCH 40/43] arm64: dts: logicod-imx8mm-kit: Enable VPU and GPU with
+ LVDS kit
+
+When used with the LVDS display, the VPU and GPU's can be enabled.
+
+This patch enables the VPU and GPU's in the LVDS tree.
+
+Fixes: PHOENIX8-30
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ .../boot/dts/freescale/lpd-imx8mm-lvds.dtsi      | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/freescale/lpd-imx8mm-lvds.dtsi b/arch/arm64/boot/dts/freescale/lpd-imx8mm-lvds.dtsi
+index c76d6caed120..30f6c630eb6d 100644
+--- a/arch/arm64/boot/dts/freescale/lpd-imx8mm-lvds.dtsi
++++ b/arch/arm64/boot/dts/freescale/lpd-imx8mm-lvds.dtsi
+@@ -39,6 +39,10 @@
+ 	};
+ };
+ 
++&gpu {
++	status = "okay";
++};
++
+ &i2c2 {
+ 	ili_touch: ilitouch@26 {
+ 		compatible = "ilitek,ili2117";
+@@ -107,6 +111,18 @@
+ 	pinctrl-0 = <&pinctrl_pwm1>;
+ };
+ 
++&vpu_g1 {
++	status = "okay";
++};
++
++&vpu_g2 {
++	status = "okay";
++};
++
++&vpu_h1 {
++	status = "okay";
++};
++
+ &iomuxc {
+ 	pinctrl-names = "default";
+ 
+-- 
+2.17.1
+

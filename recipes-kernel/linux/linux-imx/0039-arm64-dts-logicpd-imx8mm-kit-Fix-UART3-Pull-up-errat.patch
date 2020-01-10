@@ -1,0 +1,37 @@
+From ba5fdeb111d2b3f467c14f5263a2baa3e65f3731 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Mon, 6 Jan 2020 10:33:26 -0600
+Subject: [PATCH 39/43] arm64: dts: logicpd-imx8mm-kit: Fix UART3 Pull-up
+ errata
+
+According to the errata, pull-up resistors cannot be used when
+the GPIO line is running at 3.3V.  The UART3 pins are using
+3.3V and pulled up which violate this errata notice.
+
+This patch disables the pull-up resistors.
+
+Fixes: PHOENIX8-24
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ arch/arm64/boot/dts/freescale/lpd-imx8mm-baseboard.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/lpd-imx8mm-baseboard.dtsi b/arch/arm64/boot/dts/freescale/lpd-imx8mm-baseboard.dtsi
+index cd7869015e0d..95d97fa7f701 100644
+--- a/arch/arm64/boot/dts/freescale/lpd-imx8mm-baseboard.dtsi
++++ b/arch/arm64/boot/dts/freescale/lpd-imx8mm-baseboard.dtsi
+@@ -210,8 +210,8 @@
+ 
+ 		pinctrl_uart3: uart3grp {
+ 			fsl,pins = <
+-				MX8MM_IOMUXC_ECSPI1_SCLK_UART3_DCE_RX		0x140
+-				MX8MM_IOMUXC_ECSPI1_MOSI_UART3_DCE_TX		0x140
++				MX8MM_IOMUXC_ECSPI1_SCLK_UART3_DCE_RX		0x40
++				MX8MM_IOMUXC_ECSPI1_MOSI_UART3_DCE_TX		0x40
+ 			>;
+ 		};
+ 
+-- 
+2.17.1
+

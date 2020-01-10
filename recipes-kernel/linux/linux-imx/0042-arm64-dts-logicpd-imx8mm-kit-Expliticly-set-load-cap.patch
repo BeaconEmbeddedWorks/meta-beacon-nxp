@@ -1,0 +1,33 @@
+From 03e338e1ed3ed0af5f5326b08ddaf68a9cada284 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Mon, 6 Jan 2020 12:02:49 -0600
+Subject: [PATCH 42/43] arm64: dts: logicpd-imx8mm-kit: Expliticly set load
+ capacitance
+
+With the (mostly) backported driver for the pcf85263/pcf85363,
+this patch explitcly sets the capacitance to 12.5pF.  This is
+the driver default, but in the event the default changes, this
+value should not for this board.
+
+Fixes: PHOENIX8-23
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ arch/arm64/boot/dts/freescale/lpd-imx8mm-som.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/boot/dts/freescale/lpd-imx8mm-som.dtsi b/arch/arm64/boot/dts/freescale/lpd-imx8mm-som.dtsi
+index 24886e7ec597..ec6df119ab89 100644
+--- a/arch/arm64/boot/dts/freescale/lpd-imx8mm-som.dtsi
++++ b/arch/arm64/boot/dts/freescale/lpd-imx8mm-som.dtsi
+@@ -202,6 +202,7 @@
+ 	rtc@51 {
+ 		compatible = "nxp,pcf85263";
+ 		reg = <0x51>;
++		quartz-load-femtofarads = <12500>;
+ 	};
+ };
+ 
+-- 
+2.17.1
+
