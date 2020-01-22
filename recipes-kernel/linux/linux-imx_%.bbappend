@@ -58,4 +58,6 @@ SRC_URI += " \
 	file://0041-rtc-pcf85263-pcf85363-support-PM-wakeup-device-impro.patch \
 	file://0042-arm64-dts-logicpd-imx8mm-kit-Expliticly-set-load-cap.patch \
 	file://0043-arm64-dts-logicpd-imx8mm-kit-changes-for-Laird-wirel.patch \
+	file://0044-arm64-dts-Add-PDM-microphone-support.patch \
+	file://0045-arm64-dts-logicpd-imx8mm-kit-Remove-modem-reset-node.patch \
 	"

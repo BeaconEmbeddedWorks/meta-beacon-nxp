@@ -1,0 +1,80 @@
+From 7805feacafd3161878252582bbe8c40ced629b66 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Mon, 13 Jan 2020 08:31:30 -0600
+Subject: [PATCH 44/45] arm64: dts: Add PDM microphone support
+
+According to the schematic:
+
+DESIGN NOTE: J85 is compatible with Knowles Mic on Flex development boards. See
+https://www.knowles.com/subdepartment/evaluation-kits/dpt-microphones/subdpt-sisonic-surface-mount-mems
+for more information.
+
+This patch is designed to mux the RXD0 and PDM_CLK and associate then
+to the PDM driver.
+
+Currently un-tested as we have no hardware.
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ .../dts/freescale/lpd-imx8mm-baseboard.dtsi   | 24 ++++++++++++++++++-
+ 1 file changed, 23 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/lpd-imx8mm-baseboard.dtsi b/arch/arm64/boot/dts/freescale/lpd-imx8mm-baseboard.dtsi
+index 8bdcbf696b96..f0929c06ca65 100644
+--- a/arch/arm64/boot/dts/freescale/lpd-imx8mm-baseboard.dtsi
++++ b/arch/arm64/boot/dts/freescale/lpd-imx8mm-baseboard.dtsi
+@@ -96,7 +96,7 @@
+ 		enable-active-high;
+ 	};
+ 
+-	sound {
++	sound-wm8962 {
+ 		compatible = "fsl,imx-audio-wm8962";
+ 		model = "wm8962-audio";
+ 		cpu-dai = <&sai3>;
+@@ -109,6 +109,12 @@
+ 			"AMIC", "MICBIAS",
+ 			"IN3R", "AMIC";
+ 	};
++
++	sound-micfil {
++		compatible = "fsl,imx-audio-micfil";
++		model = "imx-audio-micfil";
++		cpu-dai = <&micfil>;
++	};
+ };
+ 
+ &iomuxc {
+@@ -200,6 +206,13 @@
+ 			>;
+ 		};
+ 
++		pinctrl_pdm: pdmgrp {
++			fsl,pins = <
++				MX8MM_IOMUXC_SAI5_RXC_PDM_CLK		0xd6
++				MX8MM_IOMUXC_SAI5_RXD0_PDM_DATA0	0xd6
++			>;
++		};
++
+ 		pinctrl_uart2: uart2grp {
+ 			fsl,pins = <
+ 				MX8MM_IOMUXC_UART2_RXD_UART2_DCE_RX	0x140
+@@ -318,6 +331,15 @@
+ 
+ };
+ 
++&micfil {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_pdm>;
++	assigned-clocks = <&clk IMX8MM_CLK_PDM>;
++	assigned-clock-parents = <&clk IMX8MM_AUDIO_PLL1_OUT>;
++	assigned-clock-rates = <196608000>;
++	status = "okay";
++};
++
+ &mipi_csi_1 {
+ 	#address-cells = <1>;
+ 	#size-cells = <0>;
+-- 
+2.17.1
+
