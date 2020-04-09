@@ -1,0 +1,39 @@
+From 2dd771b8c435eefeaa8842d22315b51863d1a796 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Tue, 11 Feb 2020 16:27:26 -0600
+Subject: [PATCH 8/8] arm64: dts: beacom-imx8mn-kit: Enable ILI2117 touchscreen
+
+The driver for the touchscreen has been backported, so the backport
+requires some device tree changes.
+
+This patch update the device tree to use the updated driver.
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ arch/arm64/boot/dts/freescale/beacon-imx8mn-lvds.dtsi | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/beacon-imx8mn-lvds.dtsi b/arch/arm64/boot/dts/freescale/beacon-imx8mn-lvds.dtsi
+index 034390d645c6..8d8be37b80c8 100644
+--- a/arch/arm64/boot/dts/freescale/beacon-imx8mn-lvds.dtsi
++++ b/arch/arm64/boot/dts/freescale/beacon-imx8mn-lvds.dtsi
+@@ -41,14 +41,11 @@
+ 
+ &i2c2 {
+ 	ili_touch: ilitouch@26 {
+-		compatible = "ili,ili2117a";
++		compatible = "ilitek,ili2117";
+ 		reg = <0x26>;
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&pinctrl_touchscreen>;
+-		interrupts-extended = <&gpio1 9 IRQ_TYPE_LEVEL_LOW>;
+-		ili2117a,poll-period = <20>;
+-		ili2117a,max-touch = <2>;
+-		wakeup-source;
++		interrupts-extended = <&gpio1 9 IRQ_TYPE_EDGE_RISING>;
+ 	};
+ 
+ 	dsi_lvds_bridge: sn65dsi83@2d {
+-- 
+2.17.1
+

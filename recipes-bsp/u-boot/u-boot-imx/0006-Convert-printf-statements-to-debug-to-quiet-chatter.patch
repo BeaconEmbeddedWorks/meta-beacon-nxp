@@ -1,0 +1,75 @@
+From 8e6a48226dc3e7ab2f7f863912db1ef12d95b3c8 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Thu, 30 Jan 2020 09:16:33 -0600
+Subject: [PATCH 06/11] Convert 'printf' statements to 'debug' to quiet
+ chatter.
+
+---
+ board/beacon/imx8mn/spl.c         | 5 -----
+ drivers/ddr/imx/imx8m/ddr_init.c  | 6 +++---
+ drivers/power/pmic/pmic_bd71837.c | 2 +-
+ 3 files changed, 4 insertions(+), 9 deletions(-)
+
+diff --git a/board/beacon/imx8mn/spl.c b/board/beacon/imx8mn/spl.c
+index b9980e2975..c52eb7fa2d 100644
+--- a/board/beacon/imx8mn/spl.c
++++ b/board/beacon/imx8mn/spl.c
+@@ -173,11 +173,6 @@ int power_init_board(void)
+ 	pmic_reg_write(p, BD71837_BUCK1_VOLT_RUN, 0x19);
+ #endif
+ 
+-#ifdef CONFIG_IMX8M_DDR4
+-	/* increase NVCC_DRAM_1V2 to 1.2v for DDR4 */
+-	pmic_reg_write(p, BD71837_BUCK8_VOLT, 0x28);
+-#endif
+-
+ 	/* lock the PMIC regs */
+ 	pmic_reg_write(p, BD71837_REGLOCK, 0x11);
+ 
+diff --git a/drivers/ddr/imx/imx8m/ddr_init.c b/drivers/ddr/imx/imx8m/ddr_init.c
+index 79c7b93ab5..81891b6ab6 100644
+--- a/drivers/ddr/imx/imx8m/ddr_init.c
++++ b/drivers/ddr/imx/imx8m/ddr_init.c
+@@ -25,7 +25,7 @@ void ddr_init(struct dram_timing_info *dram_timing)
+ {
+ 	unsigned int tmp, initial_drate, target_freq;
+ 
+-	printf("DDRINFO: start DRAM init\n");
++	debug("DDRINFO: start DRAM init\n");
+ 
+ 	/* Step1: Follow the power up procedure */
+ 	if (is_imx8mq()) {
+@@ -110,7 +110,7 @@ void ddr_init(struct dram_timing_info *dram_timing)
+ 		tmp = reg32_read(DDRPHY_CalBusy(0));
+ 	} while ((tmp & 0x1));
+ 
+-	printf("DDRINFO:ddrphy calibration done\n");
++	debug("DDRINFO:ddrphy calibration done\n");
+ 
+ 	/* Step15: Set SWCTL.sw_done to 0 */
+ 	reg32_write(DDRC_SWCTL(0), 0x00000000);
+@@ -162,7 +162,7 @@ void ddr_init(struct dram_timing_info *dram_timing)
+ 
+ 	/* enable port 0 */
+ 	reg32_write(DDRC_PCTRL_0(0), 0x00000001);
+-	printf("DDRINFO: ddrmix config done\n");
++	debug("DDRINFO: ddrmix config done\n");
+ 
+ 	/* save the dram timing config into memory */
+ 	dram_config_save(dram_timing, CONFIG_SAVED_DRAM_TIMING_BASE);
+diff --git a/drivers/power/pmic/pmic_bd71837.c b/drivers/power/pmic/pmic_bd71837.c
+index 74195ccae8..59f3596196 100644
+--- a/drivers/power/pmic/pmic_bd71837.c
++++ b/drivers/power/pmic/pmic_bd71837.c
+@@ -27,7 +27,7 @@ int power_bd71837_init (unsigned char bus) {
+ 	p->hw.i2c.tx_num = 1;
+ 	p->bus = bus;
+ 
+-	printf("power_bd71837_init\n");
++	debug("power_bd71837_init\n");
+ 
+ 	return 0;
+ }
+-- 
+2.17.1
+
