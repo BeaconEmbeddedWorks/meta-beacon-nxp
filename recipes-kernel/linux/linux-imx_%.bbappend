@@ -33,4 +33,5 @@ SRC_URI += " \
 	file://0006-arm64-dts-beacon-imx8mm-kit-Fix-ILI2117-sleep.patch \
 	file://0007-ASoC-imx-wm8962-Use-EPROBE_DEFER-if-codec-platform-i.patch \
 	file://0008-arm64-dts-beacom-imx8mn-kit-Enable-ILI2117-touchscre.patch \
+	file://0009-Removed-modem-reset-entries-in-device-tree-files.patch \
 	"
