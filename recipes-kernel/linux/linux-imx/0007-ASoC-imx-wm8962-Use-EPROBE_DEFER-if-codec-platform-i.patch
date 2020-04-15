@@ -1,7 +1,7 @@
 From ce4bb6bf50ad54cb8be71f1b30ef660860a5b0d4 Mon Sep 17 00:00:00 2001
 From: Adam Ford <aford173@gmail.com>
 Date: Tue, 11 Feb 2020 16:07:23 -0600
-Subject: [PATCH 7/8] ASoC: imx-wm8962: Use EPROBE_DEFER if codec platform
+Subject: [PATCH 07/14] ASoC: imx-wm8962: Use EPROBE_DEFER if codec platform
  isn't found
 
 The imx-wm8962 driver requires the wm8962 codec to be loaded first.

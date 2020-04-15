@@ -1,7 +1,7 @@
 From e25e7b8e8892dae799fc8714910fad51cbb8e5eb Mon Sep 17 00:00:00 2001
 From: "richard.feliciano" <richard.feliciano@logicpd.com>
 Date: Mon, 10 Feb 2020 15:57:44 -0600
-Subject: [PATCH 4/8] Updated copyright info
+Subject: [PATCH 04/14] Updated copyright info
 
 ---
  arch/arm64/boot/dts/freescale/beacon-imx8mn-baseboard.dtsi | 6 ++++--

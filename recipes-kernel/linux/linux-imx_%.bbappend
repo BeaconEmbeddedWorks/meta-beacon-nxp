@@ -22,7 +22,7 @@ do_configure_append() {
 
 KERNEL_MODULE_AUTOLOAD_append = " logicpd-new-productid"
 
-#END_HEADER
+#END_HEADER0011-Update-GPIO-driver-to-somewhat-support-pull-up-bias.patch
 
 SRC_URI += " \
 	file://0001-Port-LogicPD-imx8mm-kit-to-4.19.patch \
@@ -33,5 +33,10 @@ SRC_URI += " \
 	file://0006-arm64-dts-beacon-imx8mm-kit-Fix-ILI2117-sleep.patch \
 	file://0007-ASoC-imx-wm8962-Use-EPROBE_DEFER-if-codec-platform-i.patch \
 	file://0008-arm64-dts-beacom-imx8mn-kit-Enable-ILI2117-touchscre.patch \
-	file://0009-Removed-modem-reset-entries-in-device-tree-files.patch \
+	file://0009-arm64-dts-beacon-imx8mn-kit-Remove-dead-DTS-entries.patch \
+	file://0010-rtc-pcf85263-pcf85363-support-PM-wakeup-device.patch \
+	file://0011-arm64-dts-logicpd-imx8mm-kit-Expliticly-set-load.patch \
+	file://0012-Update-GPIO-driver-to-somewhat-support-pull-up-bias.patch \
+	file://0013-arm64-dts-beacon-imx8mm-baseboard-Enable-GPIO-keypad.patch \
+	file://0014-Removed-modem-reset-which-caused-Laird-Bluetooth-ini.patch \
 	"

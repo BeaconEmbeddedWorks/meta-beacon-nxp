@@ -1,7 +1,7 @@
 From 6a654fed2bbb1f3a0828a07d59ada8c158f4c65f Mon Sep 17 00:00:00 2001
 From: Adam Ford <aford173@gmail.com>
 Date: Tue, 11 Feb 2020 07:57:09 -0600
-Subject: [PATCH 6/8] arm64: dts: beacon-imx8mm-kit: Fix ILI2117 sleep
+Subject: [PATCH 06/14] arm64: dts: beacon-imx8mm-kit: Fix ILI2117 sleep
 
 With the custom driver removed, and the driver from 5.5 backported,
 this updates the device tree to point to the new driver.

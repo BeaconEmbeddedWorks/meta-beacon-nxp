@@ -1,7 +1,7 @@
 From 0ec8b2e1c07b8ee99dd0fe9a9138a0d56e0ed040 Mon Sep 17 00:00:00 2001
 From: Adam Ford <aford173@gmail.com>
 Date: Sun, 12 Apr 2020 08:14:07 -0500
-Subject: [PATCH 11/13] arm64: dts: logicpd-imx8mm-kit: Expliticly set load 
+Subject: [PATCH 11/14] arm64: dts: logicpd-imx8mm-kit: Expliticly set load 
  capacitance
 
 With the (mostly) backported driver for the pcf85263/pcf85363,

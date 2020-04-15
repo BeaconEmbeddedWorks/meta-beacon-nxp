@@ -1,7 +1,7 @@
 From 98eaf2cd658b4946f84ca9ed054cb715018aeef0 Mon Sep 17 00:00:00 2001
 From: Adam Ford <aford173@gmail.com>
 Date: Fri, 24 Jan 2020 14:48:11 -0600
-Subject: [PATCH 2/8] ARM64: dts: Introduce Beacon EmbeddedWorks i.MX8M Nano
+Subject: [PATCH 02/14] ARM64: dts: Introduce Beacon EmbeddedWorks i.MX8M Nano
  Kit
 
 The dev kit comes as a system on module (SOM) + baseboard.
