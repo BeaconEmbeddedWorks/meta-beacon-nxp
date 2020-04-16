@@ -34,9 +34,12 @@ SRC_URI += " \
 	file://0007-ASoC-imx-wm8962-Use-EPROBE_DEFER-if-codec-platform-i.patch \
 	file://0008-arm64-dts-beacom-imx8mn-kit-Enable-ILI2117-touchscre.patch \
 	file://0009-arm64-dts-beacon-imx8mn-kit-Remove-dead-DTS-entries.patch \
-	file://0010-rtc-pcf85263-pcf85363-support-PM-wakeup-device.patch \
-	file://0011-arm64-dts-logicpd-imx8mm-kit-Expliticly-set-load.patch \
-	file://0012-Update-GPIO-driver-to-somewhat-support-pull-up-bias.patch \
-	file://0013-arm64-dts-beacon-imx8mm-baseboard-Enable-GPIO-keypad.patch \
-	file://0014-Removed-modem-reset-which-caused-Laird-Bluetooth-ini.patch \
+	file://0010-arm64-dts-fsl-imx8mn-Enable-dispmix_gpr.patch \
+	file://0011-rtc-pcf85263-pcf85363-support-PM-wakeup-device.patch \
+	file://0012-arm64-dts-logicpd-imx8mm-kit-Expliticly-set-load.patch \
+	file://0013-Update-GPIO-driver-to-somewhat-support-pull-up-bias.patch \
+	file://0014-arm64-dts-beacon-imx8mm-baseboard-Enable-GPIO-keypad.patch \
+	file://0015-rtc-pcf85363-Add-support-for-NXP-pcf85263-rtc-A.patch \
+	file://0016-Removed-modem-reset-which-caused-Laird-Bluetooth-ini.patch \
+	file://0017-arm64-dts-beacon-imx8mm-kit-Fix-GPIO-expander-compat.patch \
 	"

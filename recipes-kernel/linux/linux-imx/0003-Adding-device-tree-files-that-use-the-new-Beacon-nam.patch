@@ -1,7 +1,7 @@
 From 055832b9b809f80112b1d8fcdc0d3167bea9537e Mon Sep 17 00:00:00 2001
 From: "richard.feliciano" <richard.feliciano@logicpd.com>
 Date: Mon, 10 Feb 2020 15:53:27 -0600
-Subject: [PATCH 03/14] Adding device tree files that use the new Beacon name
+Subject: [PATCH 03/17] Adding device tree files that use the new Beacon name
 
 ---
  ...mm-baseboard.dtsi => beacon-imx8mm-baseboard.dtsi} |  5 ++++-
