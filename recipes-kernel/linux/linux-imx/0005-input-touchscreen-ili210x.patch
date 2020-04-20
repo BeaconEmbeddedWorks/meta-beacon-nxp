@@ -1,7 +1,7 @@
 From d48add5dda11b07bd170de92da1ce30799c50b0e Mon Sep 17 00:00:00 2001
 From: Adam Ford <aford173@gmail.com>
 Date: Mon, 6 Jan 2020 10:08:06 -0600
-Subject: [PATCH 05/17] input: touchscreen: ili210x
+Subject: [PATCH 05/21] input: touchscreen: ili210x
 
 Backport modern ili210x driver which now supports 2117 from 5.5-RC5
 

@@ -1,7 +1,7 @@
 From edcce188ea0e8ac413557a945a4e761b32bb0d06 Mon Sep 17 00:00:00 2001
 From: Adam Ford <aford173@gmail.com>
 Date: Thu, 16 Apr 2020 07:46:31 -0500
-Subject: [PATCH 17/17] arm64: dts: beacon-imx8mm-kit: Fix GPIO expander
+Subject: [PATCH 17/21] arm64: dts: beacon-imx8mm-kit: Fix GPIO expander
  compatible flag
 
 The gpio driver has been updated to suppor the pull-up resistors,

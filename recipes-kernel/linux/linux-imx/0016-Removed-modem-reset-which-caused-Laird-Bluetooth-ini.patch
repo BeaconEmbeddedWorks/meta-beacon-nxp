@@ -1,7 +1,7 @@
 From c5e5a69d3d252733f9816c7ab7e4c3321d182ada Mon Sep 17 00:00:00 2001
 From: "richard.feliciano" <richard.feliciano@logicpd.com>
 Date: Wed, 15 Apr 2020 14:26:09 -0500
-Subject: [PATCH 16/17] Removed modem reset which caused Laird Bluetooth
+Subject: [PATCH 16/21] Removed modem reset which caused Laird Bluetooth
  initialization failures
 
 ---

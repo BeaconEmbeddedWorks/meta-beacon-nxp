@@ -1,7 +1,7 @@
 From a3dbf40bb72f03d08f9a9fc550a0034c1c43fc83 Mon Sep 17 00:00:00 2001
 From: Adam Ford <aford173@gmail.com>
 Date: Tue, 14 Apr 2020 13:10:09 -0500
-Subject: [PATCH 14/17] arm64: dts: beacon-imx8mm-baseboard: Enable GPIO keypad
+Subject: [PATCH 14/21] arm64: dts: beacon-imx8mm-baseboard: Enable GPIO keypad
 
 The baseboard has four active-low buttons that are connected
 to a GPIO expander.  This patch enables the buttons to wake the

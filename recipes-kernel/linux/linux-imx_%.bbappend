@@ -42,4 +42,8 @@ SRC_URI += " \
 	file://0015-rtc-pcf85363-Add-support-for-NXP-pcf85263-rtc-A.patch \
 	file://0016-Removed-modem-reset-which-caused-Laird-Bluetooth-ini.patch \
 	file://0017-arm64-dts-beacon-imx8mm-kit-Fix-GPIO-expander-compat.patch \
+	file://0018-regulator-Backport-bd718x7-from-NXP-5.4-Kernel.patch \
+	file://0019-arm64-dts-beacon-imx8mm-Update-PMIC-entries-to-match.patch \
+	file://0020-arm64-dts-beacon-imx8mm-Enable-SPDIF-Audio.patch \
+	file://0021-arm64-dts-beacon-imx8mm-kit-Remove-hard-coded-serial.patch \
 	"

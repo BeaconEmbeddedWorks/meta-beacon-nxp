@@ -1,7 +1,7 @@
 From 5a4730e94a15c14c7f430efd1d30135cbdc3bb3c Mon Sep 17 00:00:00 2001
 From: Adam Ford <aford173@gmail.com>
 Date: Wed, 12 Feb 2020 07:31:57 -0600
-Subject: [PATCH 10/17] arm64: dts: fsl-imx8mn: Enable dispmix_gpr
+Subject: [PATCH 10/21] arm64: dts: fsl-imx8mn: Enable dispmix_gpr
 
 The DSI and eLCDIF interfaces are expecting a reference to dispmix_gpr
 which is present in the i.MX8M Mini device tree, but not the i.MX8M Nano.

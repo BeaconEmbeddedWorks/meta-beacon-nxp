@@ -1,7 +1,7 @@
 From 01b4fcba17ec235824b0f06ef5b274da4c04b08b Mon Sep 17 00:00:00 2001
 From: Adam Ford <aford173@gmail.com>
 Date: Sun, 12 Apr 2020 08:11:58 -0500
-Subject: [PATCH 11/17] rtc: pcf85263/pcf85363: support PM, wakeup device, 
+Subject: [PATCH 11/21] rtc: pcf85263/pcf85363: support PM, wakeup device, 
  improve performance
 
 Add some features as follow:

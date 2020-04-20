@@ -1,7 +1,7 @@
 From f2ca826af14c02fee5e19f62506d11e01a2bb5ac Mon Sep 17 00:00:00 2001
 From: Adam Ford <aford173@gmail.com>
 Date: Tue, 14 Apr 2020 13:09:26 -0500
-Subject: [PATCH 13/17] Update GPIO driver to somewhat support pull-up bias
+Subject: [PATCH 13/21] Update GPIO driver to somewhat support pull-up bias
 
 This is only partial, but it should be enough to hack
 the driver to make it work

@@ -1,7 +1,7 @@
 From 25c9cc834749f5f564cc8d74c44ec6db31302ce5 Mon Sep 17 00:00:00 2001
 From: Adam Ford <aford173@gmail.com>
 Date: Tue, 11 Feb 2020 17:07:28 -0600
-Subject: [PATCH 09/17] arm64: dts: beacon-imx8mn-kit: Remove dead DTS entries
+Subject: [PATCH 09/21] arm64: dts: beacon-imx8mn-kit: Remove dead DTS entries
 
 The beacon-imx8mn-kit was based on the Mini version, however,
 the Nano doesn't support USBOTG2 nor does it support PCIe.
