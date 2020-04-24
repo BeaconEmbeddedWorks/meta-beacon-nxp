@@ -1,7 +1,7 @@
 From a0bd38e4cd689bd28dceb73b92e24b777f30956e Mon Sep 17 00:00:00 2001
 From: Adam Ford <aford173@gmail.com>
 Date: Wed, 22 Jan 2020 14:24:35 -0600
-Subject: [PATCH 01/11] board: beacon: Add support for Beacon's imx8m Nano Kit
+Subject: [PATCH 01/12] board: beacon: Add support for Beacon's imx8m Nano Kit
 
 Beacon EmbeddedWorks is launching a new development kit based
 on the i.MX8M Nano from NXP.

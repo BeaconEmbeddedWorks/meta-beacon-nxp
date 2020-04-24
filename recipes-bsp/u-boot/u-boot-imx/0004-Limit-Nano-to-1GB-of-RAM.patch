@@ -1,7 +1,7 @@
 From 20d1d5aa7b96991f288fb289ae752e3594272b98 Mon Sep 17 00:00:00 2001
 From: Adam Ford <aford173@gmail.com>
 Date: Thu, 23 Jan 2020 16:10:10 -0600
-Subject: [PATCH 04/11] Limit Nano to 1GB of RAM
+Subject: [PATCH 04/12] Limit Nano to 1GB of RAM
 
 The 2GB LPDDR part can only present half of the available space,
 so this patch cuts the size to 1GB.

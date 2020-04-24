@@ -1,7 +1,7 @@
 From ea573b58a5631ad32b1a11e0548b8ff09d000fcd Mon Sep 17 00:00:00 2001
 From: Adam Ford <aford173@gmail.com>
 Date: Fri, 24 Jan 2020 09:33:44 -0600
-Subject: [PATCH 05/11] arm64: dts: beacon-imx8mn-kit: Fix PMIC node for
+Subject: [PATCH 05/12] arm64: dts: beacon-imx8mn-kit: Fix PMIC node for
  2019.04
 
 The PMIC node is copied from the kernel, but it doesn't support

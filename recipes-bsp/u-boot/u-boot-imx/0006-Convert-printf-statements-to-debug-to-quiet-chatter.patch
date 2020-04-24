@@ -1,7 +1,7 @@
 From 8e6a48226dc3e7ab2f7f863912db1ef12d95b3c8 Mon Sep 17 00:00:00 2001
 From: Adam Ford <aford173@gmail.com>
 Date: Thu, 30 Jan 2020 09:16:33 -0600
-Subject: [PATCH 06/11] Convert 'printf' statements to 'debug' to quiet
+Subject: [PATCH 06/12] Convert 'printf' statements to 'debug' to quiet
  chatter.
 
 ---

@@ -1,7 +1,7 @@
 From b82416fa5dfa7abadeab8f12738843e031620c08 Mon Sep 17 00:00:00 2001
 From: Adam Ford <aford173@gmail.com>
 Date: Fri, 7 Feb 2020 15:29:13 -0600
-Subject: [PATCH 08/11] board: imx8mm_beacon: Fix USB Support
+Subject: [PATCH 08/12] board: imx8mm_beacon: Fix USB Support
 
 The i.MX8M Mini dev kit was based on the Freescale/NXP version
 which uses an TCPC USB-C controller but the Beacon version does not.

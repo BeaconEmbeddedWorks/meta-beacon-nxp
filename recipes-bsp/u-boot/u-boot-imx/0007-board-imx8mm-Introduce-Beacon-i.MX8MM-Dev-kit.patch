@@ -1,7 +1,7 @@
 From 548df8c9e107cdbd937f0264f9f11bb1a553ee42 Mon Sep 17 00:00:00 2001
 From: Adam Ford <aford173@gmail.com>
 Date: Wed, 29 Jan 2020 14:06:53 -0600
-Subject: [PATCH 07/11] board: imx8mm: Introduce Beacon i.MX8MM Dev kit
+Subject: [PATCH 07/12] board: imx8mm: Introduce Beacon i.MX8MM Dev kit
 
 This patch introduces the Beacon EmebeddedWorks i.MX8MM Kit.
 

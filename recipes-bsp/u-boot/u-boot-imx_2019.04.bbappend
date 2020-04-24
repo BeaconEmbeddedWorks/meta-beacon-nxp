@@ -17,4 +17,5 @@ SRC_URI += " \
 	file://0009-board-imx8mn_beacon-Fix-USB-Support.patch \
 	file://0010-configs-imx8mm_beacon-Fix-mmc-booting-using-uuid.patch \
 	file://0011-arm64-dts-beacon-imx8mm-8mn-Fix-MMC-voltage-corrupti.patch \
+	file://0012-beacon_imx8mm-Enable-GPIO-Expanders.patch \
 	"

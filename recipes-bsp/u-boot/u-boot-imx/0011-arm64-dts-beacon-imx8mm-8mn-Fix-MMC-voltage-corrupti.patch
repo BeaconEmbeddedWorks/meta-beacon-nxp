@@ -1,7 +1,7 @@
 From 002a4745ccf7cf39686a1555ccf73402cccf704d Mon Sep 17 00:00:00 2001
 From: Adam Ford <aford173@gmail.com>
 Date: Tue, 11 Feb 2020 14:28:50 -0600
-Subject: [PATCH 11/11] arm64: dts: beacon imx8mm/8mn: Fix MMC voltage
+Subject: [PATCH 11/12] arm64: dts: beacon imx8mm/8mn: Fix MMC voltage
  corruption
 
 During the negotiation, some SD cards attempt to operate at 1.8V,

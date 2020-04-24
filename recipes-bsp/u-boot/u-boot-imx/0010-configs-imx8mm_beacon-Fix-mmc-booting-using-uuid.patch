@@ -1,7 +1,7 @@
 From e1a0a242ea78aea95d55eb0ca6eeb86aa2b170f4 Mon Sep 17 00:00:00 2001
 From: Adam Ford <aford173@gmail.com>
 Date: Mon, 10 Feb 2020 13:40:33 -0600
-Subject: [PATCH 10/11] configs: imx8mm_beacon: Fix mmc booting using uuid
+Subject: [PATCH 10/12] configs: imx8mm_beacon: Fix mmc booting using uuid
 
 The mmc booting script is expecting the uuid to be available, but
 the script to fetch the uuid wasn't being run which causes a kernel

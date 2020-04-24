@@ -1,7 +1,7 @@
 From f2e41ec4125518a7643fe14ec74277325abbab64 Mon Sep 17 00:00:00 2001
 From: Adam Ford <aford173@gmail.com>
 Date: Thu, 23 Jan 2020 08:31:46 -0600
-Subject: [PATCH 02/11] Add copying mkimage_uboot to NXP's version of mkimage.
+Subject: [PATCH 02/12] Add copying mkimage_uboot to NXP's version of mkimage.
 
 The script is expecting to be able to use the mkimage from U-Boot.
 Without this copy, the script fails to build.  I don't know if it
