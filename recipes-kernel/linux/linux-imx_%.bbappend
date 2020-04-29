@@ -7,20 +7,17 @@ SRC_URI += " file://defconfig \
 
 do_configure_append() {
 
-#	cp ${THISDIR}/../../../../../meta-logicpd-nxp/recipes-kernel/linux/linux-imx/defconfig ${B}/.config
-#       cp ${THISDIR}/../../../../../meta-logicpd-nxp/recipes-kernel/linux/linux-imx/defconfig ${B}/../defconfig
-	cp ${TOPDIR}/../sources/meta-logicpd-nxp/recipes-kernel/linux/linux-imx/defconfig ${B}/.config
-        cp ${TOPDIR}/../sources/meta-logicpd-nxp/recipes-kernel/linux/linux-imx/defconfig ${B}/../defconfig
+	cp ${TOPDIR}/../sources/meta-beacon-nxp/recipes-kernel/linux/linux-imx/defconfig ${B}/.config
+        cp ${TOPDIR}/../sources/meta-beacon-nxp/recipes-kernel/linux/linux-imx/defconfig ${B}/../defconfig
 }
 
-# Device tree for Logic PD i.MX8M mini dev-kit
-#KERNEL_DEVICETREE = " \
-#    freescale/logicpd-imx8mm-kit.dtb \
+# Device tree for Beacon i.MX8M mini dev-kit
+
 #"KERNEL_DEVICETREE = " \#
 #    freescale/beacon-imx8mm-kit.dtb  \
 #"
 
-KERNEL_MODULE_AUTOLOAD_append = " logicpd-new-productid"
+KERNEL_MODULE_AUTOLOAD_append = " beacon-new-productid"
 
 #END_HEADER0011-Update-GPIO-driver-to-somewhat-support-pull-up-bias.patch
 
