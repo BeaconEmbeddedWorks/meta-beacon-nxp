@@ -13,13 +13,10 @@ do_configure_append() {
 
 # Device tree for Beacon i.MX8M mini dev-kit
 
-#"KERNEL_DEVICETREE = " \#
-#    freescale/beacon-imx8mm-kit.dtb  \
-#"
 
 KERNEL_MODULE_AUTOLOAD_append = " beacon-new-productid"
 
-#END_HEADER0011-Update-GPIO-driver-to-somewhat-support-pull-up-bias.patch
+#END_HEADER
 
 SRC_URI += " \
 	file://0001-Port-LogicPD-imx8mm-kit-to-4.19.patch \
@@ -43,4 +40,6 @@ SRC_URI += " \
 	file://0019-arm64-dts-beacon-imx8mm-Update-PMIC-entries-to-match.patch \
 	file://0020-arm64-dts-beacon-imx8mm-Enable-SPDIF-Audio.patch \
 	file://0021-arm64-dts-beacon-imx8mm-kit-Remove-hard-coded-serial.patch \
+	file://0022-arm64-dts-beacon-imx8mm-Fix-Camera-power-on-Beta-har.patch \
+	file://0023-arm64-dts-Fix-UART-and-SPI-Bus-on-Beta-Hardware.patch \
 	"
