@@ -42,4 +42,12 @@ SRC_URI += " \
 	file://0021-arm64-dts-beacon-imx8mm-kit-Remove-hard-coded-serial.patch \
 	file://0022-arm64-dts-beacon-imx8mm-Fix-Camera-power-on-Beta-har.patch \
 	file://0023-arm64-dts-Fix-UART-and-SPI-Bus-on-Beta-Hardware.patch \
+	file://0024-arm64-dts-Enable-PDM-Mic.patch \
+	file://0025-arm64-dts-beacon-imx8mm-Fix-USB-Host-Reset.patch \
+	file://0026-arm64-dts-beacon-imx8mm-Fix-whitespace-errors.patch \
+	file://0027-arm64-dts-beacon-imx8mm-Clean-up-comments-dead-code.patch \
+	file://0028-arm64-dts-beacon-imx8mm-Add-variant-with-spidev-func.patch \
+	file://0029-arm64-dts-beacon-imx8mm-Fix-spi2-pinmuxing-on-beta-h.patch \
+	file://0030-arm64-dts-beacon-imx8mm-spidev-Fix-CS-pins-on-Beta-h.patch \
+	file://0031-arm64-dts-beacon-imx8mm-Add-optional-support-for-HDM.patch \
 	"

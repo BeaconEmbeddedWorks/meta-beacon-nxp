@@ -1,0 +1,45 @@
+From f8a554e3c706c6d898f9f0767a8af3fb526290db Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Mon, 11 May 2020 09:28:44 -0500
+Subject: [PATCH 29/31] arm64: dts: beacon-imx8mm: Fix spi2 pinmuxing on beta
+ hardware
+
+Per the SPI bindings documentation:
+  While the native chip select lines can be used, they appear to always
+  generate a pulse between each word of a transfer.  Most use cases will
+  require GPIO based chip selects to generate a valid transaction.
+
+Using the native CS pin fails on beta hardware which is likely related to
+the above note.  This patch changes the chip select to GPIO and routes
+to gpio5-13 on the Beta hardware.
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ arch/arm64/boot/dts/freescale/beacon-imx8mm-baseboard.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/beacon-imx8mm-baseboard.dtsi b/arch/arm64/boot/dts/freescale/beacon-imx8mm-baseboard.dtsi
+index f156b25aa167..ef0f2323ea29 100644
+--- a/arch/arm64/boot/dts/freescale/beacon-imx8mm-baseboard.dtsi
++++ b/arch/arm64/boot/dts/freescale/beacon-imx8mm-baseboard.dtsi
+@@ -196,7 +196,7 @@
+ 			MX8MM_IOMUXC_ECSPI2_SCLK_ECSPI2_SCLK		0x82
+ 			MX8MM_IOMUXC_ECSPI2_MOSI_ECSPI2_MOSI		0x82
+ 			MX8MM_IOMUXC_ECSPI2_MISO_ECSPI2_MISO		0x82
+-			MX8MM_IOMUXC_ECSPI2_SS0_ECSPI2_SS0		0x82
++			MX8MM_IOMUXC_ECSPI2_SS0_GPIO5_IO13		0x41
+ 		>;
+ 	};
+ 
+@@ -337,7 +337,7 @@
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_espi2>;
+ 	status = "okay";
+-	cs-gpios = <&gpio5 9 0>;
++	cs-gpios = <&gpio5 13 GPIO_ACTIVE_LOW>;
+ 
+ 	at25@0 {
+ 		compatible = "atmel,at25";
+-- 
+2.17.1
+
