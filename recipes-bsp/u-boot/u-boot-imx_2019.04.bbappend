@@ -18,4 +18,5 @@ SRC_URI += " \
 	file://0010-configs-imx8mm_beacon-Fix-mmc-booting-using-uuid.patch \
 	file://0011-arm64-dts-beacon-imx8mm-8mn-Fix-MMC-voltage-corrupti.patch \
 	file://0012-beacon_imx8mm-Enable-GPIO-Expanders.patch \
+	file://0013-configs-beacon_imx8mm-Enable-support-for-fspi-bootin.patch \
 	"
