@@ -50,4 +50,5 @@ SRC_URI += " \
 	file://0029-arm64-dts-beacon-imx8mm-Fix-spi2-pinmuxing-on-beta-h.patch \
 	file://0030-arm64-dts-beacon-imx8mm-spidev-Fix-CS-pins-on-Beta-h.patch \
 	file://0031-arm64-dts-beacon-imx8mm-Add-optional-support-for-HDM.patch \
+	file://0032-arm64-dts-beacon-imx8mm-correct-ldo1-ldo2-voltage-ra.patch \
 	"
