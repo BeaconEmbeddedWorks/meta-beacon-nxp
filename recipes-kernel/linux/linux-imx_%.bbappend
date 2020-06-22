@@ -51,4 +51,11 @@ SRC_URI += " \
 	file://0030-arm64-dts-beacon-imx8mm-spidev-Fix-CS-pins-on-Beta-h.patch \
 	file://0031-arm64-dts-beacon-imx8mm-Add-optional-support-for-HDM.patch \
 	file://0032-arm64-dts-beacon-imx8mm-correct-ldo1-ldo2-voltage-ra.patch \
+	file://0033-arm64-dts-beacon-imx8mm-Fix-USDHC2-CD-Pin.patch \
+	file://0034-arm64-dts-beacon-imx8mm-Fix-WiFi-IO-Voltage.patch \
+	file://0035-arm64-boot-dts-Fix-UART3-Pull-ups.patch \
+	file://0036-eeprom-at24-Enable-Support-for-Logic-PD-EEPROM-decod.patch \
+	file://0037-arm64-defconfig-Enable-LPD-EEPROM-Decoder-as-module.patch \
+	file://0038-arm64-dts-beacon-imx8mm-Fix-Bluetooth-failures-at-hi.patch \
+	file://0039-arm64-dts-beacon-imx8mm-hdmi-Fix-HDMI-regulator.patch \
 	"
