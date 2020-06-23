@@ -1,9 +1,7 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
 SRC_URI += " file://defconfig \
-            "
-
-#deltask copy_defconfig
+	"
 
 do_configure_append() {
 
@@ -11,7 +9,6 @@ do_configure_append() {
         cp ${TOPDIR}/../sources/meta-beacon-nxp/recipes-kernel/linux/linux-imx/defconfig ${B}/../defconfig
 }
 
-# Device tree for Beacon i.MX8M mini dev-kit
 
 
 KERNEL_MODULE_AUTOLOAD_append = " beacon-new-productid"
@@ -58,4 +55,7 @@ SRC_URI += " \
 	file://0037-arm64-defconfig-Enable-LPD-EEPROM-Decoder-as-module.patch \
 	file://0038-arm64-dts-beacon-imx8mm-Fix-Bluetooth-failures-at-hi.patch \
 	file://0039-arm64-dts-beacon-imx8mm-hdmi-Fix-HDMI-regulator.patch \
+	file://0040-arm64-dts-beacon-imx8mm-Fix-regulatory-dependencies.patch \
+	file://0041-arm64-dts-beacon-imx8mm-Enable-camera-reset-pins.patch \
+	file://0042-arm64-dts-beacon-imx8mm-Set-I2C-bus-speeds-to-a-max-.patch \
 	"
