@@ -58,4 +58,11 @@ SRC_URI += " \
 	file://0040-arm64-dts-beacon-imx8mm-Fix-regulatory-dependencies.patch \
 	file://0041-arm64-dts-beacon-imx8mm-Enable-camera-reset-pins.patch \
 	file://0042-arm64-dts-beacon-imx8mm-Set-I2C-bus-speeds-to-a-max-.patch \
+	file://0043-arm64-dts-beacon-imx8mm-Fix-distorted-Bluetooth-Audi.patch \
+	file://0044-arm64-dts-beacon-imx8mm-Fix-CSI-endpoint-name.patch \
+	file://0045-arm64-dts-beacon-imx8mm-Remove-GPIO-pinmuxing-for-I2.patch \
+	file://0046-arm64-dts-beacon-imx8mn-kit-Sync-Nano-with-Mini-Devi.patch \
+	file://0047-arm64-dts-beacon-imx8mm-n-lvds-Reduce-LCD-flicker.patch \
+	file://0048-arm64-dts-beacon-imx8mm-hdmi-Enable-HDMI-Audio.patch \
+	file://0049-arm64-defconfig-Enable-ADV7535-Audio.patch \
 	"
