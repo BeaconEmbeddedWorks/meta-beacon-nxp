@@ -1,0 +1,31 @@
+LCONF_VERSION = "7"
+
+BSPDIR := "${@os.path.abspath(os.path.dirname(d.getVar('FILE', True)) + '/../..')}"
+BBPATH = "${TOPDIR}"
+BBFILES ?= ""
+
+BBLAYERS ?= " \
+  ##OEROOT##/meta \
+  ##OEROOT##/meta-poky \
+  ##OEROOT##/../meta-openembedded/meta-oe \
+  ##OEROOT##/../meta-openembedded/meta-multimedia \
+  ##OEROOT##/../meta-laird-cp \
+  ##OEROOT##/../meta-beacon-nxp \
+  ##OEROOT##/../meta-beacon-common \
+  ##OEROOT##/../meta-imx-aacp \
+  ##OEROOT##/../meta-freescale \
+  ##OEROOT##/../meta-freescale-3rdparty \
+  ##OEROOT##/../meta-freescale-distro \
+  ##OEROOT##/../meta-fsl-bsp-release/imx/meta-bsp \
+  ##OEROOT##/../meta-fsl-bsp-release/imx/meta-sdk \
+  ##OEROOT##/../meta-fsl-bsp-release/imx/meta-ml \
+  ##OEROOT##/../meta-browser \
+  ##OEROOT##/../meta-rust \
+  ##OEROOT##/../meta-openembedded/meta-gnome \
+  ##OEROOT##/../meta-openembedded/meta-networking \
+  ##OEROOT##/../meta-openembedded/meta-python \
+  ##OEROOT##/../meta-openembedded/meta-filesystems \
+  ##OEROOT##/../meta-qt5 \
+  "
+  
+
