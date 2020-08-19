@@ -22,3 +22,7 @@ CONF_VERSION = "1"
 DL_DIR="/opt/freescale/yocto/imx/download"
 SSTATE_DIR="/opt/freescale/yocto/imx/sstate-cache"
 INTERNAL_MIRROR = "http://localhost"
+
+PREFERRED_RPROVIDER_wpa-supplicant = "sterling-supplicant-lwb"
+PREFERRED_RPROVIDER_wpa-supplicant-cli = "sterling-supplicant-lwb"
+PREFERRED_RPROVIDER_wpa-supplicant-passphrase = "sterling-supplicant-lwb"
