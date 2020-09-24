@@ -65,4 +65,9 @@ SRC_URI += " \
 	file://0047-arm64-dts-beacon-imx8mm-n-lvds-Reduce-LCD-flicker.patch \
 	file://0048-arm64-dts-beacon-imx8mm-hdmi-Enable-HDMI-Audio.patch \
 	file://0049-arm64-defconfig-Enable-ADV7535-Audio.patch \
+	file://0050-eeprom-Rename-the-LPD-EEPROM-decoder-to-beacon-produ.patch \
+	file://0051-arm64-dts-beacon-imx8mn-baseboard-Fix-PDM-Mux.patch \
+	file://0052-Input-ili210x-Enable-suspend-resume-functions.patch \
+	file://0053-arm64-dts-beacon-imx8mm-Add-optional-support-for-HDM.patch \
+	file://0054-arm64-dts-beacon-imx8mn-spidev-Add-SPIdev-dts-file-f.patch \
 	"
