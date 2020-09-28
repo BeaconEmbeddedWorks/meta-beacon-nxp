@@ -4,7 +4,7 @@ BSPDIR := "${@os.path.abspath(os.path.dirname(d.getVar('FILE', True)) + '/../..'
 BBPATH = "${TOPDIR}"
 BBFILES ?= ""
 
-BBLAYERS ?= " \
+BBLAYERS = " \
   ##OEROOT##/meta \
   ##OEROOT##/meta-poky \
   ##OEROOT##/../meta-openembedded/meta-oe \

@@ -95,6 +95,8 @@ EOF
     done
 fi
 
-
+#Need to copy the local.conf.sample file as setup-environment script uses this 
+#to verify a build directory already exists
+cp $CWD/../sources/meta-beacon-nxp/conf/local.conf.sample $CWD/conf/local.conf.sample
 
 clean_up
