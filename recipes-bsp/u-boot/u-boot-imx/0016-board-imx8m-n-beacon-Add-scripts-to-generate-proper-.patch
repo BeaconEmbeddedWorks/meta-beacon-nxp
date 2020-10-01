@@ -1,0 +1,60 @@
+From 58f193ef7046237c1d3a415578ff151d0213fa98 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Thu, 16 Jul 2020 07:35:42 -0500
+Subject: [PATCH 16/23] board: imx8m/n beacon: Add scripts to generate proper
+ flexspi.bin
+
+There are some subtle differences between the way the flash files
+are build for flash.bin.
+
+This patch creates the script to make both Mini and Nano build for
+flexspi booting, and copies the newly generated file back to uboot
+directory with the nale flexspi.bin
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ txfrToMkImg-Flex-M.sh | 12 ++++++++++++
+ txfrToMkImg-Flex-N.sh | 12 ++++++++++++
+ 2 files changed, 24 insertions(+)
+ create mode 100755 txfrToMkImg-Flex-M.sh
+ create mode 100644 txfrToMkImg-Flex-N.sh
+
+diff --git a/txfrToMkImg-Flex-M.sh b/txfrToMkImg-Flex-M.sh
+new file mode 100755
+index 0000000000..e925b5a0aa
+--- /dev/null
++++ b/txfrToMkImg-Flex-M.sh
+@@ -0,0 +1,12 @@
++#!/bin/bash
++#
++cp ./arch/arm/dts/beacon-imx8mm-kit.dtb ../imx-mkimage/iMX8M/fsl-imx8mm-evk.dtb
++cp ./u-boot-nodtb.bin ../imx-mkimage/iMX8M
++cp ./u-boot-dtb.bin ../imx-mkimage/iMX8M
++cp ./spl/u-boot-spl.bin ../imx-mkimage/iMX8M
++cp ./spl/u-boot-spl-nodtb.bin ../imx-mkimage/iMX8M
++cd ../imx-mkimage
++make SOC=iMX8MM flash_evk_flexspi
++cp iMX8M/flash.bin ../uboot-imx/flashspi.bin
++cd ../uboot-imx
++
+diff --git a/txfrToMkImg-Flex-N.sh b/txfrToMkImg-Flex-N.sh
+new file mode 100644
+index 0000000000..fc11655c8c
+--- /dev/null
++++ b/txfrToMkImg-Flex-N.sh
+@@ -0,0 +1,12 @@
++#!/bin/bash
++#
++cp ./arch/arm/dts/beacon-imx8mn-kit.dtb ../imx-mkimage/iMX8M/fsl-imx8mn-evk.dtb
++cp ./u-boot-nodtb.bin ../imx-mkimage/iMX8M
++cp ./u-boot-dtb.bin ../imx-mkimage/iMX8M
++cp ./spl/u-boot-spl.bin ../imx-mkimage/iMX8M
++cp ./spl/u-boot-spl-nodtb.bin ../imx-mkimage/iMX8M
++cd ../imx-mkimage
++make SOC=iMX8MN flash_evk_flexspi
++cp iMX8M/flash.bin ../uboot-imx/flashspi.bin
++cd ../uboot-imx
++
+-- 
+2.17.1
+

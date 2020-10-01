@@ -1,0 +1,41 @@
+From 5a1a9e15dcc116a1f8e36f6725f9c6b27dbb6128 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Thu, 16 Jul 2020 10:37:11 -0500
+Subject: [PATCH 18/23] board: beacon: imx8mn:  Change the name imx8mn beacon
+ board
+
+The files were copied from the imx8mn_evk, but in reality we're
+calling in imx8mn_beacon.c to be consistent with the Mini board
+naming convention
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ board/beacon/imx8mn/Makefile                          | 4 ++--
+ board/beacon/imx8mn/{imx8mn_evk.c => imx8mn_beacon.c} | 0
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+ rename board/beacon/imx8mn/{imx8mn_evk.c => imx8mn_beacon.c} (100%)
+
+diff --git a/board/beacon/imx8mn/Makefile b/board/beacon/imx8mn/Makefile
+index 63c295724b..9e842de42f 100644
+--- a/board/beacon/imx8mn/Makefile
++++ b/board/beacon/imx8mn/Makefile
+@@ -1,10 +1,10 @@
+ #
+-# Copyright 2018 NXP
++# Copyright 2020 Compass Electronics Group, LLC
+ #
+ # SPDX-License-Identifier:      GPL-2.0+
+ #
+ 
+-obj-y += imx8mn_evk.o
++obj-y += imx8mn_beacon.o
+ obj-y += ../../freescale/common/
+ ifdef CONFIG_SPL_BUILD
+ obj-y += spl.o
+diff --git a/board/beacon/imx8mn/imx8mn_evk.c b/board/beacon/imx8mn/imx8mn_beacon.c
+similarity index 100%
+rename from board/beacon/imx8mn/imx8mn_evk.c
+rename to board/beacon/imx8mn/imx8mn_beacon.c
+-- 
+2.17.1
+
