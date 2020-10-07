@@ -1,0 +1,70 @@
+From c41aef2f95759007f518f1b2f4ef973a1a657d78 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Mon, 5 Oct 2020 10:37:54 -0500
+Subject: [PATCH 60/62] Input: ili210x: Enable reguator support
+
+The datasheet used for the Ampire LCD shows the interface for the touch
+controller has a VDD pin for the touch controller.
+
+This patch adds optional regulator support for the touchscreen regulator.
+This appears to resolve issues where the regulator is powered down due to
+lack of consumers and keeps the regulator available when the touchscreen
+controller needs it.
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ drivers/input/touchscreen/ili210x.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/drivers/input/touchscreen/ili210x.c b/drivers/input/touchscreen/ili210x.c
+index f0044d645336..44f9c47b539f 100644
+--- a/drivers/input/touchscreen/ili210x.c
++++ b/drivers/input/touchscreen/ili210x.c
+@@ -11,6 +11,7 @@
+ #include <linux/sizes.h>
+ #include <linux/slab.h>
+ #include <asm/unaligned.h>
++#include <linux/regulator/consumer.h>
+ 
+ #define ILI2XXX_POLL_PERIOD	20
+ 
+@@ -43,6 +44,7 @@ struct ili210x {
+ 	struct touchscreen_properties prop;
+ 	const struct ili2xxx_chip *chip;
+ 	bool stop;
++	struct regulator *reg_vdd;
+ };
+ 
+ static int ili210x_read_reg(struct i2c_client *client,
+@@ -355,6 +357,7 @@ static int ili210x_i2c_probe(struct i2c_client *client,
+ 	struct input_dev *input;
+ 	int error;
+ 	unsigned int max_xy;
++	struct regulator *reg_vdd;
+ 
+ 	dev_dbg(dev, "Probing for ILI210X I2C Touschreen driver");
+ 
+@@ -371,6 +374,12 @@ static int ili210x_i2c_probe(struct i2c_client *client,
+ 		return -EINVAL;
+ 	}
+ 
++	reg_vdd = devm_regulator_get_optional(&client->dev, "vdd");
++	if (PTR_ERR(reg_vdd) == -EPROBE_DEFER)
++		return -EPROBE_DEFER;
++
++	error = regulator_enable(reg_vdd); /* regulator is optional so ignore error */
++
+ 	reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
+ 	if (IS_ERR(reset_gpio))
+ 		return PTR_ERR(reset_gpio);
+@@ -398,6 +407,7 @@ static int ili210x_i2c_probe(struct i2c_client *client,
+ 	priv->input = input;
+ 	priv->reset_gpio = reset_gpio;
+ 	priv->chip = chip;
++	priv->reg_vdd = reg_vdd;
+ 	i2c_set_clientdata(client, priv);
+ 
+ 	/* Setup input device */
+-- 
+2.17.1
+

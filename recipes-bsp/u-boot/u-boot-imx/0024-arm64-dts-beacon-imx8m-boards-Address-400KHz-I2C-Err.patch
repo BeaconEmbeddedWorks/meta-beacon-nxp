@@ -1,0 +1,115 @@
+From c81a143d07d9dce53ecc28a9bb63d347cfcf7d00 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Mon, 5 Oct 2020 07:37:11 -0500
+Subject: [PATCH 24/24] arm64: dts: beacon-imx8m boards: Address 400KHz I2C
+ Errata
+
+There is an errata (e7805) for the i.MX8M Mini which states when
+clock is set to 400KHz, the SCL low period violates the i2c spec
+if 1.3 uS minimum.
+
+ERR007805 states the same message for the i.MX8M Nano
+
+This patch slows the clock to 384KHz.
+
+Fixes: PHOENIX8-179
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ arch/arm/dts/beacon-imx8mm-baseboard.dtsi | 4 ++--
+ arch/arm/dts/beacon-imx8mm-som.dtsi       | 4 ++--
+ arch/arm/dts/beacon-imx8mn-baseboard.dtsi | 4 ++--
+ arch/arm/dts/beacon-imx8mn-som.dtsi       | 4 ++--
+ 4 files changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/arch/arm/dts/beacon-imx8mm-baseboard.dtsi b/arch/arm/dts/beacon-imx8mm-baseboard.dtsi
+index 7ae53ad089..aa9a1a355d 100644
+--- a/arch/arm/dts/beacon-imx8mm-baseboard.dtsi
++++ b/arch/arm/dts/beacon-imx8mm-baseboard.dtsi
+@@ -271,7 +271,7 @@
+ };
+ 
+ &i2c2 {
+-	clock-frequency = <400000>;
++	clock-frequency = <384000>;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_i2c2>;
+ 	status = "okay";
+@@ -280,7 +280,7 @@
+ 
+ &i2c4 {
+ 
+-	clock-frequency = <400000>;
++	clock-frequency = <384000>;
+ 	pinctrl-names = "default", "gpio";
+ 	pinctrl-0 = <&pinctrl_i2c4>;
+ 	pinctrl-1 = <&pinctrl_i2c4_gpio>;
+diff --git a/arch/arm/dts/beacon-imx8mm-som.dtsi b/arch/arm/dts/beacon-imx8mm-som.dtsi
+index 43e6a26a07..89d20b5914 100644
+--- a/arch/arm/dts/beacon-imx8mm-som.dtsi
++++ b/arch/arm/dts/beacon-imx8mm-som.dtsi
+@@ -53,7 +53,7 @@
+ };
+ 
+ &i2c1 {
+-	clock-frequency = <400000>;
++	clock-frequency = <384000>;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_i2c1>;
+ 	status = "okay";
+@@ -210,7 +210,7 @@
+ 
+ 
+ &i2c3 {
+-	clock-frequency = <400000>;
++	clock-frequency = <384000>;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_i2c3>;
+ 	status = "okay";
+diff --git a/arch/arm/dts/beacon-imx8mn-baseboard.dtsi b/arch/arm/dts/beacon-imx8mn-baseboard.dtsi
+index 46caa7089d..e3c44e91e6 100644
+--- a/arch/arm/dts/beacon-imx8mn-baseboard.dtsi
++++ b/arch/arm/dts/beacon-imx8mn-baseboard.dtsi
+@@ -240,7 +240,7 @@
+ };
+ 
+ &i2c2 {
+-	clock-frequency = <400000>;
++	clock-frequency = <384000>;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_i2c2>;
+ 	status = "okay";
+@@ -248,7 +248,7 @@
+ 
+ &i2c4 {
+ 
+-	clock-frequency = <400000>;
++	clock-frequency = <384000>;
+ 	pinctrl-names = "default", "gpio";
+ 	pinctrl-0 = <&pinctrl_i2c4>;
+ 	pinctrl-1 = <&pinctrl_i2c4_gpio>;
+diff --git a/arch/arm/dts/beacon-imx8mn-som.dtsi b/arch/arm/dts/beacon-imx8mn-som.dtsi
+index 5342ce3cf6..5c3ed61cfd 100644
+--- a/arch/arm/dts/beacon-imx8mn-som.dtsi
++++ b/arch/arm/dts/beacon-imx8mn-som.dtsi
+@@ -57,7 +57,7 @@
+ };
+ 
+ &i2c1 {
+-	clock-frequency = <400000>;
++	clock-frequency = <384000>;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_i2c1>;
+ 	status = "okay";
+@@ -213,7 +213,7 @@
+ };
+ 
+ &i2c3 {
+-	clock-frequency = <400000>;
++	clock-frequency = <384000>;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_i2c3>;
+ 	status = "okay";
+-- 
+2.17.1
+

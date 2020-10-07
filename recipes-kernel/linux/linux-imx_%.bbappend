@@ -70,4 +70,12 @@ SRC_URI += " \
 	file://0052-Input-ili210x-Enable-suspend-resume-functions.patch \
 	file://0053-arm64-dts-beacon-imx8mm-Add-optional-support-for-HDM.patch \
 	file://0054-arm64-dts-beacon-imx8mn-spidev-Add-SPIdev-dts-file-f.patch \
+	file://0055-LF-335-drm-bridge-sec-dsim-solve-fallthrough-build-w.patch \
+	file://0056-MLK-23694-10-drm-imx-sec-dsim-NULL-panel-ptr-when-ho.patch \
+	file://0057-MLK-21880-1-drm-bridge-sec-dsim-correct-DSIM-version.patch \
+	file://0058-drm-bridge-sec-dsim-Remove-version-warning.patch \
+	file://0059-arm64-dts-beacon-imx8m-boards-Address-400KHz-I2C-Err.patch \
+	file://0060-Input-ili210x-Enable-reguator-support.patch \
+	file://0061-arm64-dts-beacon-imx8m-kits-Assign-regulator-to-touc.patch \
+	file://0062-arm64-dts-beacon-imx8mn-hdmi-Enable-IRQ.patch \
 	"

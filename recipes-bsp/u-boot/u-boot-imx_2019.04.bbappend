@@ -29,4 +29,5 @@ SRC_URI += " \
 	file://0021-board-imx8m-n-beacon-Enable-RAMDisk-booting.patch \
 	file://0022-imx-beacon-imx8mn-Update-RAM-timings.patch \
 	file://0023-imx8mm_beacon-Update-DTB-for-I-Temp-vs-C-Temp-parts.patch \
+	file://0024-arm64-dts-beacon-imx8m-boards-Address-400KHz-I2C-Err.patch \
 	"
