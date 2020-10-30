@@ -78,4 +78,13 @@ SRC_URI += " \
 	file://0060-Input-ili210x-Enable-reguator-support.patch \
 	file://0061-arm64-dts-beacon-imx8m-kits-Assign-regulator-to-touc.patch \
 	file://0062-arm64-dts-beacon-imx8mn-hdmi-Enable-IRQ.patch \
+	file://0063-arm64-dts-beacon-imx8mm-n-kits-Fix-PMIC-IRQ.patch \
+	file://0064-arm64-dts-imx8mn-Adjust-1.2GHz-OPP-Voltage-to-OD-mod.patch \
+	file://0065-arm64-dts-beacon-imx8mm-n-baseboards-Fix-OTG-ID-pin.patch \
+	file://0066-arm64-dts-beacon-imx8mm-imx8mn-kits-Enable-FEC-reset.patch \
+	file://0067-arm64-dts-beacon-imx8m-n-kits-Correct-WDOG_B-pin-con.patch \
+	file://0068-arm64-dts-beacon-imx8mm-som-Fix-whitespace-indentati.patch \
+	file://0069-arm64-dts-imx8mm-n-beacon-baseboard-Correct-LED-defa.patch \
+	file://0070-ASoC-fsl_micfil-make-IRQ-message-info-and-not-an-err.patch \
+	file://0071-arm64-dts-beacon-imx8m-m-n-baseboards-Fix-OTG-VBUS-p.patch \
 	"

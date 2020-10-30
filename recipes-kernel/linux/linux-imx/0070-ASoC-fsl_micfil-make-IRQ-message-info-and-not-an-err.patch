@@ -1,0 +1,33 @@
+From f3c34145b6fd10486a8448497f546be5ece886b5 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Fri, 16 Oct 2020 08:29:30 -0500
+Subject: [PATCH 70/71] ASoC: fsl_micfil: make IRQ message info and not an
+ error
+
+When the IRQ's are being assigned, it prints an error message, but
+this isn't an error, it's just information.
+
+Change this message to dev_info instead of dev_error to quiet some
+splat.
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ sound/soc/fsl/fsl_micfil.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/soc/fsl/fsl_micfil.c b/sound/soc/fsl/fsl_micfil.c
+index 45dc1911f4b9..230423e203ca 100644
+--- a/sound/soc/fsl/fsl_micfil.c
++++ b/sound/soc/fsl/fsl_micfil.c
+@@ -2326,7 +2326,7 @@ static int fsl_micfil_probe(struct platform_device *pdev)
+ 	/* get IRQs */
+ 	for (i = 0; i < MICFIL_IRQ_LINES; i++) {
+ 		micfil->irq[i] = platform_get_irq(pdev, i);
+-		dev_err(&pdev->dev, "GET IRQ: %d\n", micfil->irq[i]);
++		dev_info(&pdev->dev, "GET IRQ: %d\n", micfil->irq[i]);
+ 		if (micfil->irq[i] < 0) {
+ 			dev_err(&pdev->dev, "no irq for node %s\n", pdev->name);
+ 			return micfil->irq[i];
+-- 
+2.17.1
+
