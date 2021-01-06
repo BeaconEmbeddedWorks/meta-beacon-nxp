@@ -1,0 +1,29 @@
+From 20d1d5aa7b96991f288fb289ae752e3594272b98 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Thu, 23 Jan 2020 16:10:10 -0600
+Subject: [PATCH 04/12] Limit Nano to 1GB of RAM
+
+The 2GB LPDDR part can only present half of the available space,
+so this patch cuts the size to 1GB.
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ include/configs/imx8mn_beacon.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/configs/imx8mn_beacon.h b/include/configs/imx8mn_beacon.h
+index f1c7c89654..5fdcbcf5cb 100644
+--- a/include/configs/imx8mn_beacon.h
++++ b/include/configs/imx8mn_beacon.h
+@@ -177,7 +177,7 @@
+ 
+ #define CONFIG_SYS_SDRAM_BASE		0x40000000
+ #define PHYS_SDRAM			0x40000000
+-#define PHYS_SDRAM_SIZE		0x80000000 /* 2GB DDR */
++#define PHYS_SDRAM_SIZE			SZ_1G
+ 
+ #define CONFIG_SYS_MEMTEST_START	PHYS_SDRAM
+ #define CONFIG_SYS_MEMTEST_END		(CONFIG_SYS_MEMTEST_START + \
+-- 
+2.17.1
+

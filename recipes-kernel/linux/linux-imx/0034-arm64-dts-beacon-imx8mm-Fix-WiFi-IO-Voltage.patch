@@ -1,0 +1,33 @@
+From 51eae4fb23fbb1124d4f0a73311991d69a3cd0ff Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Wed, 27 May 2020 11:12:04 -0500
+Subject: [PATCH 34/39] arm64: dts: beacon-imx8mm: Fix WiFi IO Voltage
+
+The WiFi chip is powered by 3.3V, but the VDDIO is 1.8. When polling
+the mmc0 inforation, it returns 3.3V for IO voltage.
+
+This patch assigns the vqmmc-supply to the buck5/7 supply to correctly
+return the VDDIO voltage of 1.8V.
+
+Fixes: PHOENIX8-172
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ arch/arm64/boot/dts/freescale/beacon-imx8mm-som.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/boot/dts/freescale/beacon-imx8mm-som.dtsi b/arch/arm64/boot/dts/freescale/beacon-imx8mm-som.dtsi
+index 012375d1249e..e79d3c046a5a 100644
+--- a/arch/arm64/boot/dts/freescale/beacon-imx8mm-som.dtsi
++++ b/arch/arm64/boot/dts/freescale/beacon-imx8mm-som.dtsi
+@@ -236,6 +236,7 @@
+ 	pm-ignore-notify;
+ 	keep-power-in-suspend;
+ 	mmc-pwrseq = <&usdhc1_pwrseq>;
++	vqmmc-supply = <&buck5_reg>;
+ 	status = "okay";
+ 
+ 	brcmf: bcrmf@1 {
+-- 
+2.17.1
+

@@ -1,0 +1,34 @@
+From e1a0a242ea78aea95d55eb0ca6eeb86aa2b170f4 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Mon, 10 Feb 2020 13:40:33 -0600
+Subject: [PATCH 10/12] configs: imx8mm_beacon: Fix mmc booting using uuid
+
+The mmc booting script is expecting the uuid to be available, but
+the script to fetch the uuid wasn't being run which causes a kernel
+panic.
+
+This patch makes the mmcboot sequence run 'finduuid' first before
+setting the bootargs to the kernel knows which device to use for
+root.
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ include/configs/imx8mm_beacon.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/configs/imx8mm_beacon.h b/include/configs/imx8mm_beacon.h
+index 6312be04ca..edaede5147 100644
+--- a/include/configs/imx8mm_beacon.h
++++ b/include/configs/imx8mm_beacon.h
+@@ -138,7 +138,7 @@
+ 	"loadimage=fatload mmc ${mmcdev}:${mmcpart} ${loadaddr} ${image}\0" \
+ 	"loadfdt=fatload mmc ${mmcdev}:${mmcpart} ${fdt_addr} ${fdt_file}\0" \
+ 	"mmcboot=echo Booting from mmc ...; " \
+-		"run mmcargs; " \
++		"run finduuid; run mmcargs; " \
+ 		"if test ${boot_fdt} = yes || test ${boot_fdt} = try; then " \
+ 			"if run loadfdt; then " \
+ 				"booti ${loadaddr} - ${fdt_addr}; " \
+-- 
+2.17.1
+

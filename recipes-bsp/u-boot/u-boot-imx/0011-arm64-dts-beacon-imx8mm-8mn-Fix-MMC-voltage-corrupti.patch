@@ -1,0 +1,43 @@
+From 002a4745ccf7cf39686a1555ccf73402cccf704d Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Tue, 11 Feb 2020 14:28:50 -0600
+Subject: [PATCH 11/12] arm64: dts: beacon imx8mm/8mn: Fix MMC voltage
+ corruption
+
+During the negotiation, some SD cards attempt to operate at 1.8V,
+however, the votage rail is fixed at 3.3 and can cause corruption
+issues if used at 1.8.
+
+This patch disables the 1.8V negotiation and operates only at 3.3
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ arch/arm/dts/beacon-imx8mm-baseboard.dtsi | 1 +
+ arch/arm/dts/beacon-imx8mn-baseboard.dtsi | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/arch/arm/dts/beacon-imx8mm-baseboard.dtsi b/arch/arm/dts/beacon-imx8mm-baseboard.dtsi
+index fda9376138..7ae53ad089 100644
+--- a/arch/arm/dts/beacon-imx8mm-baseboard.dtsi
++++ b/arch/arm/dts/beacon-imx8mm-baseboard.dtsi
+@@ -379,5 +379,6 @@
+ 	pinctrl-2 = <&pinctrl_usdhc2_200mhz>, <&pinctrl_usdhc2_gpio>;
+ 	bus-width = <4>;
+ 	vmmc-supply = <&reg_usdhc2_vmmc>;
++	no-1-8-v;
+ 	status = "okay";
+ };
+diff --git a/arch/arm/dts/beacon-imx8mn-baseboard.dtsi b/arch/arm/dts/beacon-imx8mn-baseboard.dtsi
+index 607573ec46..46caa7089d 100644
+--- a/arch/arm/dts/beacon-imx8mn-baseboard.dtsi
++++ b/arch/arm/dts/beacon-imx8mn-baseboard.dtsi
+@@ -327,5 +327,6 @@
+ 	pinctrl-2 = <&pinctrl_usdhc2_200mhz>, <&pinctrl_usdhc2_gpio>;
+ 	bus-width = <4>;
+ 	vmmc-supply = <&reg_usdhc2_vmmc>;
++	no-1-8-v;
+ 	status = "okay";
+ };
+-- 
+2.17.1
+

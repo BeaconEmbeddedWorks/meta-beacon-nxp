@@ -1,0 +1,41 @@
+From 12a1d5d0624900a7535cdd0ba38104f7eb6455d8 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Thu, 28 May 2020 10:02:06 -0500
+Subject: [PATCH 35/39] arm64: boot: dts: Fix UART3 Pull-ups
+
+According to the errata, pull-up resistors cannot be used with the GPIO
+connected to 3.3V.  The UART3 pins are using 3.3V and they're being pulled
+up which voilates the errata notice.
+
+This patch was fixed before, but overlooked when converted from alpha to
+beta hardware.
+
+Fixes: PHOENIX8-24
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ .../arm64/boot/dts/freescale/beacon-imx8mm-baseboard.dtsi | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/beacon-imx8mm-baseboard.dtsi b/arch/arm64/boot/dts/freescale/beacon-imx8mm-baseboard.dtsi
+index f7d875743957..bbe28512726a 100644
+--- a/arch/arm64/boot/dts/freescale/beacon-imx8mm-baseboard.dtsi
++++ b/arch/arm64/boot/dts/freescale/beacon-imx8mm-baseboard.dtsi
+@@ -272,10 +272,10 @@
+ 
+ 	pinctrl_uart3: uart3grp {
+ 		fsl,pins = <
+-			MX8MM_IOMUXC_ECSPI1_SCLK_UART3_DCE_RX		0x140
+-			MX8MM_IOMUXC_ECSPI1_MOSI_UART3_DCE_TX		0x140
+-			MX8MM_IOMUXC_ECSPI1_MISO_UART3_DCE_CTS_B	0x140
+-			MX8MM_IOMUXC_ECSPI1_SS0_UART3_DCE_RTS_B	0x140
++			MX8MM_IOMUXC_ECSPI1_SCLK_UART3_DCE_RX		0x40
++			MX8MM_IOMUXC_ECSPI1_MOSI_UART3_DCE_TX		0x40
++			MX8MM_IOMUXC_ECSPI1_MISO_UART3_DCE_CTS_B	0x40
++			MX8MM_IOMUXC_ECSPI1_SS0_UART3_DCE_RTS_B	0x40
+ 		>;
+ 	};
+ 
+-- 
+2.17.1
+

@@ -1,0 +1,36 @@
+From 0a273e49329d00ce73d9d28abd108254b276079c Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Tue, 18 Aug 2020 09:42:41 -0500
+Subject: [PATCH 51/53] arm64: dts: beacon-imx8mn-baseboard: Fix PDM Mux
+
+The digital microphone on the baseboard for the PDM mic only
+needs two pins, clock and PDM_STREAM0.
+
+This patch fixes the mux to only use these two pins.
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ arch/arm64/boot/dts/freescale/beacon-imx8mn-baseboard.dtsi | 5 -----
+ 1 file changed, 5 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/beacon-imx8mn-baseboard.dtsi b/arch/arm64/boot/dts/freescale/beacon-imx8mn-baseboard.dtsi
+index 6d92283699d0..d1788b02ab8d 100644
+--- a/arch/arm64/boot/dts/freescale/beacon-imx8mn-baseboard.dtsi
++++ b/arch/arm64/boot/dts/freescale/beacon-imx8mn-baseboard.dtsi
+@@ -189,13 +189,8 @@
+ 
+ 		pinctrl_pdm: pdmgrp {
+ 			fsl,pins = <
+-				MX8MN_IOMUXC_SAI5_MCLK_SAI5_MCLK	0xd6
+ 				MX8MN_IOMUXC_SAI5_RXC_PDM_CLK		0xd6
+-				MX8MN_IOMUXC_SAI5_RXFS_SAI5_RX_SYNC	0xd6
+ 				MX8MN_IOMUXC_SAI5_RXD0_PDM_BIT_STREAM0	0xd6
+-				MX8MN_IOMUXC_SAI5_RXD1_PDM_BIT_STREAM1	0xd6
+-				MX8MN_IOMUXC_SAI5_RXD2_PDM_BIT_STREAM2	0xd6
+-				MX8MN_IOMUXC_SAI5_RXD3_PDM_BIT_STREAM3	0xd6
+ 			>;
+ 		};
+ 
+-- 
+2.17.1
+

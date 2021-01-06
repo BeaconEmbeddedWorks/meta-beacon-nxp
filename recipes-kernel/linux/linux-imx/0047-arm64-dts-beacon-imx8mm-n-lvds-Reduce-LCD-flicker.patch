@@ -1,0 +1,83 @@
+From 9fba955e8a90e0a3724710f945e08edda2efbf31 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Thu, 16 Jul 2020 11:15:17 -0500
+Subject: [PATCH 47/49] arm64: dts: beacon-imx8mm/n-lvds: Reduce LCD flicker
+
+With the updated LVDS boards, some of the manual timing required
+by Linux isn't necessary anymore because the LVDS board has a sequencer
+chip that will setup the proper pins in their respective order, and
+therefore it doesn't require Linux to create the artificial delays.
+
+This patch removes the 'regulator-always-on' and regulator delays
+from devices related to the LVDS screen and all helps reduce LCD
+flicker during startup.
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ arch/arm64/boot/dts/freescale/beacon-imx8mm-lvds.dtsi | 5 +----
+ arch/arm64/boot/dts/freescale/beacon-imx8mn-lvds.dtsi | 5 +----
+ 2 files changed, 2 insertions(+), 8 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/beacon-imx8mm-lvds.dtsi b/arch/arm64/boot/dts/freescale/beacon-imx8mm-lvds.dtsi
+index 0d359894f277..cdbcd839b96c 100644
+--- a/arch/arm64/boot/dts/freescale/beacon-imx8mm-lvds.dtsi
++++ b/arch/arm64/boot/dts/freescale/beacon-imx8mm-lvds.dtsi
+@@ -9,7 +9,7 @@
+ 		pwms = <&pwm1 0 20000>;
+ 		brightness-levels = <0 4 8 16 32 64 128 255>;
+ 		default-brightness-level = <6>;
+-		power-supply = <&reg_lcd>;
++		power-supply = <&reg_lcd_reset>;
+ 	};
+ 
+ 	reg_lcd: regulator-lcd {
+@@ -21,8 +21,6 @@
+ 		regulator-max-microvolt = <3300000>;
+ 		gpio = <&gpio1 8 GPIO_ACTIVE_HIGH>;
+ 		enable-active-high;
+-		startup-delay-us = <500000>;
+-		regulator-always-on;
+ 	};
+ 
+ 	reg_lcd_reset: regulator-lcd-reset {
+@@ -35,7 +33,6 @@
+ 		gpio = <&gpio1 15 GPIO_ACTIVE_HIGH>;
+ 		enable-active-high;
+ 		vin-supply = <&reg_lcd>;
+-		regulator-always-on;
+ 	};
+ };
+ 
+diff --git a/arch/arm64/boot/dts/freescale/beacon-imx8mn-lvds.dtsi b/arch/arm64/boot/dts/freescale/beacon-imx8mn-lvds.dtsi
+index 8d8be37b80c8..c27b95c7caee 100644
+--- a/arch/arm64/boot/dts/freescale/beacon-imx8mn-lvds.dtsi
++++ b/arch/arm64/boot/dts/freescale/beacon-imx8mn-lvds.dtsi
+@@ -9,7 +9,7 @@
+ 		pwms = <&pwm1 0 20000>;
+ 		brightness-levels = <0 4 8 16 32 64 128 255>;
+ 		default-brightness-level = <6>;
+-		power-supply = <&reg_lcd>;
++		power-supply = <&reg_lcd_reset>;
+ 	};
+ 
+ 	reg_lcd: regulator-lcd {
+@@ -21,8 +21,6 @@
+ 		regulator-max-microvolt = <3300000>;
+ 		gpio = <&gpio1 8 GPIO_ACTIVE_HIGH>;
+ 		enable-active-high;
+-		startup-delay-us = <500000>;
+-		regulator-always-on;
+ 	};
+ 
+ 	reg_lcd_reset: regulator-lcd-reset {
+@@ -35,7 +33,6 @@
+ 		gpio = <&gpio1 15 GPIO_ACTIVE_HIGH>;
+ 		enable-active-high;
+ 		vin-supply = <&reg_lcd>;
+-		regulator-always-on;
+ 	};
+ };
+ 
+-- 
+2.17.1
+

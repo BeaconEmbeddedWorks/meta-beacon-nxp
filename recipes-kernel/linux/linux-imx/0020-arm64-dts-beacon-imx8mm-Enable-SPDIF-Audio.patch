@@ -1,0 +1,75 @@
+From a77f71d8d13ef29032eeae754ad24221be48f33d Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Sun, 19 Apr 2020 06:14:39 -0500
+Subject: [PATCH 20/21] arm64: dts: beacon-imx8mm: Enable SPDIF Audio
+
+The beacon-imx8mm SOM has optional support for SPDIF.
+
+This patch enables the SPDIF
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ .../freescale/beacon-imx8mm-baseboard.dtsi    | 33 +++++++++++++++++++
+ 1 file changed, 33 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/freescale/beacon-imx8mm-baseboard.dtsi b/arch/arm64/boot/dts/freescale/beacon-imx8mm-baseboard.dtsi
+index bd91dd55064b..17a02fddfcb3 100644
+--- a/arch/arm64/boot/dts/freescale/beacon-imx8mm-baseboard.dtsi
++++ b/arch/arm64/boot/dts/freescale/beacon-imx8mm-baseboard.dtsi
+@@ -137,6 +137,14 @@
+ 			"AMIC", "MICBIAS",
+ 			"IN3R", "AMIC";
+ 	};
++
++	sound-spdif {
++		compatible = "fsl,imx-audio-spdif";
++		model = "imx-spdif";
++		spdif-controller = <&spdif1>;
++		spdif-out;
++		spdif-in;
++	};
+ };
+ 
+ &iomuxc {
+@@ -228,6 +236,14 @@
+ 			>;
+ 		};
+ 
++		pinctrl_spdif1: spdif1grp {
++			fsl,pins = <
++				MX8MM_IOMUXC_SPDIF_TX_SPDIF1_OUT	0xd6
++				MX8MM_IOMUXC_SPDIF_RX_SPDIF1_IN		0xd6
++				MX8MM_IOMUXC_SPDIF_EXT_CLK_SPDIF1_EXT_CLK	0xd6
++			>;
++		};
++
+ 		pinctrl_uart2: uart2grp {
+ 			fsl,pins = <
+ 				MX8MM_IOMUXC_UART2_RXD_UART2_DCE_RX	0x140
+@@ -443,6 +459,23 @@
+ 	status = "okay";
+ };
+ 
++&spdif1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_spdif1>;
++	assigned-clocks = <&clk IMX8MM_CLK_SPDIF1>;
++	assigned-clock-parents = <&clk IMX8MM_AUDIO_PLL1_OUT>;
++	assigned-clock-rates = <24576000>;
++	clocks = <&clk IMX8MM_CLK_AUDIO_AHB>, <&clk IMX8MM_CLK_24M>,
++		<&clk IMX8MM_CLK_SPDIF1>, <&clk IMX8MM_CLK_DUMMY>,
++		<&clk IMX8MM_CLK_DUMMY>, <&clk IMX8MM_CLK_DUMMY>,
++		<&clk IMX8MM_CLK_AUDIO_AHB>, <&clk IMX8MM_CLK_DUMMY>,
++		<&clk IMX8MM_CLK_DUMMY>, <&clk IMX8MM_CLK_DUMMY>,
++		<&clk IMX8MM_AUDIO_PLL1_OUT>, <&clk IMX8MM_AUDIO_PLL2_OUT>;
++	clock-names = "core", "rxtx0", "rxtx1", "rxtx2", "rxtx3",
++		"rxtx4", "rxtx5", "rxtx6", "rxtx7", "spba", "pll8k", "pll11k";
++	status = "okay";
++};
++
+ &uart2 { /* console */
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_uart2>;
+-- 
+2.17.1
+

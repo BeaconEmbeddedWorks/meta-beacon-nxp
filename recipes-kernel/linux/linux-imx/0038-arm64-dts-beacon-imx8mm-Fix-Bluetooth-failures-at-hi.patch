@@ -1,0 +1,66 @@
+From d6af249a5e31e3eca226f6c7087df29fd40cf246 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Fri, 5 Jun 2020 07:06:34 -0500
+Subject: [PATCH 38/39] arm64: dts: beacon-imx8mm: Fix Bluetooth failures at
+ high temp
+
+The Bluetooth driver supports sleeping and waking both the host and
+device when not being used.  Unfortunately, at higher temperatures
+(temperatures > 60C), the BT chip doesn't always wake.
+
+This patch removes the host and dev wake up pins which appear to keep
+the BT active, and allow the chip to remain active across higher
+temperatures.  Pin Mux is switched to configure these GPIO with pull-up
+resistors to prevent floating inputs from either side.
+
+Fixes: PHOENIX8-170
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+
+---
+V3:  Fix WL_REG_ON pull resistor
+
+V2:  Remove max-speed to make it a separate investigation
+     Make BT_REG_ON pull down, and add WL_REG_ON pull down as well
+     per request of Nathan Kro.
+---
+ arch/arm64/boot/dts/freescale/beacon-imx8mm-som.dtsi | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/beacon-imx8mm-som.dtsi b/arch/arm64/boot/dts/freescale/beacon-imx8mm-som.dtsi
+index e79d3c046a5a..017f48d8e02e 100644
+--- a/arch/arm64/boot/dts/freescale/beacon-imx8mm-som.dtsi
++++ b/arch/arm64/boot/dts/freescale/beacon-imx8mm-som.dtsi
+@@ -218,8 +218,6 @@
+ 	bluetooth {
+ 		compatible = "brcm,bcm43438-bt";
+ 		shutdown-gpios = <&gpio2 6 GPIO_ACTIVE_HIGH>;
+-		host-wakeup-gpios = <&gpio2 8 GPIO_ACTIVE_HIGH>;
+-		device-wakeup-gpios = <&gpio2 7 GPIO_ACTIVE_HIGH>;
+ 		clocks = <&osc_32k>;
+ 		clock-names = "extclk";
+ 	};
+@@ -338,16 +336,16 @@
+ 				MX8MM_IOMUXC_UART1_TXD_UART1_DCE_TX	0x140
+ 				MX8MM_IOMUXC_UART3_RXD_UART1_DCE_CTS_B	0x140
+ 				MX8MM_IOMUXC_UART3_TXD_UART1_DCE_RTS_B	0x140
+-				MX8MM_IOMUXC_SD1_DATA4_GPIO2_IO6	0x19
+-				MX8MM_IOMUXC_SD1_DATA5_GPIO2_IO7	0x19
+-				MX8MM_IOMUXC_SD1_DATA6_GPIO2_IO8	0x19
++				MX8MM_IOMUXC_SD1_DATA4_GPIO2_IO6	0x100
++				MX8MM_IOMUXC_SD1_DATA5_GPIO2_IO7	0x140
++				MX8MM_IOMUXC_SD1_DATA6_GPIO2_IO8	0x140
+ 				MX8MM_IOMUXC_GPIO1_IO00_ANAMIX_REF_CLK_32K	0x141
+ 			>;
+ 		};
+ 
+ 		pinctrl_usdhc1_gpio: usdhc1grpgpio {
+ 			fsl,pins = <
+-				MX8MM_IOMUXC_SD1_RESET_B_GPIO2_IO10	0x41
++				MX8MM_IOMUXC_SD1_RESET_B_GPIO2_IO10	0x100
+ 			>;
+ 		};
+ 
+-- 
+2.17.1
+

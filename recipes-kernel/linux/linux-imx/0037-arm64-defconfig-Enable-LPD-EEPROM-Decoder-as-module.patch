@@ -1,0 +1,30 @@
+From 5f723f3b775e839909ef2207cbb7a691b3a490e2 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Fri, 29 May 2020 09:43:20 -0500
+Subject: [PATCH 37/39] arm64: defconfig: Enable LPD EEPROM Decoder as module
+
+This patch enables the AT24 in the kernel and the LPD EEPROM as a
+module.  The device needs to be a module in order for it to be
+available after filesystem is mounted.
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ arch/arm64/configs/defconfig | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
+index 998d7f5ab221..641085f1b64c 100644
+--- a/arch/arm64/configs/defconfig
++++ b/arch/arm64/configs/defconfig
+@@ -223,6 +223,8 @@ CONFIG_BLK_DEV_NVME=m
+ CONFIG_SENSORS_FXOS8700=y
+ CONFIG_SENSORS_FXAS2100X=y
+ CONFIG_SRAM=y
++CONFIG_EEPROM_AT24=y
++CONFIG_LPD_EEPROM=m
+ CONFIG_EEPROM_AT25=m
+ # CONFIG_SCSI_PROC_FS is not set
+ CONFIG_BLK_DEV_SD=y
+-- 
+2.17.1
+

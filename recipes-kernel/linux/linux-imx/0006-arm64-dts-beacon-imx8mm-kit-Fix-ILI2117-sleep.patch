@@ -1,0 +1,49 @@
+From 6a654fed2bbb1f3a0828a07d59ada8c158f4c65f Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Tue, 11 Feb 2020 07:57:09 -0600
+Subject: [PATCH 06/21] arm64: dts: beacon-imx8mm-kit: Fix ILI2117 sleep
+
+With the custom driver removed, and the driver from 5.5 backported,
+this updates the device tree to point to the new driver.
+
+It also enables a pull-down resistor to help prevent floating
+inputs.
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ arch/arm64/boot/dts/freescale/beacon-imx8mm-lvds.dtsi | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/beacon-imx8mm-lvds.dtsi b/arch/arm64/boot/dts/freescale/beacon-imx8mm-lvds.dtsi
+index 7821383672a0..0d359894f277 100644
+--- a/arch/arm64/boot/dts/freescale/beacon-imx8mm-lvds.dtsi
++++ b/arch/arm64/boot/dts/freescale/beacon-imx8mm-lvds.dtsi
+@@ -41,14 +41,11 @@
+ 
+ &i2c2 {
+ 	ili_touch: ilitouch@26 {
+-		compatible = "ili,ili2117a";
++		compatible = "ilitek,ili2117";
+ 		reg = <0x26>;
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&pinctrl_touchscreen>;
+-		interrupts-extended = <&gpio1 9 IRQ_TYPE_LEVEL_LOW>;
+-		ili2117a,poll-period = <20>;
+-		ili2117a,max-touch = <2>;
+-		wakeup-source;
++		interrupts-extended = <&gpio1 9 IRQ_TYPE_EDGE_RISING>;
+ 	};
+ 
+ 	dsi_lvds_bridge: sn65dsi83@2d {
+@@ -138,7 +135,7 @@
+ 
+ 	pinctrl_touchscreen: touchscreengrp {
+ 		fsl,pins = <
+-			MX8MM_IOMUXC_GPIO1_IO09_GPIO1_IO9		0x19
++			MX8MM_IOMUXC_GPIO1_IO09_GPIO1_IO9		0x119
+ 		>;
+ 	};
+ 
+-- 
+2.17.1
+

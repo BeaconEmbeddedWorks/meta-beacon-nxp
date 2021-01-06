@@ -1,0 +1,54 @@
+From ad5f88bbdbedd2512cffa9e2d19933c0f4603dc5 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Fri, 16 Oct 2020 08:05:20 -0500
+Subject: [PATCH 67/71] arm64: dts: beacon imx8m/n kits: Correct WDOG_B pin
+ configuration
+
+The schematic note explicitly states to enable the internal pull-up,
+but this isn't being done.
+
+Per upstream:
+
+"... to make sure the WDOG_B pin works properly, better to enable
+internal pull up resistor
+... And schmitt input is NOT necessary for this
+WDOG_B output pin, so remove it; Open drain outputs provide more
+flexibility to a designer as they can be pulled-up to any voltage found
+in the system, so enable it as well.
+
+Signed-off-by: Anson Huang <Anson.Huang@nxp.com>
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ arch/arm64/boot/dts/freescale/beacon-imx8mm-som.dtsi | 2 +-
+ arch/arm64/boot/dts/freescale/beacon-imx8mn-som.dtsi | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/beacon-imx8mm-som.dtsi b/arch/arm64/boot/dts/freescale/beacon-imx8mm-som.dtsi
+index 2b4fc33276c8..3c6c876c7b1c 100644
+--- a/arch/arm64/boot/dts/freescale/beacon-imx8mm-som.dtsi
++++ b/arch/arm64/boot/dts/freescale/beacon-imx8mm-som.dtsi
+@@ -453,7 +453,7 @@
+ 
+ 		pinctrl_wdog: wdoggrp {
+ 			fsl,pins = <
+-				MX8MM_IOMUXC_GPIO1_IO02_WDOG1_WDOG_B		0xc6
++				MX8MM_IOMUXC_GPIO1_IO02_WDOG1_WDOG_B		0x166
+ 			>;
+ 		};
+ 
+diff --git a/arch/arm64/boot/dts/freescale/beacon-imx8mn-som.dtsi b/arch/arm64/boot/dts/freescale/beacon-imx8mn-som.dtsi
+index e3b057499d28..d17b58039440 100644
+--- a/arch/arm64/boot/dts/freescale/beacon-imx8mn-som.dtsi
++++ b/arch/arm64/boot/dts/freescale/beacon-imx8mn-som.dtsi
+@@ -431,7 +431,7 @@
+ 
+ 	pinctrl_wdog: wdoggrp {
+ 		fsl,pins = <
+-			MX8MN_IOMUXC_GPIO1_IO02_WDOG1_WDOG_B		0xc6
++			MX8MN_IOMUXC_GPIO1_IO02_WDOG1_WDOG_B		0x166
+ 		>;
+ 	};
+ 
+-- 
+2.17.1
+

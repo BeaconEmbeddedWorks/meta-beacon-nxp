@@ -1,0 +1,215 @@
+From ea573b58a5631ad32b1a11e0548b8ff09d000fcd Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Fri, 24 Jan 2020 09:33:44 -0600
+Subject: [PATCH 05/12] arm64: dts: beacon-imx8mn-kit: Fix PMIC node for
+ 2019.04
+
+The PMIC node is copied from the kernel, but it doesn't support
+the proper 'compatible' flag, and therefore doesn't get properly
+configured.
+
+This patch sync's the device tree node for the PMIC with that of
+the i.MX8M Mini kit since it uses the same PMIC and LPDDR like
+the Beacon Nano kit.
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ arch/arm/dts/beacon-imx8mn-som.dtsi | 104 ++++++++++++++++++----------
+ 1 file changed, 66 insertions(+), 38 deletions(-)
+
+diff --git a/arch/arm/dts/beacon-imx8mn-som.dtsi b/arch/arm/dts/beacon-imx8mn-som.dtsi
+index fa8cb55d1b..5342ce3cf6 100644
+--- a/arch/arm/dts/beacon-imx8mn-som.dtsi
++++ b/arch/arm/dts/beacon-imx8mn-som.dtsi
+@@ -62,21 +62,27 @@
+ 	pinctrl-0 = <&pinctrl_i2c1>;
+ 	status = "okay";
+ 
+-	pmic@4b {
++	pmic: bd71837@4b {
+ 		reg = <0x4b>;
+-		compatible = "rohm,bd71847";
++		compatible = "rohm,bd71837";
++		/* PMIC BD71837 PMIC_nINT GPIO1_IO3 */
+ 		pinctrl-0 = <&pinctrl_pmic>;
+-		interrupt-parent = <&gpio1>;
+-		interrupts = <3 GPIO_ACTIVE_LOW>;
+-		rohm,reset-snvs-powered;
++		gpio_intr = <&gpio1 3 GPIO_ACTIVE_LOW>;
++
++		gpo {
++			rohm,drv = <0x0C>;	/* 0b0000_1100 all gpos with cmos output mode */
++		};
+ 
+ 		regulators {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 
++			bd71837,pmic-buck2-uses-i2c-dvs;
++			bd71837,pmic-buck2-dvs-voltage = <1000000>, <900000>, <0>; /* VDD_ARM: Run-Idle */
++
+ 			buck1_reg: regulator@0 {
+ 				reg = <0>;
+-				regulator-compatible = "BUCK1";
++				regulator-compatible = "buck1";
+ 				regulator-min-microvolt = <700000>;
+ 				regulator-max-microvolt = <1300000>;
+ 				regulator-boot-on;
+@@ -86,100 +92,122 @@
+ 
+ 			buck2_reg: regulator@1 {
+ 				reg = <1>;
+-				regulator-compatible = "BUCK2";
++				regulator-compatible = "buck2";
+ 				regulator-min-microvolt = <700000>;
+ 				regulator-max-microvolt = <1300000>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+ 				regulator-ramp-delay = <1250>;
+-				rohm,dvs-run-voltage = <1000000>;
+-				rohm,dvs-idle-voltage = <900000>;
+ 			};
+ 
+ 			buck3_reg: regulator@2 {
+-				// BUCK5 in datasheet
+ 				reg = <2>;
+-				regulator-compatible = "BUCK3";
++				regulator-compatible = "buck3";
++				regulator-min-microvolt = <700000>;
++				regulator-max-microvolt = <1300000>;
++			};
++
++			buck4_reg: regulator@3 {
++				reg = <3>;
++				regulator-compatible = "buck4";
++				regulator-min-microvolt = <700000>;
++				regulator-max-microvolt = <1300000>;
++			};
++
++			buck5_reg: regulator@4 {
++				reg = <4>;
++				regulator-compatible = "buck5";
+ 				regulator-min-microvolt = <700000>;
+ 				regulator-max-microvolt = <1350000>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+ 			};
+ 
+-			buck4_reg: regulator@3 {
+-				// BUCK6 in datasheet
+-				reg = <3>;
+-				regulator-compatible = "BUCK4";
++			buck6_reg: regulator@5 {
++				reg = <5>;
++				regulator-compatible = "buck6";
+ 				regulator-min-microvolt = <3000000>;
+ 				regulator-max-microvolt = <3300000>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+ 			};
+ 
+-			buck5_reg: regulator@4 {
+-				// BUCK7 in datasheet
+-				reg = <4>;
+-				regulator-compatible = "BUCK5";
++			buck7_reg: regulator@6 {
++				reg = <6>;
++				regulator-compatible = "buck7";
+ 				regulator-min-microvolt = <1605000>;
+ 				regulator-max-microvolt = <1995000>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+ 			};
+ 
+-			buck6_reg: regulator@5 {
+-				// BUCK8 in datasheet
+-				reg = <5>;
+-				regulator-compatible = "BUCK6";
++			buck8_reg: regulator@7 {
++				reg = <7>;
++				regulator-compatible = "buck8";
+ 				regulator-min-microvolt = <800000>;
+ 				regulator-max-microvolt = <1400000>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+ 			};
+ 
+-			ldo1_reg: regulator@6 {
+-				reg = <6>;
+-				regulator-compatible = "LDO1";
++			ldo1_reg: regulator@8 {
++				reg = <8>;
++				regulator-compatible = "ldo1";
+ 				regulator-min-microvolt = <3000000>;
+ 				regulator-max-microvolt = <3300000>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+ 			};
+ 
+-			ldo2_reg: regulator@7 {
+-				reg = <7>;
+-				regulator-compatible = "LDO2";
++			ldo2_reg: regulator@9 {
++				reg = <9>;
++				regulator-compatible = "ldo2";
+ 				regulator-min-microvolt = <900000>;
+ 				regulator-max-microvolt = <900000>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+ 			};
+ 
+-			ldo3_reg: regulator@8 {
+-				reg = <8>;
+-				regulator-compatible = "LDO3";
++			ldo3_reg: regulator@10 {
++				reg = <10>;
++				regulator-compatible = "ldo3";
+ 				regulator-min-microvolt = <1800000>;
+ 				regulator-max-microvolt = <3300000>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+ 			};
+ 
+-			ldo4_reg: regulator@9 {
+-				reg = <9>;
+-				regulator-compatible = "LDO4";
++			ldo4_reg: regulator@11 {
++				reg = <11>;
++				regulator-compatible = "ldo4";
+ 				regulator-min-microvolt = <900000>;
+ 				regulator-max-microvolt = <1800000>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+ 			};
+ 
+-			ldo6_reg: regulator@11 {
+-				reg = <11>;
+-				regulator-compatible = "LDO6";
++			ldo5_reg: regulator@12 {
++				reg = <12>;
++				regulator-compatible = "ldo5";
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <3300000>;
++			};
++
++			ldo6_reg: regulator@13 {
++				reg = <13>;
++				regulator-compatible = "ldo6";
+ 				regulator-min-microvolt = <900000>;
+ 				regulator-max-microvolt = <1800000>;
+ 				regulator-boot-on;
+ 				regulator-always-on;
+ 			};
++
++			ldo7_reg: regulator@14 {
++				reg = <14>;
++				regulator-compatible = "ldo7";
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <3300000>;
++			};
+ 		};
+ 	};
+ };
+-- 
+2.17.1
+

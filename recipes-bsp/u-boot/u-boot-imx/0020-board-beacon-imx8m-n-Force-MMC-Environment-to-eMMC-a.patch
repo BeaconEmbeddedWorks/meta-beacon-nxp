@@ -1,0 +1,148 @@
+From 38913434fa52bb05f3f41214d1d8fa57577b0ad5 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Fri, 17 Jul 2020 09:59:42 -0500
+Subject: [PATCH 20/23] board: beacon imx8m/n: Force MMC Environment to eMMC
+ always
+
+Currently, the environmental variables are stored on uSD when
+booting from uSD or eMMC when booting from eMMC.  To preserve
+the environmental variables with the SOM, this makes the device
+return eMMC when the system queries the mmcdev location. To
+fix this issue, there needs to be a check to determine if
+mmcdev is set already.  This will restore booting from uSD if
+desired.
+
+Fixes: PHOENIX8-183
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ board/beacon/imx8mm/imx8mm_beacon.c |  5 +++++
+ board/beacon/imx8mn/imx8mn_beacon.c |  5 +++++
+ board/freescale/common/mmc.c        |  3 ++-
+ include/configs/imx8mm_beacon.h     | 11 +++++------
+ include/configs/imx8mn_beacon.h     | 10 +++++++---
+ 5 files changed, 24 insertions(+), 10 deletions(-)
+
+diff --git a/board/beacon/imx8mm/imx8mm_beacon.c b/board/beacon/imx8mm/imx8mm_beacon.c
+index 25518aa2fb..da84aecdf5 100644
+--- a/board/beacon/imx8mm/imx8mm_beacon.c
++++ b/board/beacon/imx8mm/imx8mm_beacon.c
+@@ -514,6 +514,11 @@ struct display_info_t const displays[] = {{
+ size_t display_count = ARRAY_SIZE(displays);
+ #endif
+ 
++int board_mmc_get_env_dev(int devno)
++{
++	return CONFIG_SYS_MMC_ENV_DEV;
++}
++
+ int board_late_init(void)
+ {
+ #ifdef CONFIG_ENV_IS_IN_MMC
+diff --git a/board/beacon/imx8mn/imx8mn_beacon.c b/board/beacon/imx8mn/imx8mn_beacon.c
+index caa213e1d5..46737ab69f 100644
+--- a/board/beacon/imx8mn/imx8mn_beacon.c
++++ b/board/beacon/imx8mn/imx8mn_beacon.c
+@@ -493,6 +493,11 @@ struct display_info_t const displays[] = {{
+ size_t display_count = ARRAY_SIZE(displays);
+ #endif
+ 
++int board_mmc_get_env_dev(int devno)
++{
++	return CONFIG_SYS_MMC_ENV_DEV;
++}
++
+ int board_late_init(void)
+ {
+ #ifdef CONFIG_ENV_IS_IN_MMC
+diff --git a/board/freescale/common/mmc.c b/board/freescale/common/mmc.c
+index d886808dba..8f463c5bcd 100644
+--- a/board/freescale/common/mmc.c
++++ b/board/freescale/common/mmc.c
+@@ -37,7 +37,8 @@ void board_late_mmc_env_init(void)
+ 	if (!check_mmc_autodetect())
+ 		return;
+ 
+-	env_set_ulong("mmcdev", dev_no);
++	if (!env_get("mmcdev"))
++		env_set_ulong("mmcdev", dev_no);
+ 
+ 	/* Set mmcblk env */
+ 	sprintf(mmcblk, "/dev/mmcblk%dp2 rootwait rw",
+diff --git a/include/configs/imx8mm_beacon.h b/include/configs/imx8mm_beacon.h
+index edaede5147..484119cf6e 100644
+--- a/include/configs/imx8mm_beacon.h
++++ b/include/configs/imx8mm_beacon.h
+@@ -126,7 +126,7 @@
+ 	"fdt_file=" CONFIG_DEFAULT_FDT_FILE "\0" \
+ 	"initrd_addr=0x43800000\0"		\
+ 	"initrd_high=0xffffffffffffffff\0" \
+-	"mmcdev="__stringify(CONFIG_SYS_MMC_ENV_DEV)"\0" \
++	"mmcdev=1\0" \
+ 	"finduuid=part uuid mmc ${mmcdev}:2 uuid\0" \
+ 	"mmcpart=" __stringify(CONFIG_SYS_MMC_IMG_LOAD_PART) "\0" \
+ 	"mmcautodetect=yes\0" \
+@@ -196,7 +196,7 @@
+ 
+ #define CONFIG_ENV_OVERWRITE
+ #if defined(CONFIG_ENV_IS_IN_MMC)
+-#define CONFIG_ENV_OFFSET               (64 * SZ_64K)
++#define CONFIG_ENV_OFFSET               (-CONFIG_ENV_SIZE)
+ #elif defined(CONFIG_ENV_IS_IN_SPI_FLASH)
+ #define CONFIG_ENV_OFFSET		(4 * 1024 * 1024)
+ #define CONFIG_ENV_SECT_SIZE		(64 * 1024)
+@@ -204,12 +204,11 @@
+ #define CONFIG_ENV_SPI_CS		CONFIG_SF_DEFAULT_CS
+ #define CONFIG_ENV_SPI_MODE		CONFIG_SF_DEFAULT_MODE
+ #define CONFIG_ENV_SPI_MAX_HZ		CONFIG_SF_DEFAULT_SPEED
+-#elif defined(CONFIG_ENV_IS_IN_NAND)
+-#define CONFIG_ENV_OFFSET       (60 << 20)
+ #endif
++
+ #define CONFIG_ENV_SIZE			0x1000
+-#define CONFIG_SYS_MMC_ENV_DEV		1   /* USDHC2 */
+-#define CONFIG_MMCROOT			"/dev/mmcblk1p2"  /* USDHC2 */
++#define CONFIG_SYS_MMC_ENV_DEV		2	/* EMMC */
++#define CONFIG_SYS_MMC_ENV_PART	2	/* Use Boot1 partition */
+ 
+ /* Size of malloc() pool */
+ #define CONFIG_SYS_MALLOC_LEN		((CONFIG_ENV_SIZE + (2*1024) + (16*1024)) * 1024)
+diff --git a/include/configs/imx8mn_beacon.h b/include/configs/imx8mn_beacon.h
+index 2887aa5bc3..b31035c90b 100644
+--- a/include/configs/imx8mn_beacon.h
++++ b/include/configs/imx8mn_beacon.h
+@@ -92,7 +92,7 @@
+ 	"fdt_file=" CONFIG_DEFAULT_FDT_FILE "\0" \
+ 	"initrd_addr=0x43800000\0"		\
+ 	"initrd_high=0xffffffffffffffff\0" \
+-	"mmcdev="__stringify(CONFIG_SYS_MMC_ENV_DEV)"\0" \
++	"mmcdev=1\0" \
+ 	"mmcpart=" __stringify(CONFIG_SYS_MMC_IMG_LOAD_PART) "\0" \
+ 	"finduuid=part uuid mmc ${mmcdev}:2 uuid\0" \
+ 	"mmcautodetect=yes\0" \
+@@ -161,8 +161,11 @@
+ 
+ #define CONFIG_ENV_OVERWRITE
+ 
+-/* Default ENV offset is 4MB for SD/EMMC/FSPI, but NAND uses 60MB offset, overridden by env_get_offset */
++#if defined(CONFIG_ENV_IS_IN_MMC)
++#define CONFIG_ENV_OFFSET               (-CONFIG_ENV_SIZE)
++#else
+ #define CONFIG_ENV_OFFSET               (64 * SZ_64K)
++#endif
+ 
+ #define CONFIG_ENV_SECT_SIZE		(64 * 1024)
+ #define CONFIG_ENV_SPI_BUS		CONFIG_SF_DEFAULT_BUS
+@@ -171,7 +174,8 @@
+ #define CONFIG_ENV_SPI_MAX_HZ		CONFIG_SF_DEFAULT_SPEED
+ 
+ #define CONFIG_ENV_SIZE			0x1000
+-#define CONFIG_SYS_MMC_ENV_DEV		1   /* USDHC2 */
++#define CONFIG_SYS_MMC_ENV_DEV		2	/* eMMC */
++#define CONFIG_SYS_MMC_ENV_PART	2	/* Use Boot1 partition */
+ 
+ /* Size of malloc() pool */
+ #define CONFIG_SYS_MALLOC_LEN		((CONFIG_ENV_SIZE + (2*1024) + (16*1024)) * 1024)
+-- 
+2.17.1
+
