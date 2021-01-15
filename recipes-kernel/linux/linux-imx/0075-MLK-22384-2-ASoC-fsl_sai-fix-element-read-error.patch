@@ -1,0 +1,58 @@
+From 64597a73f066dc0da5a82b611c8066e9f2fbebcb Mon Sep 17 00:00:00 2001
+From: Viorel Suman <viorel.suman@nxp.com>
+Date: Wed, 27 Nov 2019 10:33:06 +0200
+Subject: [PATCH 75/78] MLK-22384-2: ASoC: fsl_sai: fix element read error
+
+The registers must be readable in order to manage the related
+amixer controls while device is suspended - thus remove them
+from volatile list. In the same time reading counter registers
+shall bypass regmap cache at runtime, otherwise cached value
+will be read.
+
+Signed-off-by: Viorel Suman <viorel.suman@nxp.com>
+(cherry picked from commit ab028ee2ce39e1ba53bb3dfc127b6fed4758cc38)
+---
+ sound/soc/fsl/fsl_sai.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
+index 7e2be27512ba..baaa876d1736 100644
+--- a/sound/soc/fsl/fsl_sai.c
++++ b/sound/soc/fsl/fsl_sai.c
+@@ -1010,10 +1010,18 @@ int fsl_sai_get_reg(struct snd_kcontrol *kcontrol,
+ 	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
+ 	struct soc_mreg_control *mc =
+ 		(struct soc_mreg_control *)kcontrol->private_value;
++	bool pm_active = pm_runtime_active(component->dev);
+ 	unsigned int regval;
+ 	int ret;
+ 
++	if (pm_active)
++		regcache_cache_bypass(component->regmap, true);
++
+ 	ret = snd_soc_component_read(component, mc->regbase, &regval);
++
++	if (pm_active)
++		regcache_cache_bypass(component->regmap, false);
++
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -1270,14 +1278,6 @@ static bool fsl_sai_volatile_reg(struct device *dev, unsigned int reg)
+ 	case FSL_SAI_RDR5:
+ 	case FSL_SAI_RDR6:
+ 	case FSL_SAI_RDR7:
+-	case FSL_SAI_TTCTL:
+-	case FSL_SAI_RTCTL:
+-	case FSL_SAI_TTCTN:
+-	case FSL_SAI_RTCTN:
+-	case FSL_SAI_TBCTN:
+-	case FSL_SAI_RBCTN:
+-	case FSL_SAI_TTCAP:
+-	case FSL_SAI_RTCAP:
+ 		return true;
+ 	default:
+ 		return false;
+-- 
+2.17.1
+
