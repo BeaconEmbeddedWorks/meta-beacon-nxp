@@ -1,0 +1,77 @@
+From 243e539a111c9a8767430a5d77c97a3914750286 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Fri, 16 Oct 2020 08:22:08 -0500
+Subject: [PATCH 69/71] arm64: dts: imx8mm/n beacon-baseboard: Correct LED
+ default state
+
+From upstream:
+There is no LED default state "none".  leds-gpio driver maps it to
+"off", so correct them to fix dtbs_check warnings like:
+
+  arch/arm64/boot/dts/freescale/imx8mm-beacon-kit.dt.yaml:
+    leds: led0:default-state:0: 'none' is not one of ['on', 'off', 'keep']
+
+Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ arch/arm64/boot/dts/freescale/beacon-imx8mm-baseboard.dtsi | 6 +++---
+ arch/arm64/boot/dts/freescale/beacon-imx8mn-baseboard.dtsi | 6 +++---
+ 2 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/beacon-imx8mm-baseboard.dtsi b/arch/arm64/boot/dts/freescale/beacon-imx8mm-baseboard.dtsi
+index 6e9b5872f65a..7abd4b97dd09 100644
+--- a/arch/arm64/boot/dts/freescale/beacon-imx8mm-baseboard.dtsi
++++ b/arch/arm64/boot/dts/freescale/beacon-imx8mm-baseboard.dtsi
+@@ -42,19 +42,19 @@
+ 		led0 {
+ 			label = "gen_led0";
+ 			gpios = <&pca6416_1 4 GPIO_ACTIVE_HIGH>;
+-			default-state = "none";
++			default-state = "off";
+ 		};
+ 
+ 		led1 {
+ 			label = "gen_led1";
+ 			gpios = <&pca6416_1 5 GPIO_ACTIVE_HIGH>;
+-			default-state = "none";
++			default-state = "off";
+ 		};
+ 
+ 		led2 {
+ 			label = "gen_led2";
+ 			gpios = <&pca6416_1 6 GPIO_ACTIVE_HIGH>;
+-			default-state = "none";
++			default-state = "off";
+ 		};
+ 
+ 		led3 {
+diff --git a/arch/arm64/boot/dts/freescale/beacon-imx8mn-baseboard.dtsi b/arch/arm64/boot/dts/freescale/beacon-imx8mn-baseboard.dtsi
+index 5d258d759409..4aea29e38524 100644
+--- a/arch/arm64/boot/dts/freescale/beacon-imx8mn-baseboard.dtsi
++++ b/arch/arm64/boot/dts/freescale/beacon-imx8mn-baseboard.dtsi
+@@ -43,19 +43,19 @@
+ 		led0 {
+ 			label = "gen_led0";
+ 			gpios = <&pca6416_1 4 GPIO_ACTIVE_HIGH>;
+-			default-state = "none";
++			default-state = "off";
+ 		};
+ 
+ 		led1 {
+ 			label = "gen_led1";
+ 			gpios = <&pca6416_1 5 GPIO_ACTIVE_HIGH>;
+-			default-state = "none";
++			default-state = "off";
+ 		};
+ 
+ 		led2 {
+ 			label = "gen_led2";
+ 			gpios = <&pca6416_1 6 GPIO_ACTIVE_HIGH>;
+-			default-state = "none";
++			default-state = "off";
+ 		};
+ 
+ 		led3 {
+-- 
+2.17.1
+

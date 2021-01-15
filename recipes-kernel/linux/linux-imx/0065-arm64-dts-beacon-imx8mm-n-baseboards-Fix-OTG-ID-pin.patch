@@ -1,0 +1,69 @@
+From 78be0f22c5a25ba0d0d8a13987326f2828646fa5 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Thu, 15 Oct 2020 15:17:16 -0500
+Subject: [PATCH 65/71] arm64: dts: beacon-imx8mm/n baseboards:  Fix OTG ID pin
+
+The OTG ID pin is not connected to the GPIO1-10, the Ethernet interrupt is.
+This patch removes the OTG-ID pin assignments to use the default configuration.
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ .../arm64/boot/dts/freescale/beacon-imx8mm-baseboard.dtsi | 8 --------
+ .../arm64/boot/dts/freescale/beacon-imx8mn-baseboard.dtsi | 8 --------
+ 2 files changed, 16 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/beacon-imx8mm-baseboard.dtsi b/arch/arm64/boot/dts/freescale/beacon-imx8mm-baseboard.dtsi
+index 6dac7281ebcf..6e9b5872f65a 100644
+--- a/arch/arm64/boot/dts/freescale/beacon-imx8mm-baseboard.dtsi
++++ b/arch/arm64/boot/dts/freescale/beacon-imx8mm-baseboard.dtsi
+@@ -219,12 +219,6 @@
+ 		>;
+ 	};
+ 
+-	pinctrl_usbotg: usbotggrp {
+-		fsl,pins = <
+-			MX8MM_IOMUXC_GPIO1_IO10_USB1_OTG_ID     0x41
+-		>;
+-	};
+-
+ 	pinctrl_pcal6414: pcal6414-gpio {
+ 		fsl,pins = <
+ 			MX8MM_IOMUXC_SAI2_MCLK_GPIO4_IO27        	0x19
+@@ -517,8 +511,6 @@
+ 
+ &usbotg1 {
+ 	vbus-supply = <&reg_usb_otg_vbus>;
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&pinctrl_usbotg>;
+ 	disable-over-current;
+ 	dr_mode="otg";
+ 	status = "okay";
+diff --git a/arch/arm64/boot/dts/freescale/beacon-imx8mn-baseboard.dtsi b/arch/arm64/boot/dts/freescale/beacon-imx8mn-baseboard.dtsi
+index d1788b02ab8d..5d258d759409 100644
+--- a/arch/arm64/boot/dts/freescale/beacon-imx8mn-baseboard.dtsi
++++ b/arch/arm64/boot/dts/freescale/beacon-imx8mn-baseboard.dtsi
+@@ -200,12 +200,6 @@
+ 			>;
+ 		};
+ 
+-		pinctrl_usbotg: usbotggrp {
+-			fsl,pins = <
+-				MX8MN_IOMUXC_GPIO1_IO10_USB1_OTG_ID     0x41
+-			>;
+-		};
+-
+ 		pinctrl_pcal6414: pcal6414-gpio {
+ 			fsl,pins = <
+ 				MX8MN_IOMUXC_SAI2_MCLK_GPIO4_IO27        	0x19
+@@ -483,8 +477,6 @@
+ 
+ &usbotg1 {
+ 	vbus-supply = <&reg_usb_otg_vbus>;
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&pinctrl_usbotg>;
+ 	disable-over-current;
+ 	dr_mode="otg";
+ 	status = "okay";
+-- 
+2.17.1
+
