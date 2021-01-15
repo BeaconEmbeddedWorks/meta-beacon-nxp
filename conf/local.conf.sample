@@ -19,8 +19,8 @@ PACKAGECONFIG_append_pn-qemu-system-native = " sdl"
 PACKAGECONFIG_append_pn-nativesdk-qemu = " sdl"
 CONF_VERSION = "1"
 
-DL_DIR="/opt/freescale/yocto/imx/download"
-SSTATE_DIR="/opt/freescale/yocto/imx/sstate-cache"
+DL_DIR="/home/beacon/beacon/yocto-cache/download"
+SSTATE_DIR="/home/beacon/beacon/yocto-cache/sstate-cache"
 INTERNAL_MIRROR = "http://localhost"
 
 PREFERRED_RPROVIDER_wpa-supplicant = "sterling-supplicant-lwb"
