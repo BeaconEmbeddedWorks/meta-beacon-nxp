@@ -23,6 +23,7 @@ clean_up()
    unset CWD TEMPLATES SHORTOPTS LONGOPTS ARGS PROGNAME
  #  unset generated_config updated
    unset MACHINE SDKMACHINE DISTRO OEROOT
+   
 }
 
 	while getopts m:d:x fsl_setup_flag 
@@ -74,6 +75,9 @@ EOF
 
     sleep 1
 
+    # copy new EULA into community so setup uses latest i.MX EULA
+    cp $CWD/../sources/meta-fsl-bsp-release/imx/EULA.txt $CWD/../sources/meta-freescale/EULA
+
     more -d $CWD/../sources/meta-freescale/EULA
     echo
     REPLY=
@@ -98,5 +102,7 @@ fi
 #Need to copy the local.conf.sample file as setup-environment script uses this 
 #to verify a build directory already exists
 cp $CWD/../sources/meta-beacon-nxp/conf/local.conf.sample $CWD/conf/local.conf.sample
+rm $CWD/../sources/meta-freescale/conf/machine/include/imx-base.inc
+rm $CWD/../sources/meta-freescale/classes/fsl-eula-unpack.bbclass
 
 clean_up
