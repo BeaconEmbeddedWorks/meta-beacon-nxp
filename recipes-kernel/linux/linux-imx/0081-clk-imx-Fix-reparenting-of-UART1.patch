@@ -1,0 +1,36 @@
+From dd8f8e9e31a0ebd511e19e512e1c2d0e2c3dd7e5 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Thu, 29 Apr 2021 08:12:42 -0500
+Subject: [PATCH 81/83] clk: imx: Fix reparenting of UART1
+
+There is a structure of pre-initialized clocks.  If these clocks
+get enabled, they cannot be re-parented.  Since the clock initialization
+for UARTS is done explictly at the end, there doesn't appear to be
+a need for pre-initializing it.
+
+sys_pll1_80m          1        1        0    80000000          0     0  50000
+   uart3              0        0        0    80000000          0     0  50000
+   uart3_root_clk       0        0        0    80000000          0     0  50000
+   uart1              1        1        0    80000000          0     0  50000
+   uart1_root_clk       2        2        0    80000000          0     0  50000
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ drivers/clk/imx/clk-imx8mn.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/clk/imx/clk-imx8mn.c b/drivers/clk/imx/clk-imx8mn.c
+index 00a3b83d3fd1..f7fe57c94e73 100644
+--- a/drivers/clk/imx/clk-imx8mn.c
++++ b/drivers/clk/imx/clk-imx8mn.c
+@@ -327,7 +327,6 @@ static int const clks_init_on[] __initconst = {
+ 	IMX8MN_CLK_DRAM_CORE,
+ 	IMX8MN_CLK_USB_BUS,
+ 	IMX8MN_CLK_DRAM_APB,
+-	IMX8MN_CLK_UART1_ROOT,
+ };
+ 
+ static struct clk ** const uart_clks[] __initconst = {
+-- 
+2.17.1
+
