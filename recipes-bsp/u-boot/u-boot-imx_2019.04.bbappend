@@ -30,4 +30,6 @@ SRC_URI += " \
 	file://0022-imx-beacon-imx8mn-Update-RAM-timings.patch \
 	file://0023-imx8mm_beacon-Update-DTB-for-I-Temp-vs-C-Temp-parts.patch \
 	file://0024-arm64-dts-beacon-imx8m-boards-Address-400KHz-I2C-Err.patch \
+	file://0025-board-beacon-Add-support-for-2GB-lpddr-on-Beacon-s-i.patch \
+	file://0026-imx8mm-beacon-Update-LPDDR4-RAM-timings.patch \
 	"
