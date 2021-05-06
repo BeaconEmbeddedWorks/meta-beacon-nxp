@@ -1,0 +1,30 @@
+From 7516fbf21db9416c3921cf933f9e4d0d25ed6db8 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Thu, 22 Apr 2021 15:28:20 -0500
+Subject: [PATCH 79/83] arm64: dts: beacon-imx8mm: Fix Bluetooth Timeout
+
+When operating above 3MBps, the system shows some instability which
+results in some timeouts.
+Slow the baud rate to 3MBps.
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ arch/arm64/boot/dts/freescale/beacon-imx8mm-som.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/beacon-imx8mm-som.dtsi b/arch/arm64/boot/dts/freescale/beacon-imx8mm-som.dtsi
+index 0512d40c8395..c1afe0672bc8 100644
+--- a/arch/arm64/boot/dts/freescale/beacon-imx8mm-som.dtsi
++++ b/arch/arm64/boot/dts/freescale/beacon-imx8mm-som.dtsi
+@@ -223,7 +223,7 @@
+ 		shutdown-gpios = <&gpio2 6 GPIO_ACTIVE_HIGH>;
+ 		clocks = <&osc_32k>;
+ 		clock-names = "extclk";
+-		max-speed = <4000000>;
++		max-speed = <3000000>;
+ 	};
+ };
+ 
+-- 
+2.17.1
+

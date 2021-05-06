@@ -12,6 +12,7 @@ do_configure_append() {
 
 
 KERNEL_MODULE_AUTOLOAD_append = " beacon-new-productid"
+KERNEL_MODULE_AUTOLOAD_append = " imx_sdma"
 
 #END_HEADER
 
@@ -94,4 +95,9 @@ SRC_URI += " \
 	file://0076-clk-imx8mm-Change-the-nand_usdhc_bus-clock-to-non-cr.patch \
 	file://0077-arch64-dts-imx8mm-Configure-spba-buses-for-DMA.patch \
 	file://0078-arch64-dts-imx8mn-Configure-spba-buses-for-DMA.patch \
+	file://0079-arm64-dts-beacon-imx8mm-Fix-Bluetooth-Timeout.patch \
+	file://0080-dt-bindings-imx8mn-Fix-reference-to-IMX8MN_CLK_UART1.patch \
+	file://0081-clk-imx-Fix-reparenting-of-UART1.patch \
+	file://0082-arm64-dts-beacon-imx8mn-som-Increase-Bluetooth-UART-.patch \
+	file://0083-dt-bindings-imx8mn-Fix-reference-to-IMX8MN_CLK_I2C4.patch \
 	"
