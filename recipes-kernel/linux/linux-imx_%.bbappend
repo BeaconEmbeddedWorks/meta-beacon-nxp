@@ -10,9 +10,8 @@ do_configure_append() {
 }
 
 
-
+KERNEL_MODULE_AUTOLOAD_prepend = " imx_sdma"
 KERNEL_MODULE_AUTOLOAD_append = " beacon-new-productid"
-KERNEL_MODULE_AUTOLOAD_append = " imx_sdma"
 
 #END_HEADER
 

@@ -23,6 +23,7 @@ DL_DIR="/home/beacon/beacon/yocto-cache/download"
 SSTATE_DIR="/home/beacon/beacon/yocto-cache/sstate-cache"
 INTERNAL_MIRROR = "http://localhost"
 
+PREFERRED_VERSION_imx-atf = "5.4.%"
 PREFERRED_RPROVIDER_wpa-supplicant = "sterling-supplicant-lwb"
 PREFERRED_RPROVIDER_wpa-supplicant-cli = "sterling-supplicant-lwb"
 PREFERRED_RPROVIDER_wpa-supplicant-passphrase = "sterling-supplicant-lwb"
