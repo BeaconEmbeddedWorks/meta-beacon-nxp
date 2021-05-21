@@ -88,10 +88,6 @@ SRC_URI += " \
 	file://0070-ASoC-fsl_micfil-make-IRQ-message-info-and-not-an-err.patch \
 	file://0071-arm64-dts-beacon-imx8m-m-n-baseboards-Fix-OTG-VBUS-p.patch \
 	file://0072-arm64-dts-Beacon-SOM-s-Increase-USDHC1-to-support-up.patch \
-	file://0073-ASoC-fsl_audmix-Add-spin-lock-to-protect-tdms.patch \
-	file://0074-MLK-22384-1-ASoC-fsl_sai-split-playback-and-capture-.patch \
-	file://0075-MLK-22384-2-ASoC-fsl_sai-fix-element-read-error.patch \
-	file://0076-clk-imx8mm-Change-the-nand_usdhc_bus-clock-to-non-cr.patch \
 	file://0077-arch64-dts-imx8mm-Configure-spba-buses-for-DMA.patch \
 	file://0078-arch64-dts-imx8mn-Configure-spba-buses-for-DMA.patch \
 	file://0079-arm64-dts-beacon-imx8mm-Fix-Bluetooth-Timeout.patch \
