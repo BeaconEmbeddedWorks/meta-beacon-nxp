@@ -12,7 +12,6 @@ BBLAYERS = " \
   ##OEROOT##/../meta-laird-cp \
   ##OEROOT##/../meta-beacon-nxp \
   ##OEROOT##/../meta-beacon-common \
-  ##OEROOT##/../meta-imx-aacp \
   ##OEROOT##/../meta-freescale \
   ##OEROOT##/../meta-freescale-3rdparty \
   ##OEROOT##/../meta-freescale-distro \

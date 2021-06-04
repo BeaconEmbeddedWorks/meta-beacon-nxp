@@ -102,7 +102,15 @@ fi
 #Need to copy the local.conf.sample file as setup-environment script uses this 
 #to verify a build directory already exists
 cp $CWD/../sources/meta-beacon-nxp/conf/local.conf.sample $CWD/conf/local.conf.sample
-rm $CWD/../sources/meta-freescale/conf/machine/include/imx-base.inc
-rm $CWD/../sources/meta-freescale/classes/fsl-eula-unpack.bbclass
+if [ -f $CWD/../sources/meta-freescale/conf/machine/include/imx-base.inc ]; then
+   rm $CWD/../sources/meta-freescale/conf/machine/include/imx-base.inc
+fi
+if [ -f $CWD/../sources/meta-freescale/classes/fsl-eula-unpack.bbclass ] ; then
+    rm $CWD/../sources/meta-freescale/classes/fsl-eula-unpack.bbclass
+fi
+
+#this is a hack to copy Laird firmware to release directory
+
+sh $CWD/../sources/meta-beacon-nxp/laird_hack.sh
 
 clean_up
