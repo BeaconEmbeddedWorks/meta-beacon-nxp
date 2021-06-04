@@ -1,0 +1,35 @@
+From a5a4164a9a65a1ba30a9bccd2daa272ff77a6783 Mon Sep 17 00:00:00 2001
+From: Adam Ford <aford173@gmail.com>
+Date: Thu, 3 Jun 2021 08:00:49 -0500
+Subject: [PATCH 28/28] imx8mm_beacon: Fix booting errors on commercial temp
+ parts
+
+The script to test for industrial temperature parts returns an
+error condition if the part is not an industrial temperature part.
+This is due to the if statement without an else when the if statement
+returns false.
+
+Fixes: PHOENIX8-321
+Fixes: fe39e44858fa ("imx8mm_beacon: Update DTB for I-Temp vs C-Temp parts")
+
+Signed-off-by: Adam Ford <aford173@gmail.com>
+---
+ include/configs/imx8mm_beacon.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/configs/imx8mm_beacon.h b/include/configs/imx8mm_beacon.h
+index e8e1ab7a00..8eac504719 100644
+--- a/include/configs/imx8mm_beacon.h
++++ b/include/configs/imx8mm_beacon.h
+@@ -144,7 +144,7 @@
+ 	"  fdt set /thermal-zones/cpu-thermal/trips/trip1 temperature < ${trip1} > \0"\
+ 	"loadimage=fatload mmc ${mmcdev}:${mmcpart} ${loadaddr} ${image}\0" \
+ 	"loadfdt=fatload mmc ${mmcdev}:${mmcpart} ${fdt_addr} ${fdt_file}; " \
+-	"  if test -n ${trip1} > 0 ; then run updatefdt; fi\0" \
++	"  if test -n ${trip1} > 0 ; then run updatefdt; else echo Commercial Temp; fi\0" \
+ 	"loadramdisk=load mmc ${mmcdev} ${ramdisk_addr} ${ramdiskimage}\0"\
+ 	"mmcboot=echo Booting from mmc ...; " \
+ 		"run finduuid; run mmcargs; " \
+-- 
+2.17.1
+

@@ -33,4 +33,5 @@ SRC_URI += " \
 	file://0025-board-beacon-Add-support-for-2GB-lpddr-on-Beacon-s-i.patch \
 	file://0026-imx8mm-beacon-Update-LPDDR4-RAM-timings.patch \
 	file://0027-Change-the-default-Display-to-be-HDMI.patch \
+	file://0028-imx8mm_beacon-Fix-booting-errors-on-commercial-temp-.patch \
 	"
