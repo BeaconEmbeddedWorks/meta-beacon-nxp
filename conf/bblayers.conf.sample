@@ -9,22 +9,24 @@ BBLAYERS = " \
   ##OEROOT##/meta-poky \
   ##OEROOT##/../meta-openembedded/meta-oe \
   ##OEROOT##/../meta-openembedded/meta-multimedia \
-  ##OEROOT##/../meta-laird-cp \
+  ##OEROOT##/../meta-openembedded/meta-python \
   ##OEROOT##/../meta-beacon-nxp \
   ##OEROOT##/../meta-beacon-common \
   ##OEROOT##/../meta-freescale \
   ##OEROOT##/../meta-freescale-3rdparty \
   ##OEROOT##/../meta-freescale-distro \
-  ##OEROOT##/../meta-fsl-bsp-release/imx/meta-bsp \
-  ##OEROOT##/../meta-fsl-bsp-release/imx/meta-sdk \
-  ##OEROOT##/../meta-fsl-bsp-release/imx/meta-ml \
-  ##OEROOT##/../meta-browser \
-  ##OEROOT##/../meta-rust \
+  ##OEROOT##/../meta-imx/meta-bsp \
+  ##OEROOT##/../meta-imx/meta-sdk \
+  ##OEROOT##/../meta-imx/meta-ml \
+  ##OEROOT##/../meta-imx/meta-v2x \
+  ##OEROOT##/../meta-nxp-demo-experience \
+  ##OEROOT##/../meta-browser/meta-chromium \
+  ##OEROOT##/../meta-clang \
   ##OEROOT##/../meta-openembedded/meta-gnome \
   ##OEROOT##/../meta-openembedded/meta-networking \
-  ##OEROOT##/../meta-openembedded/meta-python \
   ##OEROOT##/../meta-openembedded/meta-filesystems \
-  ##OEROOT##/../meta-qt5 \
+  ##OEROOT##/../meta-qt5\
+  ##OEROOT##/../meta-python2 \
   "
   
 

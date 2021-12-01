@@ -1,4 +1,4 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
-SRC_URI += "file://0001-Change-the-soc.mak-to-remove-the-hardcoded-dtb-file-.patch \
-            "
+SRC_URI += "file://0001-Patch-SOC-to-support-Beacon-SOCs-iMX8M-Mini-and-Nano.patch \
+           "
