@@ -1,5 +1,5 @@
 # This builds the iMX8M Plus by default 
-MACHINE ??= 'imx8mpevk'
+MACHINE ??= 'imx8mp-beacon-kit'
 
 DISTRO ?= 'fsl-imx-xwayland'
 PACKAGE_CLASSES ?= 'package_rpm'
