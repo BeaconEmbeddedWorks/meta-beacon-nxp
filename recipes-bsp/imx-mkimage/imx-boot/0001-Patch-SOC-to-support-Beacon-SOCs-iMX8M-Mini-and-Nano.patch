@@ -1,0 +1,26 @@
+From 5dd2a4726ef8ff6c1c6ffbe05a5584502ac73fd5 Mon Sep 17 00:00:00 2001
+From: Richard Feliciano <RFeliciano@BeaconEmbedded.com>
+Date: Mon, 18 Oct 2021 20:21:16 -0500
+Subject: [PATCH] Patch SOC to support Beacon SOCs iMX8M Mini and Nano
+
+Modified to use the beacon device tree vs the hardcoded evk
+device tree
+
+Signed-off-by: Richard Feliciano <RFeliciano@BeaconEmbedded.com>
+
+diff --git a/iMX8M/soc.mak b/iMX8M/soc.mak
+index 30ecefd..9d00f0e 100644
+--- a/iMX8M/soc.mak
++++ b/iMX8M/soc.mak
+@@ -137,7 +137,7 @@ u-boot-atf-tee.bin: u-boot.bin bl31.bin tee.bin
+ clean:
+ 	@rm -f $(MKIMG) u-boot-atf.bin u-boot-atf-tee.bin u-boot-spl-ddr.bin u-boot.itb u-boot.its u-boot-ddr3l.itb u-boot-ddr3l.its u-boot-spl-ddr3l.bin u-boot-ddr4.itb u-boot-ddr4.its u-boot-spl-ddr4.bin u-boot-ddr4-evk.itb u-boot-ivt.itb u-boot-ddr4-evk.its $(OUTIMG)
+ 
+-dtbs = evk.dtb
++dtbs = $(PLAT)-beacon-kit.dtb
+ $(dtbs):
+ 	./$(DTB_PREPROC) $(PLAT)-evk.dtb $(dtbs)
+ 
+-- 
+2.17.1
+
