@@ -1,4 +1,4 @@
-From 5dd2a4726ef8ff6c1c6ffbe05a5584502ac73fd5 Mon Sep 17 00:00:00 2001
+From 5155a73b4e5bde7eddc3d406dfaf91b4c0c6f5f7 Mon Sep 17 00:00:00 2001
 From: Richard Feliciano <RFeliciano@BeaconEmbedded.com>
 Date: Mon, 18 Oct 2021 20:21:16 -0500
 Subject: [PATCH] Patch SOC to support Beacon SOCs iMX8M Mini and Nano
@@ -9,10 +9,18 @@ device tree
 Signed-off-by: Richard Feliciano <RFeliciano@BeaconEmbedded.com>
 
 diff --git a/iMX8M/soc.mak b/iMX8M/soc.mak
-index 30ecefd..9d00f0e 100644
+index 30ecefd..493cd39 100644
 --- a/iMX8M/soc.mak
 +++ b/iMX8M/soc.mak
-@@ -137,7 +137,7 @@ u-boot-atf-tee.bin: u-boot.bin bl31.bin tee.bin
+@@ -82,6 +82,7 @@ FW_DIR = imx-boot/imx-boot-tools/$(PLAT)
+ $(MKIMG): mkimage_imx8.c
+ 	@echo "PLAT="$(PLAT) "HDMI="$(HDMI)
+ 	@echo "Compiling mkimage_imx8"
++	@echo "*************** rfee ****************"
+ 	$(CC) $(CFLAGS) mkimage_imx8.c -o $(MKIMG) -lz
+ 
+ lpddr4_imem_1d = lpddr4_pmu_train_1d_imem$(LPDDR_FW_VERSION).bin
+@@ -137,7 +138,7 @@ u-boot-atf-tee.bin: u-boot.bin bl31.bin tee.bin
  clean:
  	@rm -f $(MKIMG) u-boot-atf.bin u-boot-atf-tee.bin u-boot-spl-ddr.bin u-boot.itb u-boot.its u-boot-ddr3l.itb u-boot-ddr3l.its u-boot-spl-ddr3l.bin u-boot-ddr4.itb u-boot-ddr4.its u-boot-spl-ddr4.bin u-boot-ddr4-evk.itb u-boot-ivt.itb u-boot-ddr4-evk.its $(OUTIMG)
  
@@ -21,6 +29,16 @@ index 30ecefd..9d00f0e 100644
  $(dtbs):
  	./$(DTB_PREPROC) $(PLAT)-evk.dtb $(dtbs)
  
+@@ -147,7 +148,8 @@ u-boot.itb: $(dtbs)
+ 	./$(PAD_IMAGE) u-boot-nodtb.bin $(dtbs)
+ 	DEK_BLOB_LOAD_ADDR=$(DEK_BLOB_LOAD_ADDR) TEE_LOAD_ADDR=$(TEE_LOAD_ADDR) ATF_LOAD_ADDR=$(ATF_LOAD_ADDR) ./mkimage_fit_atf.sh $(dtbs) > u-boot.its
+ 	./mkimage_uboot -E -p 0x3000 -f u-boot.its u-boot.itb
+-	@rm -f u-boot.its $(dtbs)
++	@echo "*************** rfee $(dtbs) ****************"
++#	@rm -f u-boot.its $(dtbs)
+ 
+ dtbs_ddr3l = valddr3l.dtb
+ $(dtbs_ddr3l):
 -- 
 2.17.1
 
