@@ -11,7 +11,7 @@ ML_PKGS_mx8 = ""
 ML_PKGS_mx8dxl-phantom = ""
 
 OPENCV_PKGS ?= ""
-OPENCV_PKGS_append_imxgpu = " \
+OPENCV_PKGS:append:imxgpu = " \
     opencv-apps \
     opencv-samples \
     python3-opencv \

@@ -2,13 +2,13 @@
 
 DESCRIPTION = "i.MX custom config script for debug console suppporting i.MX8 Beacon EmbeddedWorks kits."
 
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
 SRC_URI += " \
      file://configterm.sh \
  "
 
-do_install_append() {
+do_install:append() {
    # This file creates an init script that configures terminal and is exectuted at startup
 
     install -d ${D}${sysconfdir}/profile.d/

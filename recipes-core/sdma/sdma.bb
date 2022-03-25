@@ -3,7 +3,7 @@
 DESCRIPTION = "SDMA modue file Beacon EmbeddedWorks kits."
 LICENSE = "CLOSED"
 
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
 SRC_URI += " \
      file://sdma.conf \
