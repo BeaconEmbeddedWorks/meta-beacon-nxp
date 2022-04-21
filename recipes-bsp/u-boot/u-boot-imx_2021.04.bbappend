@@ -5,5 +5,5 @@ MAINTAINER = "Richard Feliciano <RFeliciano@BeaconEmbedded.com>"
 UBOOT_SRC = "git://github.com/BeaconEmbeddedWorks/u-boot-imx.git;protocol=https"
 SRCBRANCH = "bcn_lf_v2021.04"
 SRC_URI = "${UBOOT_SRC};branch=${SRCBRANCH}"
-SRCREV = "95e87fdf069bf1bab92d905c13f945b68f24d94f"
+SRCREV = "b5dc09bca8b39b96f10931e007c89e2be2774726"
 
