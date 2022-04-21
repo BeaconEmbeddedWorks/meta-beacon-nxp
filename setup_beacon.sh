@@ -103,8 +103,4 @@ fi
 #to verify a build directory already exists
 cp $CWD/../sources/meta-beacon-nxp/conf/local.conf.sample $CWD/conf/local.conf.sample
 
-#this is a hack to copy Laird firmware to release directory
-
-sh $CWD/../sources/meta-beacon-nxp/laird_hack.sh
-
 clean_up
