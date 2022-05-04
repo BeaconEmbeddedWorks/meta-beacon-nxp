@@ -7,7 +7,7 @@ MAINTAINER = "Richard Feliciano <RFeliciano@BeaconEmbedded.com>"
 SRCBRANCH = "imx_5.15.y_bcn_mstr"
 KERNEL_SRC = "git://github.com/BeaconEmbeddedWorks/linux-imx.git;protocol=https"
 SRC_URI = "${KERNEL_SRC};branch=${SRCBRANCH}"
-SRCREV = "73ea86f44b153bb7ab4eaf0c61bbb70f4a97555f"
+SRCREV = "4bfe7f6ee9706703dc627123837a9ba6db1f155b"
 
 #addtask copy_bcn_defconfig after do_patch before do_preconfigure
 
