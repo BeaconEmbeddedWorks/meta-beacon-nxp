@@ -20,15 +20,5 @@ do_copy_defconfig () {
 		echo "Replacing config files with bcn_imx8mp_defconfig" 
 		cp ${S}/arch/arm64/configs/bcn_imx8mp_defconfig ${B}/.config
 		cp ${S}/arch/arm64/configs/bcn_imx8mp_defconfig ${B}/../defconfig
-		#cp ${S}/arch/arm64/configs/bcn_v8_defconfig ${B}/.config_bcn
-		#cp ${S}/arch/arm64/configs/bcn_v8_defconfig ${B}/../defconfig_bcn
-	#else 
-	#	echo "Replacing config files with bcn_imx8mm_mn_defconfig" 
-	#	cp ${S}/arch/arm64/configs/bcn_imx8mm_mn_defconfig ${B}/.config
-        #	cp ${S}/arch/arm64/configs/bcn_imx8mm_mn_defconfig ${B}/../defconfig
-
 	#fi
-
-	#cp ${S}/arch/arm64/configs/bcn_imx8mm_mn_defconfig ${B}/.config
-        #cp ${S}/arch/arm64/configs/bcn_imx8mm_mn_defconfig ${B}/../defconfig
 }
