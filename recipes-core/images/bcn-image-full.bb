@@ -20,3 +20,6 @@ IMAGE_INSTALL += " \
     ${OPENCV_PKGS} \
     ${ML_PKGS} \
 "
+
+CORE_IMAGE_BASE_INSTALL:remove:mx8mm = "packagegroup-base-extended"
+CORE_IMAGE_BASE_INSTALL:remove:mx8mn = "packagegroup-base-extended"

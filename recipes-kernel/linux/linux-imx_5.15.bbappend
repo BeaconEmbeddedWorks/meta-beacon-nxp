@@ -7,28 +7,21 @@ MAINTAINER = "Richard Feliciano <RFeliciano@BeaconEmbedded.com>"
 SRCBRANCH = "imx_5.15.y_bcn_mstr"
 KERNEL_SRC = "git://github.com/BeaconEmbeddedWorks/linux-imx.git;protocol=https"
 SRC_URI = "${KERNEL_SRC};branch=${SRCBRANCH}"
-SRCREV = "4bfe7f6ee9706703dc627123837a9ba6db1f155b"
+SRCREV = "cac572d4e375e45d5b5fe5488a4dd3fa4e04fd4c"
 
-#addtask copy_bcn_defconfig after do_patch before do_preconfigure
 
 do_copy_defconfig () {
     install -d ${B}
-        # copy latest imx_v8_defconfig to use for mx8
+        # copy latest bcn_imx8m_mn_defconfig or bcn_imx8mp_defconfig to use for mx8
         mkdir -p ${B}
 
-	#if [ ${MACHINE} = "beacon-imx8mp-kit" ]; then
+	if [ ${MACHINE} = "beacon-imx8mp-kit" ]; then
 		echo "Replacing config files with bcn_imx8mp_defconfig" 
 		cp ${S}/arch/arm64/configs/bcn_imx8mp_defconfig ${B}/.config
 		cp ${S}/arch/arm64/configs/bcn_imx8mp_defconfig ${B}/../defconfig
-		#cp ${S}/arch/arm64/configs/bcn_v8_defconfig ${B}/.config_bcn
-		#cp ${S}/arch/arm64/configs/bcn_v8_defconfig ${B}/../defconfig_bcn
-	#else 
-	#	echo "Replacing config files with bcn_imx8mm_mn_defconfig" 
-	#	cp ${S}/arch/arm64/configs/bcn_imx8mm_mn_defconfig ${B}/.config
-        #	cp ${S}/arch/arm64/configs/bcn_imx8mm_mn_defconfig ${B}/../defconfig
-
-	#fi
-
-	#cp ${S}/arch/arm64/configs/bcn_imx8mm_mn_defconfig ${B}/.config
-        #cp ${S}/arch/arm64/configs/bcn_imx8mm_mn_defconfig ${B}/../defconfig
+	else
+		echo "Replacing config files with bcn_imx8m_mn_defconfig" 
+		cp ${S}/arch/arm64/configs/bcn_imx8m_mn_defconfig ${B}/.config
+		cp ${S}/arch/arm64/configs/bcn_imx8m_mn_defconfig ${B}/../defconfig
+	fi
 }

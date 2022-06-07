@@ -25,3 +25,15 @@ SSTATE_DIR="/home/beacon/beacon/yocto-cache/sstate-cache"
 # Switch to Debian packaging and include package-management in the image
 PACKAGE_CLASSES = "package_deb"
 EXTRA_IMAGE_FEATURES += "package-management"
+
+
+#For iMX8M Mini and Nano based SOMS modify default recipe wifi
+#components to support Laird LWB5
+PREFERRED_RPROVIDER_wireless-regdb-static = "wireless-regdb"
+
+BBMASK:mx8mm += "recipes-connectivity/nxp-wlan-sdk/nxp-wlan-sdk_git"
+BBMASK:mx8mm += "recipes-kernel/kernel-modules/kernel-module-nxp89xx"
+
+BBMASK:mx8mn += "recipes-connectivity/nxp-wlan-sdk/nxp-wlan-sdk_git"
+BBMASK:mx8mn += "recipes-kernel/kernel-modules/kernel-module-nxp89xx"
+LWB_REGDOMAIN = "US"
