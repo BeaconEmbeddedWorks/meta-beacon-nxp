@@ -7,8 +7,7 @@ MAINTAINER = "Richard Feliciano <RFeliciano@BeaconEmbedded.com>"
 SRCBRANCH = "imx_5.15.y_bcn_mstr"
 KERNEL_SRC = "git://github.com/BeaconEmbeddedWorks/linux-imx.git;protocol=https"
 SRC_URI = "${KERNEL_SRC};branch=${SRCBRANCH}"
-SRCREV = "cac572d4e375e45d5b5fe5488a4dd3fa4e04fd4c"
-
+SRCREV = "ddbac0b3f16a7934293bf91184a0b2a019ca3fc3"
 
 do_copy_defconfig () {
     install -d ${B}
