@@ -29,7 +29,15 @@ EXTRA_IMAGE_FEATURES += "package-management"
 
 #For iMX8M Mini and Nano based SOMS modify default recipe wifi
 #components to support Laird LWB5
-PREFERRED_RPROVIDER:wireless-regdb-static = "wireless-regdb"
+PREFERRED_RPROVIDER_wireless-regdb-static:mx8mm = "wireless-regdb"
+PREFERRED_RPROVIDER_wpa-supplicant:mx8mm = "sterling-supplicant"
+PREFERRED_RPROVIDER_wpa-supplicant-cli:mx8mm = "sterling-supplicant"
+PREFERRED_RPROVIDER_wpa-supplicant-passphrase:mx8mm = "sterling-supplicant"
+
+PREFERRED_RPROVIDER_wireless-regdb-static:mx8mn = "wireless-regdb"
+PREFERRED_RPROVIDER_wpa-supplicant:mx8mn = "sterling-supplicant"
+PREFERRED_RPROVIDER_wpa-supplicant-cli:mx8mn = "sterling-supplicant"
+PREFERRED_RPROVIDER_wpa-supplicant-passphrase:mx8mn = "sterling-supplicant"
 
 BBMASK:mx8mm += "recipes-connectivity/nxp-wlan-sdk/nxp-wlan-sdk_git"
 BBMASK:mx8mm += "recipes-kernel/kernel-modules/kernel-module-nxp89xx"
