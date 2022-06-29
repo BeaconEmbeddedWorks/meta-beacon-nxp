@@ -46,6 +46,8 @@ BBMASK:mx8mn += "recipes-connectivity/nxp-wlan-sdk/nxp-wlan-sdk_git"
 BBMASK:mx8mn += "recipes-kernel/kernel-modules/kernel-module-nxp89xx"
 LWB_REGDOMAIN = "US"
 
+# The default distribution uses systemd, so set the initscripts accordingly
+VIRTUAL-RUNTIME_initscripts = "systemd-compat-units"
 
 COPY_LIC_MANIFEST = "1"
 COPY_DIRS = "1"
