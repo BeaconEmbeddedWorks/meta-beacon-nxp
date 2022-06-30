@@ -51,3 +51,7 @@ VIRTUAL-RUNTIME_initscripts = "systemd-compat-units"
 
 COPY_LIC_MANIFEST = "1"
 COPY_DIRS = "1"
+
+#To build ML from NXP uncomment the two lines below
+#IMAGE_INSTALL:append = "packagegroup-imx-ml"
+#TOOLCHAIN_TARGET_TASK:append += " tensorflow-lite-staticdev tensorflow-lite-dev armnn-dev onnxruntime-dev"
