@@ -31,7 +31,7 @@ UBOOT_SUFFIX = "bin"
 UBOOT_CONFIG ??= "sd"
 #UBOOT_CONFIG[sd] = "beacon_imx8mm_defconfig,sdcard"
 UBOOT_CONFIG[sd] = "imx8mm_beacon_defconfig,sdcard"
-UBOOT_CONFIG[fspi] = "beacon_imx8mm_fspi_defconfig"
+UBOOT_CONFIG[fspi] = "imx8mm_beacon_fspi_defconfig"
 #UBOOT_CONFIG[sd]       = "${UBOOT_CONFIG_BASENAME}_defconfig,sdcard"
 #UBOOT_CONFIG[mfgtool]  = "${UBOOT_CONFIG_BASENAME}_defconfig"
 
