@@ -37,3 +37,7 @@ do_compile:prepend() {
     echo "CPTCFG_BT_BNEP_PROTO_FILTER=y" >> ${S}/defconfigs/lwb
 }
 
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
+
+SRC_URI += "file://0001-Fix-issue-with-brcmf_sdio_bus_sleep.patch"
+

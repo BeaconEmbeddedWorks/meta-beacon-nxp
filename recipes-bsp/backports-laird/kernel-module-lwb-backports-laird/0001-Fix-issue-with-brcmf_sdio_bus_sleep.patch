@@ -1,0 +1,31 @@
+From 52571399f86d59b5ef32034c0e8f51cd2afda5b7 Mon Sep 17 00:00:00 2001
+From: Richard Feliciano <RFeliciano@BeaconEmbedded.com>
+Date: Thu, 21 Jul 2022 14:44:34 -0500
+Subject: [PATCH] Fix issue with brcmf_sdio_bus_sleep
+
+There are cases where a timer is alread pending and trying to add
+another timer result in Kernal Oops.  This is resolved by testing
+to see if a pending timer exists before trying to add a new one.
+
+Signed-off-by: Richard Feliciano <RFeliciano@BeaconEmbedded.com>
+---
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
+index 9d3f4c3..33d1ec0 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
+@@ -4942,8 +4942,10 @@ void brcmf_sdio_wd_timer(struct brcmf_sdio *bus, bool active)
+ 			/* Create timer again when watchdog period is
+ 			   dynamically changed or in the first instance
+ 			 */
+-			bus->timer.expires = jiffies + BRCMF_WD_POLL;
+-			add_timer(&bus->timer);
++			if (!timer_pending(&bus->timer)) {
++				bus->timer.expires = jiffies + BRCMF_WD_POLL;
++				add_timer(&bus->timer);
++			}
+ 			bus->wd_active = true;
+ 		} else {
+ 			/* Re arm the timer, at last watchdog period */
