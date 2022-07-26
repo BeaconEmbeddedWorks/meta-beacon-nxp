@@ -9,6 +9,8 @@ KERNEL_SRC = "git://github.com/BeaconEmbeddedWorks/linux-imx.git;protocol=https"
 SRC_URI = "${KERNEL_SRC};branch=${SRCBRANCH}"
 SRCREV = "23644dc0897160a63bc9783502c232aed56da4b9"
 
+LOCALVERSION = "-2.0.1"
+
 do_copy_defconfig () {
     install -d ${B}
         # copy latest bcn_imx8m_mn_defconfig or bcn_imx8mp_defconfig to use for mx8
