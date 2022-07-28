@@ -9,6 +9,7 @@ FIRMWARE_URI= "https://github.com/LairdCP/Sterling-LWB-and-LWB5-Release-Packages
 FIRMWARE_REV="laird-lwb5-fcc-firmware-10.4.0.10.tar.bz2"
 
 do_configure:prepend() {
+
 	#check if laird release directory is present 
 	#if create release directory and download firmware
 

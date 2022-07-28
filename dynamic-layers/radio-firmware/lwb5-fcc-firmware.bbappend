@@ -21,6 +21,3 @@ do_install:append() {
 		ln  -s -r ${WORKDIR}${base_libdir}${FCC_FW_FILE} ${D}/${base_libdir}/firmware/brcm/brcmfmac4339-sdio.beacon,imx8mm-beacon-kit.txt
 	fi
 }
-
-
-
