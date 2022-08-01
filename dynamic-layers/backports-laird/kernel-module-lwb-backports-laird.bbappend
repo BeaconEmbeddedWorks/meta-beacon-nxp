@@ -40,5 +40,7 @@ do_compile:prepend() {
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
-SRC_URI += "file://0001-Fix-issue-with-brcmf_sdio_bus_sleep.patch"
+SRC_URI += "file://0001-Fix-issue-with-brcmf_sdio_bus_sleep.patch \
+	    file://0001-Added-some-locks-for-bss-to-prevent-race-condition.patch \
+	"
 

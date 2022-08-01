@@ -1,0 +1,32 @@
+From e7d69d4ce990650362ac2cf5de9e4308f2c1c5d6 Mon Sep 17 00:00:00 2001
+From: Richard Feliciano <RFeliciano@BeaconEmbedded.com>
+Date: Mon, 1 Aug 2022 11:56:13 -0500
+Subject: [PATCH] Added some locks for bss to prevent race condition
+
+There are times race conditions occur and bss is null. This
+causes  a warning.  The locks prevent the race condition
+from occurring. [PHOENIX8-428]
+
+Signed-off-by: Richard Feliciano <RFeliciano@BeaconEmbedded.com>
+
+diff --git a/net/wireless/scan.c b/net/wireless/scan.c
+index aa4b145..236e5e2 100644
+--- a/net/wireless/scan.c
++++ b/net/wireless/scan.c
+@@ -1971,11 +1971,13 @@ cfg80211_inform_single_bss_data(struct wiphy *wiphy,
+ 		/* this is a nontransmitting bss, we need to add it to
+ 		 * transmitting bss' list if it is not there
+ 		 */
++		spin_lock_bh(&rdev->bss_lock);
+ 		if (cfg80211_add_nontrans_list(non_tx_data->tx_bss,
+ 					       &res->pub)) {
+ 			if (__cfg80211_unlink_bss(rdev, res))
+ 				rdev->bss_generation++;
+ 		}
++		spin_unlock_bh(&rdev->bss_lock);
+ 	}
+ 
+ 	trace_cfg80211_return_bss(&res->pub);
+-- 
+2.25.1
+
