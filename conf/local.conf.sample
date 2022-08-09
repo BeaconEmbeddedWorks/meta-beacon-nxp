@@ -12,10 +12,10 @@ BB_DISKMON_DIRS ??= "\
     STOPTASKS,${DL_DIR},1G,100K \
     STOPTASKS,${SSTATE_DIR},1G,100K \
     STOPTASKS,/tmp,100M,100K \
-    ABORT,${TMPDIR},100M,1K \
-    ABORT,${DL_DIR},100M,1K \
-    ABORT,${SSTATE_DIR},100M,1K \
-    ABORT,/tmp,10M,1K"
+    HALT,${TMPDIR},100M,1K \
+    HALT,${DL_DIR},100M,1K \
+    HALT,${SSTATE_DIR},100M,1K \
+    HALT,/tmp,10M,1K"
 PACKAGECONFIG:append:pn-qemu-system-native = " sdl"
 CONF_VERSION = "2"
 
@@ -29,21 +29,27 @@ EXTRA_IMAGE_FEATURES += "package-management"
 
 #For iMX8M Mini and Nano based SOMS modify default recipe wifi
 #components to support Laird LWB5
-PREFERRED_RPROVIDER_wireless-regdb-static:mx8mm = "wireless-regdb"
-PREFERRED_RPROVIDER_wpa-supplicant:mx8mm = "sterling-supplicant"
-PREFERRED_RPROVIDER_wpa-supplicant-cli:mx8mm = "sterling-supplicant"
-PREFERRED_RPROVIDER_wpa-supplicant-passphrase:mx8mm = "sterling-supplicant"
+PREFERRED_RPROVIDER_wireless-regdb-static:mx8mm-nxp-bsp = "wireless-regdb"
+PREFERRED_RPROVIDER_wpa-supplicant:mx8mm-nxp-bsp = "sterling-supplicant"
+PREFERRED_RPROVIDER_wpa-supplicant-cli:mx8mm-nxp-bsp = "sterling-supplicant"
+PREFERRED_RPROVIDER_wpa-supplicant-passphrase:mx8mm-nxp-bsp = "sterling-supplicant"
 
-PREFERRED_RPROVIDER_wireless-regdb-static:mx8mn = "wireless-regdb"
-PREFERRED_RPROVIDER_wpa-supplicant:mx8mn = "sterling-supplicant"
-PREFERRED_RPROVIDER_wpa-supplicant-cli:mx8mn = "sterling-supplicant"
-PREFERRED_RPROVIDER_wpa-supplicant-passphrase:mx8mn = "sterling-supplicant"
+PREFERRED_RPROVIDER_wireless-regdb-static:mx8mn-nxp-bsp = "wireless-regdb"
+PREFERRED_RPROVIDER_wpa-supplicant:mx8mn-nxp-bsp = "sterling-supplicant"
+PREFERRED_RPROVIDER_wpa-supplicant-cli:mx8mn-nxp-bsp = "sterling-supplicant"
+PREFERRED_RPROVIDER_wpa-supplicant-passphrase:mx8mn-nxp-bsp = "sterling-supplicant"
 
-BBMASK:mx8mm += "recipes-connectivity/nxp-wlan-sdk/nxp-wlan-sdk_git"
-BBMASK:mx8mm += "recipes-kernel/kernel-modules/kernel-module-nxp89xx"
 
-BBMASK:mx8mn += "recipes-connectivity/nxp-wlan-sdk/nxp-wlan-sdk_git"
-BBMASK:mx8mn += "recipes-kernel/kernel-modules/kernel-module-nxp89xx"
+PREFERRED_RPROVIDER_wpa-supplicant:mx8mp-nxp-bsp = "wpa-supplicant"
+PREFERRED_RPROVIDER_wpa-supplicant-cli:mx8mp-nxp-bsp = "wpa-supplicant"
+PREFERRED_RPROVIDER_wpa-supplicant-passphrase:mx8mp-nxp-bsp = "wpa-supplicant"
+PREFERRED_RPROVIDER_wireless-regdb-static:mx8mp-nxp-bsp = "wireless-regdb"
+
+BBMASK:mx8mm-nxp-bsp += "recipes-connectivity/nxp-wlan-sdk/nxp-wlan-sdk_git"
+BBMASK:mx8mm-nxp-bsp += "recipes-kernel/kernel-modules/kernel-module-nxp89xx"
+
+BBMASK:mx8mn-nxp-bsp += "recipes-connectivity/nxp-wlan-sdk/nxp-wlan-sdk_git"
+BBMASK:mx8mn-nxp-bsp += "recipes-kernel/kernel-modules/kernel-module-nxp89xx"
 LWB_REGDOMAIN = "US"
 
 # The default distribution uses systemd, so set the initscripts accordingly

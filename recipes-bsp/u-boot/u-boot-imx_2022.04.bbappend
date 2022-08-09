@@ -1,9 +1,9 @@
 SUMMARY = "U-Boot provided and supported by Beacon"
 DESCRIPTION = "i.MX U-Boot suppporting i.MX8M based boards "
 MAINTAINER = "Richard Feliciano <RFeliciano@BeaconEmbedded.com>"
+DEPENDS += "python3-setuptools-native"
 
 UBOOT_SRC = "git://github.com/BeaconEmbeddedWorks/u-boot-imx.git;protocol=https"
-SRCBRANCH = "bcn_lf_v2021.04"
+SRCBRANCH = "bcn_lf_v2022.04"
 SRC_URI = "${UBOOT_SRC};branch=${SRCBRANCH}"
-SRCREV = "b679745aa530bb3b49f45f8d4b7b3f734055ef7a"
-
+SRCREV = "17023bc75884d055014a4d8f7cc0c8b4db79c8f8"

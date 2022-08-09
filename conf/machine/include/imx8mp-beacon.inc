@@ -1,24 +1,30 @@
-MACHINEOVERRIDES =. "imx-boot-container:mx8:mx8m:mx8mp:"
+MACHINEOVERRIDES =. "imx-boot-container:mx8mp:"
 
 require conf/machine/include/imx-base.inc
 require conf/machine/include/arm/armv8a/tune-cortexa53.inc
 
-MACHINE_FEATURES += "pci wifi bluetooth jailhouse"
+# Mainline BSP defaults to "generic" cortexa53 configuration,
+# adjust it here to include crypto extension which enables
+# inline NEON and FPU code generation
+DEFAULTTUNE:use-mainline-bsp = "cortexa53-crypto"
 
+MACHINE_FEATURES += "pci wifi bluetooth"
+
+# NXP BSP can consume proprietary jailhouse and Marvell drivers
 # OP-TEE is also applicable to NXP BSP, mainline BSP seems not to have
 # a full support for it yet.
-MACHINE_FEATURES:append:use-nxp-bsp = " optee mrvl8997"
+MACHINE_FEATURES:append:use-nxp-bsp = " optee jailhouse mrvl8997"
 
 # Mainline kernel contains only one DTB file for
 # imx8mpevk machine
 KERNEL_DEVICETREE = " \
-    freescale/${KERNEL_DEVICETREE_BASENAME}-kit.dtb \
+    freescale/${KERNEL_DEVICETREE_BASENAME}.dtb \
 "
 
-UBOOT_DTB_NAME = "${KERNEL_DEVICETREE_BASENAME}-kit.dtb"
+UBOOT_DTB_NAME = "${KERNEL_DEVICETREE_BASENAME}.dtb"
 
-IMX_DEFAULT_BOOTLOADER_use-nxp-bsp = "u-boot-imx"
-IMX_DEFAULT_BOOTLOADER_use-mainline-bsp = "u-boot-fslc"
+IMX_DEFAULT_BOOTLOADER:use-nxp-bsp = "u-boot-imx"
+IMX_DEFAULT_BOOTLOADER:use-mainline-bsp = "u-boot-fslc"
 
 UBOOT_SUFFIX = "bin"
 
@@ -30,7 +36,6 @@ UBOOT_CONFIG[mfgtool] = "${UBOOT_CONFIG_BASENAME}_defconfig"
 SPL_BINARY = "spl/u-boot-spl.bin"
 
 ATF_PLATFORM = "imx8mp"
-ATF_LOAD_ADDR = "0x970000"
 
 # Extra firmware package name, that is required to build boot container for fslc bsp
 IMX_EXTRA_FIRMWARE = "firmware-imx-8m"
