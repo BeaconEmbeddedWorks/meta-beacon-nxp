@@ -39,6 +39,8 @@ PREFERRED_RPROVIDER_wpa-supplicant:mx8mn-nxp-bsp = "sterling-supplicant"
 PREFERRED_RPROVIDER_wpa-supplicant-cli:mx8mn-nxp-bsp = "sterling-supplicant"
 PREFERRED_RPROVIDER_wpa-supplicant-passphrase:mx8mn-nxp-bsp = "sterling-supplicant"
 
+BBMASK:mx8mm += "recipes-connectivity/nxp-wlan-sdk/nxp-wlan-sdk_git"
+BBMASK:mx8mm += "recipes-kernel/kernel-modules/kernel-module-nxp89xx"
 
 PREFERRED_RPROVIDER_wpa-supplicant:mx8mp-nxp-bsp = "wpa-supplicant"
 PREFERRED_RPROVIDER_wpa-supplicant-cli:mx8mp-nxp-bsp = "wpa-supplicant"

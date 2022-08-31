@@ -4,13 +4,13 @@ i.MX Family Reference Boards. It includes support for many IPs such as GPU, VPU 
 This recipe now points directly to a custom Beacon Kernel "
 MAINTAINER = "Richard Feliciano <RFeliciano@BeaconEmbedded.com>"
 
-SRCBRANCH = "imx_5.15.y_bcn_mstr-V2"
-KERNEL_SRC = "git://github.com/BeaconEmbeddedWorks/linux-imx.git;protocol=https"
+SRCBRANCH = "imx_5.15.y_bcn_mstr-V3"
+KERNEL_SRC = "git://git@gitlab.logicpd.com/products/linux-imx-private.git;protocol=ssh"
 SRC_URI = "${KERNEL_SRC};branch=${SRCBRANCH}"
-SRCREV = "3cda6c3663c295ba2d7ec17c5750d39aa65faa82"
+SRCREV = "00ed87d925a1138de1ea8d6d6078f62ffd3e56b6"
 
 
-LOCALVERSION = "-2.0.1"
+LOCALVERSION = "-2.1.0"
 
 do_copy_defconfig () {
     install -d ${B}
