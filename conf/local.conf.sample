@@ -44,11 +44,6 @@ PREFERRED_RPROVIDER_wpa-supplicant-cli:mx8mp-nxp-bsp = "wpa-supplicant"
 PREFERRED_RPROVIDER_wpa-supplicant-passphrase:mx8mp-nxp-bsp = "wpa-supplicant"
 PREFERRED_RPROVIDER_wireless-regdb-static:mx8mp-nxp-bsp = "wireless-regdb"
 
-BBMASK:mx8mm-nxp-bsp += "recipes-connectivity/nxp-wlan-sdk/nxp-wlan-sdk_git"
-BBMASK:mx8mm-nxp-bsp += "recipes-kernel/kernel-modules/kernel-module-nxp89xx"
-
-BBMASK:mx8mn-nxp-bsp += "recipes-connectivity/nxp-wlan-sdk/nxp-wlan-sdk_git"
-BBMASK:mx8mn-nxp-bsp += "recipes-kernel/kernel-modules/kernel-module-nxp89xx"
 LWB_REGDOMAIN = "US"
 
 # The default distribution uses systemd, so set the initscripts accordingly

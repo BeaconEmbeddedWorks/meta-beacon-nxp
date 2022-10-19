@@ -78,3 +78,6 @@ TEE_LOAD_ADDR = "0xbe000000"
 
 # Add additional firmware
 MACHINE_FIRMWARE:append = " linux-firmware-ath10k"
+
+BBMASK:mx8mm-nxp-bsp += "recipes-connectivity/nxp-wlan-sdk/nxp-wlan-sdk_git"
+BBMASK:mx8mm-nxp-bsp += "recipes-kernel/kernel-modules/kernel-module-nxp89xx"

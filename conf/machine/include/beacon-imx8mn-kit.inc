@@ -62,3 +62,6 @@ IMX_BOOT_SEEK = "32"
 
 # Add additional firmware
 #MACHINE_FIRMWARE_append = " linux-firmware-ath10k"
+
+BBMASK:mx8mn-nxp-bsp += "recipes-connectivity/nxp-wlan-sdk/nxp-wlan-sdk_git"
+BBMASK:mx8mn-nxp-bsp += "recipes-kernel/kernel-modules/kernel-module-nxp89xx"
