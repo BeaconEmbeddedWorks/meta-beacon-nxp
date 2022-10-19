@@ -19,8 +19,8 @@ BB_DISKMON_DIRS ??= "\
 PACKAGECONFIG:append:pn-qemu-system-native = " sdl"
 CONF_VERSION = "2"
 
-DL_DIR="/home/beacon/beacon/yocto-cache/download"
-SSTATE_DIR="/home/beacon/beacon/yocto-cache/sstate-cache"
+DL_DIR ?= "${BSPDIR}/downloads/"
+SSTATE_DIR="${BSPDIR}/cache/"
 
 # Switch to Debian packaging and include package-management in the image
 PACKAGE_CLASSES = "package_deb"
