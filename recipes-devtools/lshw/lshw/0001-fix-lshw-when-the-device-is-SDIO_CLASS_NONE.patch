@@ -1,0 +1,31 @@
+From 646f3642e869e9d72e0f0045fa882150f5aa8830 Mon Sep 17 00:00:00 2001
+From: Richard Feliciano <rfeliciano@BeaconEmbedded.com>
+Date: Mon, 31 Oct 2022 18:22:56 -0500
+Subject: [PATCH] fix lshw when the device is SDIO_CLASS_NONE
+
+There was cases where the class of of the device was SDIO_CLASS_NONE this caused
+the application to abort. Added a check to ignore SDIO_CLASS_NONE
+
+Signed-off-by: Richard Feliciano <rfeliciano@BeaconEmbedded.com>
+
+diff --git a/src/core/mmc.cc b/src/core/mmc.cc
+index 96c2c49..943c20c 100644
+--- a/src/core/mmc.cc
++++ b/src/core/mmc.cc
+@@ -360,8 +360,11 @@ bool scan_mmc(hwNode & n)
+         hwNode *subdev;
+         if(devices.size()>1)
+         {
+-          subdev = card.addChild(sdioNode(devices[i].hex_attr("class"), devices[i].hex_attr("vendor"), devices[i].hex_attr("device")));
+-          subdev->setPhysId(tostring(i+1));
++        	if(devices[i].hex_attr("class") != SDIO_CLASS_NONE){
++        		subdev = card.addChild(sdioNode(devices[i].hex_attr("class"), devices[i].hex_attr("vendor"), devices[i].hex_attr("device")));
++          		subdev->setPhysId(tostring(i+1));
++        
++        	}
+         }
+         else
+           subdev = &card;
+-- 
+2.34.1
+
