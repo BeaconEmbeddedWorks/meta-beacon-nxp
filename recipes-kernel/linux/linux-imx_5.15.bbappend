@@ -7,7 +7,7 @@ MAINTAINER = "Richard Feliciano <RFeliciano@BeaconEmbedded.com>"
 SRCBRANCH = "imx_5.15.y_bcn_mstr-V3"
 KERNEL_SRC = "git://git@gitlab.logicpd.com/products/linux-imx-private.git;protocol=ssh"
 SRC_URI = "${KERNEL_SRC};branch=${SRCBRANCH}"
-SRCREV = "00ed87d925a1138de1ea8d6d6078f62ffd3e56b6"
+SRCREV = "e10ff9d03d43a5876f47f86b8fedc341ed55266b"
 
 
 LOCALVERSION = "-2.1.0"
