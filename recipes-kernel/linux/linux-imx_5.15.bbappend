@@ -10,7 +10,7 @@ SRC_URI = "${KERNEL_SRC};branch=${SRCBRANCH}"
 SRCREV = "f471992f3ab99c67f4061b973a29de3726fa144f"
 
 
-LOCALVERSION = "-2.1.0"
+LOCALVERSION = "-2.1.1"
 
 do_copy_defconfig () {
     install -d ${B}
