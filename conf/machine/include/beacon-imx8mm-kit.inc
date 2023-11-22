@@ -19,13 +19,13 @@ MACHINE_FEATURES += "pci wifi bluetooth bcm43455 bcm4356"
 MACHINE_FEATURES:append:use-nxp-bsp = " optee jailhouse "
 
 KERNEL_DEVICETREE = " \
-    freescale/${KERNEL_DEVICETREE_BASENAME}.dtb \
+    freescale/${KERNEL_DEVICETREE_BASENAME}-kit.dtb \
 "
 #KERNEL_DEVICETREE:append:use-nxp-bsp = " \
 #	freescale/${KERNEL_DEVICETREE_BASENAME}-pcie-ep.dtb \
 #	freescale/${KERNEL_DEVICETREE_BASENAME}-rm67191.dtb \
 #"
-UBOOT_DTB_NAME = "${KERNEL_DEVICETREE_BASENAME}.dtb"
+UBOOT_DTB_NAME = "${KERNEL_DEVICETREE_BASENAME}-kit.dtb"
 
 IMX_DEFAULT_BOOTLOADER:use-nxp-bsp = "u-boot-imx"
 IMX_DEFAULT_BOOTLOADER:use-mainline-bsp = "u-boot-fslc"
@@ -70,7 +70,7 @@ IMAGE_BOOT_FILES:append:use-mainline-bsp = " extlinux.conf;extlinux/extlinux.con
 
 LOADADDR = ""
 UBOOT_SUFFIX = "bin"
-UBOOT_MAKE_TARGET = "all"
+UBOOT_MAKE_TARGET = "u-boot.bin u-boot-nodtb.bin spl/u-boot-spl.bin"
 IMX_BOOT_SEEK = "33"
 
 OPTEE_BIN_EXT = "8mm"

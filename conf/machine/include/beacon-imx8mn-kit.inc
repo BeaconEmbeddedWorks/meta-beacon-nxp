@@ -54,10 +54,10 @@ SERIAL_CONSOLES = "115200;ttymxc1"
 BOOT_SPACE = "65536"
 LOADADDR = ""
 UBOOT_SUFFIX = "bin"
-UBOOT_MAKE_TARGET = "all"
+UBOOT_MAKE_TARGET = "u-boot.bin u-boot-nodtb.bin spl/u-boot-spl.bin"
 IMX_BOOT_SEEK = "32"
 
-#OPTEE_BIN_EXT = "8mm"
+#OPTEE_BIN_EXT = "8mn"
 #TEE_LOAD_ADDR = "0xbe000000"
 
 # Add additional firmware

@@ -50,7 +50,7 @@ SERIAL_CONSOLES = "115200;ttymxc1"
 
 LOADADDR = ""
 UBOOT_SUFFIX = "bin"
-UBOOT_MAKE_TARGET = "all"
+UBOOT_MAKE_TARGET = "u-boot.bin u-boot-nodtb.bin spl/u-boot-spl.bin"
 IMX_BOOT_SEEK = "32"
 
 OPTEE_BIN_EXT = "8mp"
