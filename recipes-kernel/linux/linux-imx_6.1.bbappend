@@ -4,7 +4,7 @@ i.MX Family Reference Boards. It includes support for many IPs such as GPU, VPU 
 This recipe now points directly to a custom Beacon Kernel "
 MAINTAINER = "Richard Feliciano <RFeliciano@BeaconEmbedded.com>"
 
-SRCBRANCH = "bcn-lf-6.1.1-merge-nano-fixes"
+SRCBRANCH = "bcn-lf-6.1.1-merge"
 KERNEL_SRC = "git://git@gitlab.logicpd.com/products/linux-imx-private.git;protocol=ssh"
 SRC_URI = "${KERNEL_SRC};branch=${SRCBRANCH}"
 SRCREV = "04579d95c87cc61a9b7a5ec6a0eb605d781aded6"
