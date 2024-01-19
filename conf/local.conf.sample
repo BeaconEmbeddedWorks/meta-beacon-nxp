@@ -23,7 +23,7 @@ DL_DIR ?= "${BSPDIR}/downloads/"
 SSTATE_DIR="${BSPDIR}/cache/"
 
 # Switch to Debian packaging and include package-management in the image
-PACKAGE_CLASSES = "package_deb"
+# PACKAGE_CLASSES = "package_deb"
 EXTRA_IMAGE_FEATURES += "package-management"
 
 
@@ -43,6 +43,12 @@ PREFERRED_RPROVIDER_wpa-supplicant:mx8mp-nxp-bsp = "wpa-supplicant"
 PREFERRED_RPROVIDER_wpa-supplicant-cli:mx8mp-nxp-bsp = "wpa-supplicant"
 PREFERRED_RPROVIDER_wpa-supplicant-passphrase:mx8mp-nxp-bsp = "wpa-supplicant"
 PREFERRED_RPROVIDER_wireless-regdb-static:mx8mp-nxp-bsp = "wireless-regdb"
+
+PREFERRED_VERSION_wayland-protocols:mx8mp-nxp-bsp = "1.31.imx"
+PREFERRED_VERSION_ixm-gpu-viv:mx8mp-nxp-bsp = "6.4.11.p1.2-aarch64"
+
+
+PREFERRED_VERSION_libdrm:mx8mp-nxp-bsp = "2.4.114.imx"
 
 LWB_REGDOMAIN = "US"
 
