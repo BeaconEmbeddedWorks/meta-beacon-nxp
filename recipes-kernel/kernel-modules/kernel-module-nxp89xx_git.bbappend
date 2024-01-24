@@ -1,8 +1,0 @@
-SRCBRANCH = "lf-5.15.71_2.2.0"
-SRCREV = "d819b6d2669a20b17c562c85ab96a1f1ac36d953"
-
-FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
-
-SRC_URI += " \
-	file://0001-Remove-the-ignore-regulatory-command-from-wifi-drive.patch \
-	"
