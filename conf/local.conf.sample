@@ -45,7 +45,7 @@ PREFERRED_RPROVIDER_wireless-regdb-static:mx8mp-nxp-bsp = "wireless-regdb"
 
 PREFERRED_VERSION_wayland-protocols:mx8mp-nxp-bsp = "1.31.imx"
 PREFERRED_VERSION_ixm-gpu-viv:mx8mp-nxp-bsp = "6.4.11.p1.2-aarch64"
-
+PREFERRED_VERSION_weston:mx8mp-nxp-bsp = "10.0.3.imx"
 
 PREFERRED_VERSION_libdrm:mx8mp-nxp-bsp = "2.4.114.imx"
 
