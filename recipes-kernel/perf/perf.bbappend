@@ -1,4 +1,4 @@
-
+DEPENDS += "python3-setuptools"
 
 PACKAGECONFIG[libtraceevent] = ",NO_LIBTRACEEVENT=1"
 PACKAGECONFIG[bpf] = ",NO_BPF_SKEL=1"

@@ -1,4 +1,3 @@
-ATF_SRC = "git://git@gitlab.logicpd.com/products/atf.git;protocol=ssh"
-SRCBRANCH = "v2.8/rzg2-beacon-lts-with-nxp"
-SRCREV = "8adefe977fe472582062b273b8e612d26c14af41"
-
+ATF_SRC = "git://github.com/nxp-imx/imx-atf.git;protocol=https"
+SRCBRANCH = "lf_v2.8"
+SRCREV = "8dbe28631802a51b3ec8179b2c5635b00393ad97"
