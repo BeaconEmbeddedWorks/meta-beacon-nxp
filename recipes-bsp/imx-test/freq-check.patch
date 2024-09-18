@@ -1,0 +1,15 @@
+diff --git a/test/bat/bat-cpufreq-freq-check.sh b/test/bat/bat-cpufreq-freq-check.sh
+index 0c41456..89a9965 100755
+--- a/test/bat/bat-cpufreq-freq-check.sh
++++ b/test/bat/bat-cpufreq-freq-check.sh
+@@ -25,8 +25,8 @@ get_arm_clk_name()
+         if [ "$cpu_part" = "0xd08" ]; then
+             echo "a72_div";
+         elif [ "$cpu_part" = "0xd03" ]; then
+-            if [ -d /sys/kernel/debug/clk/arm_a53_div ]; then
+-                echo "arm_a53_div"
++            if [ -d /sys/kernel/debug/clk/arm_a53_core ]; then
++                echo "arm_a53_core"
+             else
+                 echo "a53_div"
+             fi
