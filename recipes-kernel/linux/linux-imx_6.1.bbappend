@@ -7,11 +7,8 @@ MAINTAINER = "Richard Feliciano <RFeliciano@BeaconEmbedded.com>"
 
 SRCBRANCH = "bcn-lf-6.1.1"
 LOCALVERSION = "-lts-6.1.55"
-#+SRCREV = "9311ba3d627d9eeb0077d7cf32b3190a208a24b2"
 
-#SRCBRANCH = "bcn-lf-6.1.1-cherry-picks"
 KERNEL_SRC = "git://git@gitlab.logicpd.com/products/linux-imx-private.git;protocol=ssh"
 SRC_URI = "${KERNEL_SRC};branch=${SRCBRANCH}"
-SRCREV = "9311ba3d627d9eeb0077d7cf32b3190a208a24b2"
+SRCREV = "5b79937f52a774e97eaf7ba6c3a91fdf85218627"
 
-#LOCALVERSION = "-3.0.0"
