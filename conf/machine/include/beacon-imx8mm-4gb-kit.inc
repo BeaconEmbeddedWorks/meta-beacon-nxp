@@ -22,6 +22,9 @@ ATF_LOAD_ADDR = "0x920000"
 
 # Extra firmware package name, that is required to build boot container for fslc bsp
 IMX_EXTRA_FIRMWARE = "firmware-imx-8m"
+#Extra NXP89xx Wi-Fi and Bluetooth driver
+MACHINE_FIRMWARE:append = " ${@bb.utils.contains('MACHINE_FEATURES', 'nxp8987', 'kernel-module-nxp89xx', '', d)}"
+MACHINE_FIRMWARE:append = " ${@bb.utils.contains('MACHINE_FEATURES', 'nxp8997', 'kernel-module-nxp89xx', '', d)}"
 
 IMXBOOT_TARGETS = "${@bb.utils.contains('UBOOT_CONFIG', 'fspi', '${IMXBOOT_TARGETS_BASENAME}_flexspi', '${IMXBOOT_TARGETS_BASENAME}', d)}"
 
