@@ -23,6 +23,8 @@ BBLAYERS += "${BSPDIR}/sources/meta-imx/meta-sdk"
 BBLAYERS += "${BSPDIR}/sources/meta-imx/meta-ml"
 BBLAYERS += "${BSPDIR}/sources/meta-imx/meta-v2x"
 BBLAYERS += "${BSPDIR}/sources/meta-nxp-demo-experience"
+BBLAYERS += "${BSPDIR}/sources/meta-lts-mixins"
+
 
 BBLAYERS += "${BSPDIR}/sources/meta-browser/meta-chromium"
 BBLAYERS += "${BSPDIR}/sources/meta-clang"
