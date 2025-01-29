@@ -10,5 +10,5 @@ LOCALVERSION = "-lts-6.1.55"
 
 KERNEL_SRC = "git://git@gitlab.logicpd.com/products/linux-imx-private.git;protocol=ssh"
 SRC_URI = "${KERNEL_SRC};branch=${SRCBRANCH}"
-SRCREV = "473ac481aae91e5e6ed9113e7e02ad8f65780e88"
+SRCREV = "64652a29daae97f032a15d4899cb768d6e897532"
 
