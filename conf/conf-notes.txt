@@ -1,0 +1,30 @@
+
+### Shell environment set up for builds. ###
+
+Beacon iMX8M sample files are included in this directory as the default build for iMX8M Beacon kit.  
+The files are bblayers.conf.sample and local.conf.sample
+
+This means using the  
+DISTRO=fsl-xwayland MACHINE=beacon-imx8mm-kit source fsl-setup-release.sh -b <build-dir>
+
+is not necessary and manually adding the custom layers is not necessary.
+
+
+Using the command
+TEMPLATECONF=../sources/meta-beacon-nxp/conf source sources/poky/oe-init-build-env <build-dir>
+
+A script needs to be invoke once to allow user to accept the EULA agreement. It can also be used 
+to override the default hardware (beacon-imx8mm-kit)  
+ ../sources/meta-beacon-nxp/setup_beacon.sh -m beacon-imx8mm-kit
+
+After these commands are issued the use the bitbake command to build an image for the specified 
+platform. 
+
+You can now run 'bitbake <target>'
+
+examples:
+Common targets are:
+bitbake imx-image-full
+core-image-minimal 
+
+
