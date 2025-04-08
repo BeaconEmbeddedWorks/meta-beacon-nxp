@@ -16,10 +16,10 @@ MACHINE_FEATURES += "wifi bluetooth bcm4339 nxp8997-sdio"
 MACHINE_FEATURES:append:use-nxp-bsp = " jailhouse mrvl8997"
 
 KERNEL_DEVICETREE = " \
-    freescale/${KERNEL_DEVICETREE_BASENAME}.dtb \
+    freescale/${KERNEL_DEVICETREE_BASENAME}-kit.dtb \
 "
 
-UBOOT_DTB_NAME = "${KERNEL_DEVICETREE_BASENAME}.dtb"
+UBOOT_DTB_NAME = "${KERNEL_DEVICETREE_BASENAME}-kit.dtb"
 
 IMX_DEFAULT_BOOTLOADER:use-nxp-bsp = "u-boot-imx"
 IMX_DEFAULT_BOOTLOADER:use-mainline-bsp = "u-boot-fslc"
@@ -47,9 +47,9 @@ SERIAL_CONSOLES = "115200;ttymxc1"
 # to be used to define the boot process.
 # We opt-in for Syslinux, since it is designated as a preferred
 # distro boot mode according to the U-Boot documentation.
-#UBOOT_EXTLINUX:use-mainline-bsp = "1"
-#UBOOT_EXTLINUX_LABELS:use-mainline-bsp = "default"
-#UBOOT_EXTLINUX_DEFAULT_LABEL:use-mainline-bsp = "Beacon i.MX8M Nano Kit"
+UBOOT_EXTLINUX:use-mainline-bsp = "1"
+UBOOT_EXTLINUX_LABELS:use-mainline-bsp = "default"
+UBOOT_EXTLINUX_DEFAULT_LABEL:use-mainline-bsp = "Beacon i.MX8M Nano Kit"
 
 UBOOT_EXTLINUX_MENU_DESCRIPTION:default:use-mainline-bsp = "Beacon i.MX8M Nano Kit"
 UBOOT_EXTLINUX_FDT:default:use-mainline-bsp     = "../${KERNEL_DEVICETREE_BASENAME}.dtb"

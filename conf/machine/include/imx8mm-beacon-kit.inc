@@ -13,16 +13,10 @@ MACHINE_FEATURES += "pci wifi bluetooth bcm4339"
 MACHINE_FEATURES:append:use-nxp-bsp = " optee jailhouse"
 
 KERNEL_DEVICETREE = " \
-    freescale/${KERNEL_DEVICETREE_BASENAME}.dtb \
+    freescale/${KERNEL_DEVICETREE_BASENAME}-kit.dtb \
 "
-#KERNEL_DEVICETREE:append:use-nxp-bsp = " \
-#    freescale/${KERNEL_DEVICETREE_BASENAME}-pcie-ep.dtb \
-#    freescale/${KERNEL_DEVICETREE_BASENAME}-rm67191.dtb \
-#    freescale/${KERNEL_DEVICETREE_BASENAME}-rm67191-cmd-ram.dtb \
-#    freescale/${KERNEL_DEVICETREE_BASENAME}-rm67199.dtb \
-#    freescale/${KERNEL_DEVICETREE_BASENAME}-rm67199-cmd-ram.dtb \
-#"
-UBOOT_DTB_NAME = "${KERNEL_DEVICETREE_BASENAME}.dtb"
+
+UBOOT_DTB_NAME = "${KERNEL_DEVICETREE_BASENAME}-kit.dtb"
 
 UBOOT_SUFFIX = "bin"
 
@@ -45,9 +39,9 @@ SERIAL_CONSOLES = "115200;ttymxc1"
 # to be used to define the boot process.
 # We opt-in for Syslinux, since it is designated as a preferred
 # distro boot mode according to the U-Boot documentation.
-#UBOOT_EXTLINUX:use-mainline-bsp = "1"
-#UBOOT_EXTLINUX_LABELS:use-mainline-bsp = "default"
-#UBOOT_EXTLINUX_DEFAULT_LABEL:use-mainline-bsp = "Beacon i.MX8M Mini Kit"
+UBOOT_EXTLINUX:use-mainline-bsp = "1"
+UBOOT_EXTLINUX_LABELS:use-mainline-bsp = "default"
+UBOOT_EXTLINUX_DEFAULT_LABEL:use-mainline-bsp = "Beacon i.MX8M Mini Kit"
 
 UBOOT_EXTLINUX_MENU_DESCRIPTION:default:use-mainline-bsp = "Beacon i.MX8M Mini Kit"
 UBOOT_EXTLINUX_FDT:default:use-mainline-bsp     = "../${KERNEL_DEVICETREE_BASENAME}.dtb"
