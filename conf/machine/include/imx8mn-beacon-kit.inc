@@ -13,7 +13,7 @@ MACHINE_FEATURES += "wifi bluetooth bcm4339 nxp8997-sdio"
 # NXP BSP can consume proprietary jailhouse and Broadcom drivers
 # OP-TEE is also applicable to NXP BSP, mainline BSP seems not to have
 # a full support for it yet.
-MACHINE_FEATURES:append:use-nxp-bsp = " jailhouse mrvl8997"
+MACHINE_FEATURES:append:use-nxp-bsp = " optee jailhouse mrvl8997"
 
 KERNEL_DEVICETREE = " \
     freescale/${KERNEL_DEVICETREE_BASENAME}-kit.dtb \
@@ -70,5 +70,5 @@ UBOOT_MAKE_TARGET = "all"
 IMX_BOOT_SEEK = "32"
 
 OPTEE_BIN_EXT = "8mn"
-TEE_LOAD_ADDR = "0x26000000"
+TEE_LOAD_ADDR = "0x56000000"
 
