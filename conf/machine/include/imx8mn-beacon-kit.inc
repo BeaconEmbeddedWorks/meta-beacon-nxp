@@ -3,17 +3,20 @@ MACHINEOVERRIDES =. "mx8mn:"
 require conf/machine/include/imx-base.inc
 require conf/machine/include/arm/armv8a/tune-cortexa53.inc
 
+# Use this for the Laird/Summit Radio Only
+require conf/machine/include/laird.inc
+
 # Mainline BSP defaults to "generic" cortexa53 configuration,
 # adjust it here to include crypto extension which enables
 # inline NEON and FPU code generation
 DEFAULTTUNE:use-mainline-bsp = "cortexa53-crypto"
 
-MACHINE_FEATURES += "wifi bluetooth bcm4339 nxp8997-sdio"
+MACHINE_FEATURES += " wifi bluetooth"
 
 # NXP BSP can consume proprietary jailhouse and Broadcom drivers
 # OP-TEE is also applicable to NXP BSP, mainline BSP seems not to have
 # a full support for it yet.
-MACHINE_FEATURES:append:use-nxp-bsp = " optee jailhouse mrvl8997"
+MACHINE_FEATURES:append:use-nxp-bsp = " optee jailhouse"
 
 KERNEL_DEVICETREE = " \
     freescale/${KERNEL_DEVICETREE_BASENAME}-kit.dtb \

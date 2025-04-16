@@ -2,6 +2,7 @@ MACHINEOVERRIDES =. "mx8mp:"
 
 require conf/machine/include/imx-base.inc
 require conf/machine/include/arm/armv8a/tune-cortexa53.inc
+require conf/machine/include/moal.inc
 
 # Mainline BSP defaults to "generic" cortexa53 configuration,
 # adjust it here to include crypto extension which enables
@@ -13,7 +14,7 @@ MACHINE_FEATURES += "pci wifi bluetooth nxp8997-sdio"
 # NXP BSP can consume proprietary jailhouse and Marvell drivers
 # OP-TEE is also applicable to NXP BSP, mainline BSP seems not to have
 # a full support for it yet.
-MACHINE_FEATURES:append:use-nxp-bsp = " optee jailhouse mrvl8997"
+MACHINE_FEATURES:append:use-nxp-bsp = " optee jailhouse"
 
 # Mainline kernel contains only one DTB file for
 # imx8mpevk machine
@@ -69,4 +70,3 @@ IMX_BOOT_SEEK = "32"
 
 OPTEE_BIN_EXT = "8mp"
 TEE_LOAD_ADDR = "0x56000000"
-
