@@ -3,9 +3,6 @@ MACHINEOVERRIDES =. "mx8mn:"
 require conf/machine/include/imx-base.inc
 require conf/machine/include/arm/armv8a/tune-cortexa53.inc
 
-# Use this for the Laird/Summit Radio Only
-require conf/machine/include/laird.inc
-
 # Mainline BSP defaults to "generic" cortexa53 configuration,
 # adjust it here to include crypto extension which enables
 # inline NEON and FPU code generation
