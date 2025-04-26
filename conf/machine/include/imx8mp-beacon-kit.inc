@@ -2,7 +2,6 @@ MACHINEOVERRIDES =. "mx8mp:"
 
 require conf/machine/include/imx-base.inc
 require conf/machine/include/arm/armv8a/tune-cortexa53.inc
-require conf/machine/include/moal.inc
 
 # Mainline BSP defaults to "generic" cortexa53 configuration,
 # adjust it here to include crypto extension which enables
