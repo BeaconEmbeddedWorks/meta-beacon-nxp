@@ -1,6 +1,4 @@
-# Beacon Machine Types are: beacon-imx8mp-kit, beacon-imx8mm-kit and beacon-imx8mn-kit
-
-MACHINE ??= 'beacon-imx8mp-kit'
+MACHINE ??= 'beacon-imx8mm-kit'
 DISTRO ?= 'fsl-imx-xwayland'
 EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
 USER_CLASSES ?= "buildstats"
@@ -19,9 +17,3 @@ CONF_VERSION = "2"
 
 DL_DIR ?= "${BSPDIR}/downloads/"
 SSTATE_DIR = "${BSPDIR}/cache/"
-
-ACCEPT_FSL_EULA = "1"
-
-# Switch to Debian packaging and include package-management in the image
-PACKAGE_CLASSES = "package_deb"
-EXTRA_IMAGE_FEATURES += "package-management"
