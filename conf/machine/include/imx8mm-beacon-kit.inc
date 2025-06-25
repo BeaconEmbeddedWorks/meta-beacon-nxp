@@ -12,10 +12,6 @@ MACHINE_FEATURES += " pci wifi bluetooth"
 
 MACHINE_FEATURES:append:use-nxp-bsp = " optee jailhouse"
 
-KERNEL_DEVICETREE = " \
-    freescale/${KERNEL_DEVICETREE_BASENAME}-kit.dtb \
-"
-
 UBOOT_DTB_NAME = "${KERNEL_DEVICETREE_BASENAME}-kit.dtb"
 
 UBOOT_SUFFIX = "bin"
