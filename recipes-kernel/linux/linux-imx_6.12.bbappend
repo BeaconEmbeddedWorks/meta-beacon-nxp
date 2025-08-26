@@ -1,5 +1,5 @@
-#LINUX_IMX_SRC = "git://github.com/aford173/linux.git;protocol=https;branch=${SRCBRANCH}"
-LINUX_IMX_SRC = "git://git@gitlab.logicpd.com/products/linux-imx-private.git;protocol=ssh;branch=${SRCBRANCH}"
-SRCBRANCH = "6.12-merge-hdmi"
-SRCREV = "4314e563f68112a8cd6749bc9b88952834f3fddd"
+
+LINUX_IMX_SRC = "git://github.com/BeaconEmbeddedWorks/linux-imx.git;protocol=https;branch=${SRCBRANCH}"
+SRCBRANCH = "lf-6.12.y-bcn"
+SRCREV = "29636f8594d40f70b98224d4d119352cbdbfb068"
 

@@ -1,4 +1,4 @@
-UBOOT_SRC = "git://git@gitlab.logicpd.com/products/uboot-imx-private.git;protocol=ssh"
-SRCBRANCH = "lf_v2025.04-mini-12"
-SRCREV = "9bb382b74a376f7d7b7a7cb856f2fde51793ce98"
+UBOOT_SRC = "git://github.com/BeaconEmbeddedWorks/u-boot-imx.git;protocol=https"
+SRCBRANCH = "lf_v2025.04-bcn"
+SRCREV = "8c93a19945f381dcb0e373c6fd09da5a2f635eba"
 
