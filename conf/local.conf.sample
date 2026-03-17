@@ -1,4 +1,4 @@
-MACHINE ??= 'beacon-imx8mm-kit'
+MACHINE ??= 'imx93-beacon-kit'
 DISTRO ?= 'fsl-imx-xwayland'
 EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
 USER_CLASSES ?= "buildstats"

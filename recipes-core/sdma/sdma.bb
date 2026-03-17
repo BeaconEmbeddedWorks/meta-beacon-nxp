@@ -9,8 +9,7 @@ SRC_URI += " \
      file://sdma.conf \
  "
 
-S = "${WORKDIR}/sdma"
-UNPACKDIR = "${S}"
+S = "${WORKDIR}"
 
 do_install() {
    # This file creates an init script that configures terminal and is exectuted at startup
