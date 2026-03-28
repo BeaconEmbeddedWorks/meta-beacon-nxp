@@ -1,3 +1,3 @@
 SRC_URI = "git://github.com/BeaconEmbeddedWorks/linux-imx.git;protocol=https;branch=${SRCBRANCH}"
 SRCBRANCH = "bcn-lf-6.6.y"
-SRCREV = "cc0e2d7ae036e59df29f0390d4d2859375abbae2"
+SRCREV = "027e82ee6535c42b08f05d1d6ef099a38528f74c"
