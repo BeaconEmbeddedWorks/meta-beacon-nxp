@@ -32,7 +32,7 @@ exit_message ()
 
 usage()
 {
-    echo -e "\nUsage: source imx-setup-release.sh
+    echo -e "\nUsage: source setup_beacon.sh
     Optional parameters: [-b build-dir] [-h]"
 echo "
     * [-b build-dir]: Build directory, if unspecified script uses 'build' as output directory
@@ -93,8 +93,7 @@ if [ -z "$BUILD_DIR" ]; then
 fi
 
 if [ -z "$MACHINE" ]; then
-    echo setting to default machine
-    MACHINE='imx6qpsabresd'
+    MACHINE='imx93-beacon-kit'
 fi
 
 case $MACHINE in
@@ -138,7 +137,10 @@ else
     cp $BUILD_DIR/conf/local.conf.org $BUILD_DIR/conf/local.conf
 fi
 
-echo SSTATE_DIR = \"\$\{BSPDIR\}/cache/\" >> conf/local.conf
+echo >> conf/local.conf
+echo "# Switch to Debian packaging and include package-management in the image" >> conf/local.conf
+echo "PACKAGE_CLASSES = \"package_deb\"" >> conf/local.conf
+echo "EXTRA_IMAGE_FEATURES += \"package-management\"" >> conf/local.conf
 
 if [ ! -e $BUILD_DIR/conf/bblayers.conf.org ]; then
     cp $BUILD_DIR/conf/bblayers.conf $BUILD_DIR/conf/bblayers.conf.org
