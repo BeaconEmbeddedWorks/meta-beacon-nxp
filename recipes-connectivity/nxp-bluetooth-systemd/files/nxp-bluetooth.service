@@ -7,6 +7,7 @@ After=nxp-wifi.service
 Type=oneshot
 ExecStartPre=/usr/bin/env modprobe btnxpuart
 ExecStart=/usr/bin/sleep 3
+ExecStartPost=/usr/sbin/rfkill unblock bluetooth
 ExecStartPost=/usr/bin/hciconfig hci0 up
 
 [Install]
