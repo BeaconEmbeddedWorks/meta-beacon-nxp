@@ -12,8 +12,7 @@ inherit allarch
 
 do_install() {
     install -d ${D}${nonarch_base_libdir}/firmware/imx/camera
-    install -m 0644 ${S}/NXP_i.MX93/ap1302_60fps_ar0144_27M_2Lane_awb_tuning.bin ${D}${nonarch_base_libdir}/firmware/imx/camera/
-    install -m 0644 ${S}/generic/AP1302-REV2-AR0144-CRA0-SunexDSL945D-670-F2.5-Bayer.bin ${D}${nonarch_base_libdir}/firmware/imx/camera/ap1302.fw
+    install -m 0644 ${S}/NXP_i.MX93/ap1302_60fps_ar0144_27M_2Lane_awb_tuning.bin ${D}${nonarch_base_libdir}/firmware/imx/camera/ap1302.fw
 }
 
 FILES:${PN} = "${nonarch_base_libdir}/firmware/imx/camera/"
